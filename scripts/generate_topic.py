@@ -1,11 +1,11 @@
 import os
 import datetime
-import requests
+from openai import AzureOpenAI
 
 # Endpoint and deployment details
-ENDPOINT = "https://o9274-mau4vl5y-eastus2.cognitiveservices.azure.com"
+ENDPOINT = "https://o9274-mau4vl5y-eastus2.cognitiveservices.azure.com/"
 DEPLOYMENT = "o4-mini"
-API_VERSION = "2025-01-01-preview"
+API_VERSION = "2024-12-01-preview"
 
 API_KEY = os.environ.get("AZURE_API_KEY")
 if not API_KEY:
@@ -15,22 +15,19 @@ if not API_KEY:
 with open("prompt.txt", "r", encoding="utf-8") as f:
     prompt = f.read()
 
-url = f"{ENDPOINT}/openai/deployments/{DEPLOYMENT}/chat/completions?api-version={API_VERSION}"
+client = AzureOpenAI(
+    api_version=API_VERSION,
+    azure_endpoint=ENDPOINT,
+    api_key=API_KEY,
+)
 
-payload = {
-    "messages": [
-        {"role": "user", "content": prompt}
-    ],
-    "max_tokens": 2000,
-    "model": DEPLOYMENT,
-}
-headers = {
-    "Content-Type": "application/json",
-    "Authorization": f"Bearer {API_KEY}",
-}
-resp = requests.post(url, headers=headers, json=payload)
-resp.raise_for_status()
-content = resp.json()["choices"][0]["message"]["content"]
+response = client.chat.completions.create(
+    messages=[{"role": "user", "content": prompt}],
+    model=DEPLOYMENT,
+    max_tokens=2000,
+)
+
+content = response.choices[0].message.content
 
 # Save to markdown file named mmddyyyy.md
 fname = datetime.datetime.utcnow().strftime("%m%d%Y") + ".md"
