@@ -1,0 +1,41 @@
+name: Daily English Topic
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '5 0 * * *'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install python deps
+        run: pip install openai
+      - name: Generate topic markdown
+        env:
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+        run: python scripts/generate_topic.py
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install marp-cli
+        run: npm install -g @marp-team/marp-cli
+      - name: Build HTML
+        run: bash scripts/build_html.sh
+      - name: Commit changes
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add -A
+          if ! git diff --cached --quiet; then
+            git commit -m "Add daily topic $(date -u +%Y-%m-%d)"
+            git push
+          else
+            echo "No changes to commit"
+          fi
