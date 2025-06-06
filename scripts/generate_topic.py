@@ -24,7 +24,7 @@ client = AzureOpenAI(
 response = client.chat.completions.create(
     messages=[{"role": "user", "content": prompt}],
     model=DEPLOYMENT,
-    max_tokens=2000,
+    max_completion_tokens=100000,
 )
 
 content = response.choices[0].message.content
