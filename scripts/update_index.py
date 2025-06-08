@@ -33,14 +33,33 @@ footer {{text-align:center;margin:2rem;font-size:.9rem;color:#555;}}
 </html>
 """
 
+def get_title(date_str: str) -> str:
+    md_file = f"{date_str}.md"
+    if not os.path.exists(md_file):
+        return ""
+    with open(md_file, "r", encoding="utf-8") as f:
+        for line in f:
+            m = re.search(r"\[([^\]]+)\]\(", line)
+            if m:
+                return m.group(1)
+    return ""
+
+
 def main():
     entries = []
     for name in os.listdir(DOCS_DIR):
         path = os.path.join(DOCS_DIR, name)
-        if os.path.isdir(path) and re.fullmatch(r'\d{8}', name):
+        if os.path.isdir(path) and re.fullmatch(r"\d{8}", name):
             entries.append(name)
     entries.sort(reverse=True)
-    items = "\n".join(f'    <li><a href="{e}/index.html">{e}</a></li>' for e in entries)
+    display_items = []
+    for e in entries:
+        date_obj = datetime.datetime.strptime(e, "%m%d%Y")
+        pretty_date = date_obj.strftime("%b %d, %Y")
+        title = get_title(e)
+        text = f"{pretty_date} - {title}" if title else pretty_date
+        display_items.append(f'    <li><a href="{e}/index.html">{text}</a></li>')
+    items = "\n".join(display_items)
     now = datetime.datetime.utcnow().strftime('%Y-%m-%d')
     html = TEMPLATE.format(items=items, date=now)
     with open(os.path.join(DOCS_DIR, 'index.html'), 'w', encoding='utf-8') as f:
