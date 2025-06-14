@@ -33,15 +33,64 @@ footer {{text-align:center;margin:2rem;font-size:.9rem;color:#555;}}
 </html>
 """
 
-def get_title(date_str: str) -> str:
-    md_file = f"{date_str}.md"
-    if not os.path.exists(md_file):
-        return ""
-    with open(md_file, "r", encoding="utf-8") as f:
+def find_md_file(date_str: str) -> str | None:
+    """Return the markdown file for the given date.
+
+    The docs directories are named in MMDDYYYY format. Newer markdown files
+    are stored using the pattern ``<slug>-DDMMYYYY.md``. Older files may still
+    use ``MMDDYYYY.md``. This helper searches for both patterns and returns the
+    matching filename if found.
+    """
+
+    # Check for new naming scheme first
+    try:
+        date_obj = datetime.datetime.strptime(date_str, "%m%d%Y")
+    except ValueError:
+        return None
+    dmy = date_obj.strftime("%d%m%Y")
+    pattern = re.compile(rf".+-{dmy}\.md$")
+    for fname in os.listdir('.'):
+        if pattern.fullmatch(fname):
+            return fname
+
+    # Fallback to old scheme
+    legacy = f"{date_str}.md"
+    if os.path.exists(legacy):
+        return legacy
+    return None
+
+
+def extract_title_from_file(path: str) -> str | None:
+    """Extract the first ``[title](link)`` text from the file if present."""
+    with open(path, "r", encoding="utf-8") as f:
         for line in f:
             m = re.search(r"\[([^\]]+)\]\(", line)
             if m:
                 return m.group(1)
+    return None
+
+
+def humanize_slug(slug: str) -> str:
+    """Convert a filename slug into a human readable title."""
+    title = slug.replace("-", " ").replace("_", " ")
+    return title.strip().title()
+
+
+def get_title(date_str: str) -> str:
+    """Determine the title for the given date."""
+    md_file = find_md_file(date_str)
+    if not md_file:
+        return ""
+
+    title = extract_title_from_file(md_file)
+    if title:
+        return title
+
+    # If no title in file, derive from filename slug when using new scheme
+    m = re.match(r"(.+)-\d{8}\.md$", md_file)
+    if m:
+        return humanize_slug(m.group(1))
+
     return ""
 
 
