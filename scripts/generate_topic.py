@@ -1,5 +1,6 @@
 import os
 import datetime
+import re
 from openai import AzureOpenAI
 
 # Endpoint and deployment details
@@ -29,8 +30,24 @@ response = client.chat.completions.create(
 
 content = response.choices[0].message.content
 
-# Save to markdown file named mmddyyyy.md
-fname = datetime.datetime.utcnow().strftime("%m%d%Y") + ".md"
+# Determine file name in the form <slug>-DDMMYYYY.md
+today = datetime.datetime.utcnow()
+dmy = today.strftime("%d%m%Y")
+
+title_match = None
+for line in content.splitlines():
+    m = re.search(r"\[([^\]]+)\]\(", line)
+    if m:
+        title_match = m.group(1)
+        break
+
+def slugify(text: str) -> str:
+    text = text.strip().lower()
+    text = re.sub(r"[^a-z0-9]+", "-", text)
+    return text.strip('-') or "topic"
+
+slug = slugify(title_match) if title_match else "topic"
+fname = f"{slug}-{dmy}.md"
 with open(fname, "w", encoding="utf-8") as f:
     f.write(content)
 
