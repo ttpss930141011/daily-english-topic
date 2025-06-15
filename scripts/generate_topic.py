@@ -4,9 +4,8 @@ import re
 from typing import Tuple
 
 import requests
-from langchain_community.chat_models import AzureChatOpenAI
+from langchain_openai import AzureChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-from langchain.output_parsers import StructuredOutputParser, ResponseSchema
 
 # Endpoint and deployment details
 ENDPOINT = "https://o9274-mau4vl5y-eastus2.cognitiveservices.azure.com/"
@@ -40,28 +39,22 @@ def fetch_reddit_post() -> Tuple[str, str]:
         return "Interesting Reddit Discussion", "https://www.reddit.com/r/AskReddit/"
 
 
-response_schemas = [
-    ResponseSchema(name="topic", description="Title of the topic"),
-    ResponseSchema(name="content", description="Markdown content"),
-]
-parser = StructuredOutputParser.from_response_schemas(response_schemas)
-format_instructions = parser.get_format_instructions()
+import json
+
+format_instructions = 'Return a JSON object with `topic` and `content` fields.'
 
 llm = AzureChatOpenAI(
-    openai_api_version=API_VERSION,
-    openai_api_base=ENDPOINT,
-    openai_api_key=API_KEY,
-    openai_deployment_name=DEPLOYMENT,
+    api_key=API_KEY,
+    api_version=API_VERSION,
+    azure_endpoint=ENDPOINT,
+    azure_deployment=DEPLOYMENT,
 )
 
 reddit_title, reddit_url = fetch_reddit_post()
 
 prompt_tmpl = ChatPromptTemplate.from_messages([
     ("system", "You are an experienced English learning assistant."),
-    (
-        "system",
-        "Respond in JSON using the following format. {format_instructions}",
-    ),
+    ("system", "{format_instructions}"),
     (
         "user",
         "{prompt}\n\nUse this Reddit thread as today's discussion topic:\n"
@@ -77,9 +70,9 @@ messages = prompt_tmpl.format_messages(
 )
 
 response = llm.invoke(messages)
-parsed = parser.parse(response.content)
+parsed = json.loads(response.content)
 
-content = parsed["content"]
+content = parsed.get("content", "")
 title_match = parsed.get("topic")
 
 # Determine file name in the form <slug>-DDMMYYYY.md
