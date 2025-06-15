@@ -7,7 +7,6 @@ import requests
 from langchain_openai import AzureChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
-
 # Endpoint and deployment details
 ENDPOINT = "https://o9274-mau4vl5y-eastus2.cognitiveservices.azure.com/"
 DEPLOYMENT = "o4-mini"
