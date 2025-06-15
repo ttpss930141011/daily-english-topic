@@ -15,7 +15,7 @@ jobs:
         with:
           python-version: '3.x'
       - name: Install python deps
-        run: pip install openai
+        run: pip install -r requirements.txt
       - name: Generate topic markdown
         env:
           AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
