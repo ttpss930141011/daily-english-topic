@@ -36,24 +36,35 @@ footer {{text-align:center;margin:2rem;font-size:.9rem;color:#555;}}
 def find_md_file(date_str: str) -> str | None:
     """Return the markdown file for the given date.
 
-    The docs directories are named in MMDDYYYY format. Newer markdown files
-    are stored using the pattern ``<slug>-DDMMYYYY.md``. Older files may still
-    use ``MMDDYYYY.md``. This helper searches for both patterns and returns the
-    matching filename if found.
+    The docs directories are named in MMDDYYYY format. Files can be:
+    1. New format: posts/[title]-DDMMYYYY.md
+    2. Slug format: posts/<slug>-DDMMYYYY.md  
+    3. Legacy root: <slug>-DDMMYYYY.md
+    4. Legacy format: MMDDYYYY.md
     """
 
-    # Check for new naming scheme first
+    # Check for current naming scheme
     try:
         date_obj = datetime.datetime.strptime(date_str, "%m%d%Y")
     except ValueError:
         return None
     dmy = date_obj.strftime("%d%m%Y")
-    pattern = re.compile(rf".+-{dmy}\.md$")
+    
+    # Check posts directory first
+    if os.path.exists('posts'):
+        # Check for Title-DDMMYYYY.md format in posts directory
+        title_pattern = re.compile(rf".+-{dmy}\.md$")
+        for fname in os.listdir('posts'):
+            if title_pattern.fullmatch(fname):
+                return os.path.join('posts', fname)
+    
+    # Fallback to root directory (legacy)
+    slug_pattern = re.compile(rf".+-{dmy}\.md$")
     for fname in os.listdir('.'):
-        if pattern.fullmatch(fname):
+        if slug_pattern.fullmatch(fname):
             return fname
 
-    # Fallback to old scheme
+    # Final fallback to old scheme
     legacy = f"{date_str}.md"
     if os.path.exists(legacy):
         return legacy
@@ -82,14 +93,20 @@ def get_title(date_str: str) -> str:
     if not md_file:
         return ""
 
+    # Extract just the filename for pattern matching
+    filename = os.path.basename(md_file)
+    
+    # Check if filename has slug-DDMMYYYY format
+    title_match = re.match(r"(.+)-\d{8}\.md$", filename)
+    if title_match:
+        title_part = title_match.group(1)
+        # Always humanize slug (convert from lowercase-with-hyphens to Title Case)
+        return humanize_slug(title_part)
+
+    # Try to extract title from file content as fallback
     title = extract_title_from_file(md_file)
     if title:
         return title
-
-    # If no title in file, derive from filename slug when using new scheme
-    m = re.match(r"(.+)-\d{8}\.md$", md_file)
-    if m:
-        return humanize_slug(m.group(1))
 
     return ""
 
