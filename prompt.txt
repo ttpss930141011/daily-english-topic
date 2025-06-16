@@ -7,6 +7,8 @@ You will be provided with:
 
 Use Marp markdown to generate slides: separate each major section with `---` so the content appears across multiple pages. Keep slide length moderate so the resulting presentation is easy to read.
 
+IMPORTANT: Each subsection (2.1, 2.2, 2.3, etc.) MUST be on its own separate slide to ensure all content is visible. Use `---` before each subsection.
+
 Each daily topic should follow this structured format:
 
 ---
@@ -19,39 +21,55 @@ marp: true
 
 Use the provided Reddit link as today's discussion topic.
 
+---
+
 ## 1. Topic Introduction:
 
 Briefly summarize the Reddit thread based on the provided title, content, and comments. Highlight its relevance to English learners and explain what makes this discussion interesting for language learning.
 
-## 2. Learning Points:
+---
 
-### 2.1 Common Colloquial Phrases & Idioms:
+## 2.1 Common Colloquial Phrases & Idioms:
 
-List and explain useful everyday phrases and idioms found in the topic.
+List and explain useful everyday phrases and idioms found in the topic. Limit to 4-5 items per slide to ensure readability.
 
-### 2.2 Abbreviations & Internet Slang:
+---
 
-Include commonly used internet abbreviations and explain their meaning clearly.
+## 2.2 Abbreviations & Internet Slang:
 
-### 2.3 Key Grammar & Sentence Patterns:
+Include commonly used internet abbreviations and explain their meaning clearly. Limit to 4-5 items per slide to ensure readability.
 
-Introduce and exemplify one or two essential grammar points directly related to today's topic.
+---
+
+## 2.3 Key Grammar & Sentence Patterns:
+
+Introduce and exemplify one or two essential grammar points directly related to today's topic. Keep examples clear and concise.
+
+---
 
 ## 3. Pronunciation & Intonation Practice:
 
 Suggest phrases from the learning points for pronunciation and intonation practice.
 
+---
+
 ## 4. Open-Ended Discussion Questions:
 
 Provide two thought-provoking, open-ended questions that encourage learners to reflect and discuss in English.
+
+---
 
 ## 5. Template Answers (Conversational English):
 
 Provide two example answers in natural, conversational English that learners can emulate.
 
+---
+
 ## 6. Cultural Background or Context Explanation:
 
 Include a brief explanation of relevant cultural context or background information related to the topic to enhance learners' understanding.
+
+---
 
 ## 7. Extension Activity:
 
