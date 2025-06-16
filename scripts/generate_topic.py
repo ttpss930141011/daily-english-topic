@@ -7,7 +7,6 @@ import requests
 from langchain_openai import AzureChatOpenAI
 from langchain.prompts import ChatPromptTemplate
 
-
 # Endpoint and deployment details
 ENDPOINT = "https://o9274-mau4vl5y-eastus2.cognitiveservices.azure.com/"
 DEPLOYMENT = "o4-mini"
@@ -70,6 +69,7 @@ llm = AzureChatOpenAI(
 )
 
 reddit_title, reddit_url, reddit_comments = fetch_reddit_post()
+
 
 prompt_tmpl = ChatPromptTemplate.from_messages([
     ("system", "You are an experienced English learning assistant."),

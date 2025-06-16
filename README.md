@@ -23,3 +23,4 @@ python scripts/generate_topic.py
 
 The script retrieves the day's hottest Reddit post and a few of its top comments from r/AskReddit (when network access allows). It then asks the LLM to generate slides based on this information. The LLM response is JSON with `topic` and `content` fields. The markdown is saved using the pattern `<slug>-DDMMYYYY.md`.
 
+
