@@ -1,0 +1,16 @@
+{
+  "reddit": {
+    "comment_limit": 8,
+    "subreddit": "AskReddit",
+    "post_limit": 1
+  },
+  "output": {
+    "posts_directory": "posts",
+    "docs_directory": "docs",
+    "filename_format": "{title}-{date}.md"
+  },
+  "llm": {
+    "max_tokens": 100000,
+    "model": "o4-mini"
+  }
+}
