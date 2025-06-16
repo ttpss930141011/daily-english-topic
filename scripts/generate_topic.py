@@ -3,7 +3,7 @@ import datetime
 import re
 import json
 import requests
-from typing import List, Tuple
+from typing import List, Tuple, Any
 from openai import AzureOpenAI
 
 # Endpoint and deployment details
@@ -18,6 +18,26 @@ if not API_KEY:
 # Read base prompt
 with open("prompt.txt", "r", encoding="utf-8") as f:
     base_prompt = f.read()
+
+
+def _collect_comment_text(item: Any, out: List[str], limit: int) -> None:
+    """Recursively collect comment bodies from a Reddit comment tree."""
+    if len(out) >= limit:
+        return
+    if not isinstance(item, dict):
+        return
+    if item.get("kind") == "t1":
+        body = item.get("data", {}).get("body")
+        if body:
+            out.append(body)
+            if len(out) >= limit:
+                return
+        replies = item.get("data", {}).get("replies")
+        if isinstance(replies, dict):
+            for child in replies.get("data", {}).get("children", []):
+                _collect_comment_text(child, out, limit)
+                if len(out) >= limit:
+                    break
 
 
 def fetch_reddit_post() -> Tuple[str, str, str, List[str]]:
@@ -49,10 +69,8 @@ def fetch_reddit_post() -> Tuple[str, str, str, List[str]]:
             )
             comments_resp.raise_for_status()
             items = comments_resp.json()[1]["data"]["children"]
-            for c in items:
-                body = c.get("data", {}).get("body")
-                if body:
-                    comments.append(body)
+            for item in items:
+                _collect_comment_text(item, comments, limit=3)
                 if len(comments) >= 3:
                     break
         return title, permalink, selftext, comments
@@ -66,8 +84,13 @@ def fetch_reddit_post() -> Tuple[str, str, str, List[str]]:
 
 
 title, permalink, selftext, comments = fetch_reddit_post()
-reddit_info = f"Reddit post title: {title}\nPost text: {selftext}\nTop comments:\n"
-reddit_info += "\n".join(f"- {c}" for c in comments)
+reddit_info = (
+    f"Reddit post title: {title}\n"
+    f"Link: {permalink}\n"
+    f"Post text: {selftext}\n"
+    "Top comments:\n"
+    + "\n".join(f"- {c}" for c in comments)
+)
 prompt = base_prompt + "\n\n" + reddit_info
 
 client = AzureOpenAI(
@@ -101,7 +124,7 @@ def slugify(text: str) -> str:
     text = re.sub(r"[^a-z0-9]+", "-", text)
     return text.strip('-') or "topic"
 
-slug = slugify(topic)
+slug = slugify(title or topic)
 fname = f"{slug}-{dmy}.md"
 with open(fname, "w", encoding="utf-8") as f:
     f.write(content)
