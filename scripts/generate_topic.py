@@ -3,6 +3,7 @@ import datetime
 import re
 import json
 import requests
+from typing import List, Tuple
 from openai import AzureOpenAI
 
 # Endpoint and deployment details
@@ -18,36 +19,53 @@ if not API_KEY:
 with open("prompt.txt", "r", encoding="utf-8") as f:
     base_prompt = f.read()
 
-# Fetch hottest AskReddit thread and a few comments
-headers = {"User-Agent": "daily-topic-script/0.1"}
-hot = requests.get(
-    "https://www.reddit.com/r/AskReddit/hot.json?limit=1",
-    headers=headers,
-    timeout=10,
-)
-hot.raise_for_status()
-post = hot.json()["data"]["children"][0]["data"]
-post_id = post["id"]
-title = post["title"]
-permalink = "https://www.reddit.com" + post["permalink"]
-selftext = post.get("selftext", "")
 
-comments_resp = requests.get(
-    f"https://www.reddit.com/r/AskReddit/comments/{post_id}.json",
-    headers=headers,
-    timeout=10,
-)
-comments_resp.raise_for_status()
-comments_json = comments_resp.json()
-comment_items = comments_json[1]["data"]["children"]
-comments = []
-for c in comment_items:
-    body = c.get("data", {}).get("body")
-    if body:
-        comments.append(body)
-    if len(comments) >= 3:
-        break
+def fetch_reddit_post() -> Tuple[str, str, str, List[str]]:
+    """Return title, permalink, self text, and a few comments.
 
+    Falls back to generic information if the request fails (e.g. blocked network
+    access).
+    """
+
+    headers = {"User-Agent": "daily-topic-script"}
+    try:
+        hot = requests.get(
+            "https://www.reddit.com/r/AskReddit/hot.json?limit=1",
+            headers=headers,
+            timeout=10,
+        )
+        hot.raise_for_status()
+        post = hot.json()["data"]["children"][0]["data"]
+        title = post.get("title", "Interesting Reddit Discussion")
+        permalink = "https://www.reddit.com" + post.get("permalink", "/")
+        selftext = post.get("selftext", "")
+        post_id = post.get("id")
+        comments: List[str] = []
+        if post_id:
+            comments_resp = requests.get(
+                f"https://www.reddit.com/r/AskReddit/comments/{post_id}.json",
+                headers=headers,
+                timeout=10,
+            )
+            comments_resp.raise_for_status()
+            items = comments_resp.json()[1]["data"]["children"]
+            for c in items:
+                body = c.get("data", {}).get("body")
+                if body:
+                    comments.append(body)
+                if len(comments) >= 3:
+                    break
+        return title, permalink, selftext, comments
+    except Exception:
+        return (
+            "Interesting Reddit Discussion",
+            "https://www.reddit.com/r/AskReddit/",
+            "",
+            [],
+        )
+
+
+title, permalink, selftext, comments = fetch_reddit_post()
 reddit_info = f"Reddit post title: {title}\nPost text: {selftext}\nTop comments:\n"
 reddit_info += "\n".join(f"- {c}" for c in comments)
 prompt = base_prompt + "\n\n" + reddit_info
