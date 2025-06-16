@@ -11,6 +11,8 @@ In today’s thread, women discuss the uncomfortable realities of menstruation�
 ---
 ## 2. Learning Points:
 
+---
+
 ### 2.1 Common Colloquial Phrases & Idioms:
 - “Period shits” – slang for diarrhea during menstruation.
 - “Period farts” – euphemism for gas caused by hormonal changes.
@@ -19,37 +21,41 @@ In today’s thread, women discuss the uncomfortable realities of menstruation�
 - “By my count” – a way to estimate or tally something personally.
 - “There’s no experience quite like…” – to say something is unique.
 
+---
+
 ### 2.2 Abbreviations & Internet Slang:
 - TMI (Too Much Information) – when someone shares overly personal details.
 - LOL (Laugh Out Loud) – used to show amusement.
 - IMHO (In My Humble Opinion) – to soften a personal opinion.
 
+---
+
 ### 2.3 Key Grammar & Sentence Patterns:
 1. Present Perfect for life experiences:
-   - “I’ve been having them for nearly 20 years.”
-   - “I’ve also vomited then too.”
+- “I’ve been having them for nearly 20 years.”
+- “I’ve also vomited then too.”
 2. The pattern “There’s no … quite like …”:
-   - “There’s no experience quite like having three liquids coming from your body.”
+- “There’s no experience quite like having three liquids coming from your body.”
 
 ---
 ## 3. Pronunciation & Intonation Practice:
+
 - Practice stress on the second word in “period farts”.
 - Emphasize “no” and “quite” in “There’s no experience quite like …” for contrast.
 - Use a humorous, rising-falling tone for “by my count six liquids.”
-
 ---
 ## 4. Open-Ended Discussion Questions:
-1. What bodily experiences are hard to describe in English, and how do you handle them?  
+1. What bodily experiences are hard to describe in English, and how do you handle them?
 2. Have you ever used or heard TMI in a conversation? How did you react?
 
 ---
 ## 5. Template Answers (Conversational English):
-**Answer 1:**  
 "Honestly, when I got my first period, I didn’t expect the indigestion and cramps. I’d never heard of ‘period farts’—but after some shock and awe, I realized there’s no experience quite like dealing with six liquids at once!"
 
-**Answer 2:**  
 "I remember someone telling me all about their digestive drama—total TMI, right? I laughed it off with LOL, but then we switched topics. Sometimes you just need to say, ‘Wow, that’s a lot!’ and move on."
 
+**Answer 1:**
+**Answer 2:**
 ---
 ## 6. Cultural Background or Context Explanation:
 In many English-speaking cultures, discussing bodily functions is considered TMI or impolite. People often use euphemisms (like "period farts") or abbreviations (TMI) to lighten the topic. Understanding these can help you navigate casual conversations without embarrassment.

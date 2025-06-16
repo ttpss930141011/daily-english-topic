@@ -2,6 +2,8 @@
 marp: true
 ---
 
+---
+
 ## Link:
 https://www.reddit.com/r/AskReddit/comments/abcd12/people_who_have_ghosted_someone_why/
 
@@ -11,36 +13,43 @@ This Reddit thread features users explaining why they “ghosted” friends, dat
 
 ---
 ## 2. Learning Points:
+
+---
+
 ### 2.1 Common Colloquial Phrases & Idioms:
-- **to ghost someone**: abruptly stop replying or meeting.  
-- **to leave someone hanging**: not give closure or an answer.  
+- **to ghost someone**: abruptly stop replying or meeting.
+- **to leave someone hanging**: not give closure or an answer.
 - **to string someone along**: keep someone interested with false promises.
 
+---
+
 ### 2.2 Abbreviations & Internet Slang:
-- **TBH**: to be honest  
-- **IMO/IMHO**: in my (humble) opinion  
+- **TBH**: to be honest
+- **IMO/IMHO**: in my (humble) opinion
 - **NTA**: not the asshole (Reddit judgment flair)
 
+---
+
 ### 2.3 Key Grammar & Sentence Patterns:
-- **Modal verbs for speculation**:  
-  “She **might have** lost interest.”  
-- **Reported speech**:  
-  “He **said** he **was** busy last weekend.”
+- **Modal verbs for speculation**:
+“She **might have** lost interest.”
+- **Reported speech**:
+“He **said** he **was** busy last weekend.”
 
 ---
 ## 3. Pronunciation & Intonation Practice:
-- “to **ghost** someone” (stress on “ghost”)  
-- “leave someone **hang**ing” (even rhythm)  
-- “to **string** someone a**long**” (rise–fall intonation)
 
+- “to **ghost** someone” (stress on “ghost”)
+- “leave someone **hang**ing” (even rhythm)
+- “to **string** someone a**long**” (rise–fall intonation)
 ---
 ## 4. Open-Ended Discussion Questions:
-1. Have you ever been ghosted or ghosted someone? How did you handle it?  
+1. Have you ever been ghosted or ghosted someone? How did you handle it?
 2. Why do you think people prefer ghosting over honest communication?
 
 ---
 ## 5. Template Answers (Conversational English):
-1. “Yeah, I was ghosted once by a close friend. At first I thought they were just busy, but after weeks of silence I realized they didn’t want to talk. It felt confusing and hurtful.”  
+1. “Yeah, I was ghosted once by a close friend. At first I thought they were just busy, but after weeks of silence I realized they didn’t want to talk. It felt confusing and hurtful.”
 2. “IMO, people ghost because they’re afraid of confrontation. TBH, I try to be upfront and say if I need space.”
 
 ---

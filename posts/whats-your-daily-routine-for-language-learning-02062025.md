@@ -4,9 +4,13 @@ marp: true
 
 ---
 
+---
+
 ## Link:
 
 [What's your daily routine for language learning?](https://www.reddit.com/r/languagelearning/comments/14oleg7/whats_your_daily_routine_for_language_learning/)
+
+---
 
 ---
 
@@ -16,37 +20,47 @@ This Reddit thread invites language learners to share their daily routines and s
 
 ---
 
+---
+
 ## 2. Learning Points:
+
+---
 
 ### 2.1 Common Colloquial Phrases & Idioms:
 
 * **"Chip away at"**: To make gradual progress on something.
-  *Example*: "I chip away at my vocabulary list every day."([Reddit][2])
+*Example*: "I chip away at my vocabulary list every day."([Reddit][2])
 
 * **"Plug away"**: To continue working hard at something.
-  *Example*: "She plugs away at her grammar exercises each evening."([Reddit][3])
+*Example*: "She plugs away at her grammar exercises each evening."([Reddit][3])
 
 * **"A necessary evil"**: Something unpleasant but needed.
-  *Example*: "Studying grammar rules is a necessary evil."([維基百科][4], [Reddit][2])
+*Example*: "Studying grammar rules is a necessary evil."([維基百科][4], [Reddit][2])
+
+---
 
 ### 2.2 Abbreviations & Internet Slang:
 
 * **TL**: Target Language.
-  *Example*: "My TL is English."([Reddit][5])
+*Example*: "My TL is English."([Reddit][5])
 
 * **Anki**: A flashcard app used for memorization.
-  *Example*: "I review 20 Anki cards daily."([Reddit][6], [Reddit][7])
+*Example*: "I review 20 Anki cards daily."([Reddit][6], [Reddit][7])
 
 * **Duolingo**: A language learning app.
-  *Example*: "I complete one Duolingo lesson each morning."([Reddit][1], [Reddit][8])
+*Example*: "I complete one Duolingo lesson each morning."([Reddit][1], [Reddit][8])
+
+---
 
 ### 2.3 Key Grammar & Sentence Patterns:
 
 * **Present Simple Tense for Routines**: Used to describe habitual actions.
-  *Example*: "I study English every day."([Reddit][9])
+*Example*: "I study English every day."([Reddit][9])
 
 * **Time Expressions**: Words that indicate frequency or time.
-  *Examples*: "every day," "in the morning," "before bed."
+*Examples*: "every day," "in the morning," "before bed."
+
+---
 
 ---
 
@@ -54,13 +68,12 @@ This Reddit thread invites language learners to share their daily routines and s
 
 Practice the following phrases, focusing on natural rhythm and stress:
 
-* "I chip away at my vocabulary list every day."([Reddit][2])
-
-* "She plugs away at her grammar exercises each evening."
-
-* "Studying grammar rules is a necessary evil."([Reddit][2])
-
 Pay attention to the stress on the main verbs and the natural intonation patterns used in daily speech.
+
+* "I chip away at my vocabulary list every day."([Reddit][2])
+* "She plugs away at her grammar exercises each evening."
+* "Studying grammar rules is a necessary evil."([Reddit][2])
+---
 
 ---
 
@@ -70,7 +83,9 @@ Pay attention to the stress on the main verbs and the natural intonation pattern
 
 2. Which methods or tools have you found most effective in your language learning journey, and why?([Reddit][1])
 
---- 
+---
+
+---
 
 ## Becky's answer
 
@@ -80,9 +95,13 @@ And after class I come back home, my classmate my housemate justin daily routine
 
 ---
 
+---
+
 ## Improvement from ChatGPT
 
 你的想法非常好，句子也傳達出你努力學英文的方式，但語法和表達可以更自然、更清楚一點。以下是你原文的重點和修改建議：
+
+---
 
 ---
 
@@ -111,12 +130,13 @@ And after class I come back home, my classmate my housemate justin daily routine
 
 ---
 
+---
 
 ## 5. Template Answers (Conversational English):
 
 **Question 1**: "My daily English routine includes listening to a podcast during breakfast, reviewing flashcards on Anki during my commute, and watching a short English video before bed. Over time, I've added more speaking practice by talking to myself or with language partners."([Reddit][7])
-
 **Question 2**: "I've found that using Duolingo helps me stay consistent, and watching English TV shows with subtitles improves my listening skills. Combining these with daily speaking practice has been very effective for me."([Reddit][6])
+---
 
 ---
 
@@ -126,20 +146,18 @@ In English-speaking cultures, discussing daily routines is a common way to share
 
 ---
 
+---
+
 ## 7. Extension Activity:
 
 Create a detailed schedule of your daily English learning routine. Include specific times, activities, and goals. For example:
 
-* 7:00 AM – Listen to an English podcast during breakfast.
-
-* 12:30 PM – Review 20 Anki flashcards during lunch break.([Reddit][8])
-
-* 6:00 PM – Watch a 30-minute English TV show with subtitles.
-
-* 9:00 PM – Write a short journal entry in English.
-
 Share your schedule with a study partner or online community for feedback and accountability.
 
+* 7:00 AM – Listen to an English podcast during breakfast.
+* 12:30 PM – Review 20 Anki flashcards during lunch break.([Reddit][8])
+* 6:00 PM – Watch a 30-minute English TV show with subtitles.
+* 9:00 PM – Write a short journal entry in English.
 ---
 
 [1]: https://www.reddit.com/r/languagelearning/comments/18zgnbz/what_are_some_daily_habits_that_you_follow_and/?utm_source=chatgpt.com "r/languagelearning on Reddit: What are some daily habits that you ..."

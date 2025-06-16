@@ -8,6 +8,8 @@ Link: [People who love their career, how did you figure it out? : r/AskReddit](h
 
 ---
 
+---
+
 ### 1.1 Common Colloquial Phrases & Idioms
 
 - **“My mind went blank.”** = I couldn’t think of anything to say.
@@ -17,40 +19,51 @@ Link: [People who love their career, how did you figure it out? : r/AskReddit](h
 - **“Take my foot off the gas”** = slow down or ease up (from driving).
 - **“Stumbled into”** = discovered by accident rather than planning.
 
+---
+
 ### 1.2 Abbreviations & Internet Slang
 
 - **IC** = Individual Contributor (non-managerial specialist role)
 - **“If + past simple, would + base verb”** = hypothetical conditional (“If I didn’t need money, I would…”)
 
+---
+
 ### 1.3 Key Grammar & Sentence Patterns
 
 - **Hypothetical questions**:
-    - “If you didn’t have to work for money, what would you still want to solve?”
+- “If you didn’t have to work for money, what would you still want to solve?”
 - **Gerunds after verbs like**: pay attention to, try, avoid, enjoy
-    - “Try volunteering,” “avoid draining tasks”
+- “Try volunteering,” “avoid draining tasks”
 - **Reporting speech**:
-    - “She asked me…,” “He mentioned that…,” “A friend said…”
+- “She asked me…,” “He mentioned that…,” “A friend said…”
+
+---
 
 ---
 
 ## 2. Open-Ended Discussion Questions
 
 1. **Self-Discovery Methods**
-    
-    How have you identified which specific tasks or environments energize you rather than drain you? What concrete steps did you take (e.g., journaling, assessments, interviews)?
-    
+
+How have you identified which specific tasks or environments energize you rather than drain you? What concrete steps did you take (e.g., journaling, assessments, interviews)?
+
 2. **Testing Career Fit**
-    
-    When you’re curious about a new career path, what practical experiments—such as volunteering, freelance projects, internships—have you tried to see if it’s a good match? How did you reflect on those experiences?
-    
+
+When you’re curious about a new career path, what practical experiments—such as volunteering, freelance projects, internships—have you tried to see if it’s a good match? How did you reflect on those experiences?
+
+---
 
 ---
 
 ## 3. Template Answers (Conversational English)
 
+---
+
 ### Template A: Self-Discovery Methods
 
 “I realized I felt most alive when I was [organizing workshops/translating complex ideas into visuals/helping people learn new skills]. To dig deeper, I started journaling after every workday and noticed a pattern: tasks where I got to **connect dots** across topics left me energized. I also took a **StrengthsFinder** assessment, which confirmed my top strengths—**Strategic thinking** and **Learner**. That combination made me confident to pivot into **learning experience design**, where I now wake up excited every morning.”
+
+---
 
 ---
 
