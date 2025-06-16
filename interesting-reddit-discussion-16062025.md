@@ -1,68 +1,55 @@
 ---
 marp: true
 ---
-
-## Link:
-[Interesting Reddit Discussion](https://www.reddit.com)
-
----
+## Link: [Interesting Reddit Discussion](https://www.reddit.com/r/AskReddit/)
 
 ## 1. Topic Introduction:
-In this Reddit thread, users share their most surprising or memorable conversations—whether a chance encounter with a stranger or deep talks with friends. This is highly relevant for English learners as it exposes you to natural, spontaneous dialogue and real-life expressions.
+In this AskReddit thread, users share the strangest or most memorable dreams they've ever had. These anecdotes range from bizarre chases to surreal transformations, offering a fun glimpse into how people describe dream experiences in English. This discussion is great practice for storytelling, using descriptive language, and learning informal expressions.
 
 ---
-
 ## 2. Learning Points:
-
 ### 2.1 Common Colloquial Phrases & Idioms:
-- “Shoot the breeze” – chat casually.
-- “Small talk” – light, non-serious conversation.
-- “Deep dive” – thorough discussion on a topic.
-- “Off the top of my head” – speaking without much thought.
-- “Hit it off” – to immediately get along.
+- **hit the hay** – go to bed (e.g., "I hit the hay at midnight after that dream.")
+- **wake up on the wrong side of the bed** – start the day in a bad mood
+- **in a nutshell** – summarized briefly ("In a nutshell, I was flying.")
+- **go bananas** – act crazy or lose control ("My mind went bananas in the dream.")
 
 ### 2.2 Abbreviations & Internet Slang:
-- IDK = I don’t know.
-- IMO = In my opinion.
-- FYI = For your information.
-- TBH = To be honest.
-- BFF = Best friends forever.
+- **TBH** (To Be Honest)
+- **IMO** (In My Opinion)
+- **LOL** (Laugh Out Loud)
+- **IDK** (I Don’t Know)
 
 ### 2.3 Key Grammar & Sentence Patterns:
-1. Reported speech: “He said, ‘I love this topic’.” → “He said that he loved that topic.”
-2. Past simple vs. past continuous:
-   - Past simple: “I heard a stranger say…”
-   - Past continuous: “I was walking when I overheard…”
+- Past simple vs past perfect:  
+  "I dreamed" vs "I had dreamed earlier that week."
+- The “I was like…” construction to report thoughts or speech informally:  
+  "I was like, ‘What is going on?’"
 
 ---
-
 ## 3. Pronunciation & Intonation Practice:
-Practice these sentences, focusing on rising intonation for questions and stress on idiomatic phrases:
-- “Did you ever shoot the breeze with a celebrity?”
-- “I was just making small talk at the café.”
-- “Honestly, off the top of my head, I can’t recall.”
+Repeat these sentences, paying attention to natural rhythm and stress:
+- "That dream was so vivid!"
+- "I couldn’t make sense of it when I woke up."
+- "My mind went bananas halfway through."
 
 ---
-
 ## 4. Open-Ended Discussion Questions:
-1. What’s the most interesting conversation you’ve ever had, and why?
-2. Do you prefer light small talk or deep dives when chatting with new people?
+1. What’s the strangest dream you’ve ever had, and how did you describe it to a friend?
+2. Do you believe dreams have meanings? How do you usually interpret them?
 
 ---
-
 ## 5. Template Answers (Conversational English):
 **Answer 1:**
-“Well, last summer I was traveling in Italy and I struck up a conversation with a local artist. We hit it off talking about street art. It turned into a two-hour deep dive into their creative process—totally unexpected!”
+"Honestly, I once dreamed I was on a roller coaster made of ice cream. I was like, ‘This is amazing!’ until it started melting on me. I woke up sticky and laughing."
 
 **Answer 2:**
-“Honestly, I prefer small talk at first—just to break the ice. Once we’re comfortable, I’m all in for a deep dive on our favorite movies or books.”
+"TBH, I don’t pay much attention to my dreams, but last night I had one where I could speak animal languages. It felt so real, I tried to talk to my cat this morning."
 
 ---
-
 ## 6. Cultural Background or Context Explanation:
-In many English-speaking cultures, small talk is a social lubricant: harmless chat about weather, sports, or daily life to build rapport before moving to more personal topics. Idioms like “shoot the breeze” reflect this casual style.
+In Western cultures, dream sharing is common both informally and in psychology. Freud viewed dreams as wish fulfillments, while Jung believed they reveal archetypes. Today, people often swap dream stories for fun or to seek symbolic meanings.
 
 ---
-
 ## 7. Extension Activity:
-Partner up (in person or online) and record a 2-minute conversation. Start with small talk, then transition into a deeper topic. Listen back and note any new phrases or grammar patterns you use—share them in the next lesson!
+Keep a one-week dream journal. Each morning, write a short paragraph describing any dream you remember. Then, exchange entries with a partner and discuss the language you used to convey the experience.
