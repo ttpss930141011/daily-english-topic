@@ -1,7 +1,7 @@
 import os
 import datetime
 import re
-from typing import Tuple
+from typing import List, Tuple
 
 import requests
 from langchain_openai import AzureChatOpenAI
@@ -20,8 +20,8 @@ if not API_KEY:
 with open("prompt.txt", "r", encoding="utf-8") as f:
     prompt = f.read()
 
-def fetch_reddit_post() -> Tuple[str, str]:
-    """Return today's hot Reddit post title and url.
+def fetch_reddit_post() -> Tuple[str, str, List[str]]:
+    """Return today's hot Reddit post title, URL, and a few comments.
 
     Falls back to a generic topic if the request fails (e.g. due to network
     restrictions)."""
@@ -34,9 +34,27 @@ def fetch_reddit_post() -> Tuple[str, str]:
         data = resp.json()["data"]["children"][0]["data"]
         title = data.get("title", "Interesting Reddit Discussion")
         permalink = data.get("permalink", "/")
-        return title, f"https://www.reddit.com{permalink}"
+        post_id = data.get("id")
+
+        comments: List[str] = []
+        if post_id:
+            comments_url = f"https://www.reddit.com/r/AskReddit/comments/{post_id}.json"
+            try:
+                c_resp = requests.get(comments_url, headers=headers, timeout=10)
+                c_resp.raise_for_status()
+                c_data = c_resp.json()
+                for child in c_data[1]["data"]["children"]:
+                    body = child.get("data", {}).get("body")
+                    if body:
+                        comments.append(body)
+                    if len(comments) >= 3:
+                        break
+            except Exception:
+                comments = []
+
+        return title, f"https://www.reddit.com{permalink}", comments
     except Exception:
-        return "Interesting Reddit Discussion", "https://www.reddit.com/r/AskReddit/"
+        return "Interesting Reddit Discussion", "https://www.reddit.com/r/AskReddit/", []
 
 
 import json
@@ -50,7 +68,8 @@ llm = AzureChatOpenAI(
     azure_deployment=DEPLOYMENT,
 )
 
-reddit_title, reddit_url = fetch_reddit_post()
+reddit_title, reddit_url, reddit_comments = fetch_reddit_post()
+
 
 prompt_tmpl = ChatPromptTemplate.from_messages([
     ("system", "You are an experienced English learning assistant."),
@@ -58,7 +77,7 @@ prompt_tmpl = ChatPromptTemplate.from_messages([
     (
         "user",
         "{prompt}\n\nUse this Reddit thread as today's discussion topic:\n"
-        "[{{title}}]({{url}})",
+        "[{{title}}]({{url}})\n\nHere are some comments from the thread:\n{{comments}}",
     ),
 ])
 
@@ -67,6 +86,7 @@ messages = prompt_tmpl.format_messages(
     prompt=prompt,
     title=reddit_title,
     url=reddit_url,
+    comments="\n".join(reddit_comments),
 )
 
 response = llm.invoke(messages)
