@@ -896,7 +896,7 @@ def generate_animated_index(topics: List[Dict]) -> str:
                 <p class="sponsor-text">
                     Help us keep Daily English Topics free for everyone. Your support helps us create better content and add new features.
                 </p>
-                <a href="https://buymeacoffee.com/your-username" class="sponsor-button" target="_blank" rel="noopener">
+                <a href="https://coff.ee/o927416847f" class="sponsor-button" target="_blank" rel="noopener">
                     <i class="fas fa-coffee"></i>
                     Buy Me a Coffee
                 </a>
