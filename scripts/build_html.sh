@@ -18,4 +18,11 @@ fi
 
 echo "Using markdown file: $MD_FILE"
 marp --html --output "docs/$DATE_MDY/index.html" "$MD_FILE"
-python scripts/update_index.py
+
+# Use animated index updater if available, otherwise fall back to simple version
+if [ -f "scripts/update_index_animated.py" ]; then
+    echo "Using animated index updater..."
+    python scripts/update_index_animated.py
+else
+    python scripts/update_index.py
+fi
