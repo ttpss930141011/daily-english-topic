@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Learning Demo - Daily English Topics</title>
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            line-height: 1.6;
+            background: #f8fafc;
+        }
+        
+        .demo-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem;
+            background: linear-gradient(135deg, #6366f1, #8b5cf6);
+            color: white;
+            border-radius: 16px;
+        }
+        
+        .demo-content {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .feature-highlight {
+            background: rgba(99, 102, 241, 0.05);
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 4px solid #6366f1;
+            margin: 1rem 0;
+        }
+        
+        .demo-text {
+            font-size: 1.1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .instruction {
+            background: #fef3c7;
+            color: #92400e;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            font-weight: 500;
+        }
+        
+        /* Interactive Word Styling */
+        .interactive-word {
+            cursor: pointer;
+            border-bottom: 1px dotted #6366f1;
+            transition: all 0.2s ease;
+            padding: 0 1px;
+        }
+        
+        .interactive-word:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-bottom-color: #4f46e5;
+        }
+        
+        /* Word Popup */
+        .word-popup {
+            position: fixed;
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            z-index: 10000;
+            min-width: 280px;
+            max-width: 400px;
+            display: none;
+            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        
+        .popup-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        
+        .popup-word {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #6366f1;
+        }
+        
+        .popup-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #64748b;
+            padding: 4px;
+            border-radius: 4px;
+        }
+        
+        .popup-close:hover {
+            background: rgba(0, 0, 0, 0.05);
+        }
+        
+        .popup-pronunciation {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+        
+        .popup-phonetic {
+            font-family: 'Lucida Sans Unicode', sans-serif;
+            color: #64748b;
+            font-size: 0.875rem;
+        }
+        
+        .speak-button {
+            background: #6366f1;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        
+        .speak-button:hover {
+            background: #4f46e5;
+        }
+        
+        .popup-definition {
+            font-size: 0.875rem;
+            line-height: 1.5;
+            color: #374151;
+            margin-bottom: 12px;
+        }
+        
+        .popup-example {
+            font-size: 0.875rem;
+            font-style: italic;
+            color: #64748b;
+            padding: 8px 12px;
+            background: rgba(99, 102, 241, 0.05);
+            border-radius: 6px;
+            border-left: 3px solid #6366f1;
+        }
+        
+        .popup-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="demo-header">
+        <h1>🎓 Interactive Learning Demo</h1>
+        <p>Experience the enhanced Daily English Topics with clickable word definitions</p>
+    </div>
+
+    <div class="demo-content">
+        <div class="instruction">
+            👆 <strong>Instructions:</strong> Click on any word with a dotted underline to see its definition and hear pronunciation!
+        </div>
+
+        <div class="demo-text">
+            Welcome to our enhanced <span class="interactive-word" data-word="learning">learning</span> platform! This <span class="interactive-word" data-word="vocabulary">vocabulary</span> tool helps you understand <span class="interactive-word" data-word="expression">expressions</span> and <span class="interactive-word" data-word="pronunciation">pronunciation</span> while maintaining the immersive slide <span class="interactive-word" data-word="experience">experience</span>.
+        </div>
+
+        <div class="feature-highlight">
+            <h3>📚 How It Works</h3>
+            <p>Our system automatically identifies important <span class="interactive-word" data-word="vocabulary">vocabulary</span> words in your daily English topics. When you encounter unfamiliar <span class="interactive-word" data-word="language">language</span>, simply click to get instant definitions, <span class="interactive-word" data-word="pronunciation">pronunciation</span> guides, and example sentences.</p>
+        </div>
+
+        <div class="demo-text">
+            This approach makes <span class="interactive-word" data-word="learning">learning</span> <span class="interactive-word" data-word="natural">natural</span> and contextual. Instead of interrupting your <span class="interactive-word" data-word="conversation">conversation</span> practice, the <span class="interactive-word" data-word="vocabulary">vocabulary</span> help is available on-demand when you need it most.
+        </div>
+
+        <div class="feature-highlight">
+            <h3>🔊 Audio Features</h3>
+            <p>Each word includes <span class="interactive-word" data-word="pronunciation">pronunciation</span> support with native <span class="interactive-word" data-word="speaker">speaker</span> audio. This helps you develop <span class="interactive-word" data-word="fluent">fluent</span> <span class="interactive-word" data-word="communication">communication</span> skills and proper <span class="interactive-word" data-word="accent">accent</span>.</p>
+        </div>
+
+        <div class="demo-text">
+            Try clicking on words like <span class="interactive-word" data-word="colloquial">colloquial</span>, <span class="interactive-word" data-word="informal">informal</span>, or <span class="interactive-word" data-word="professional">professional</span> to see how the <span class="interactive-word" data-word="context">context</span> changes based on the <span class="interactive-word" data-word="discussion">discussion</span> topic.
+        </div>
+    </div>
+
+    <div class="demo-content">
+        <h2>🎯 Perfect for Daily Topics</h2>
+        <p>This feature integrates seamlessly with your existing Marp slides, Reddit discussions, and GitHub Pages hosting. No complex setup required!</p>
+        
+        <p><strong>Ready to try it?</strong> Open any topic slide and start clicking on highlighted words to enhance your English learning journey!</p>
+    </div>
+
+    <!-- Popup HTML -->
+    <div class="word-popup">
+        <div class="popup-header">
+            <span class="popup-word"></span>
+            <button class="popup-close">&times;</button>
+        </div>
+        <div class="popup-content">
+            <div class="popup-loading">Loading...</div>
+        </div>
+    </div>
+
+    <script>
+    class WordLearner {
+        constructor() {
+            this.popup = document.querySelector('.word-popup');
+            this.init();
+        }
+        
+        init() {
+            this.setupEventListeners();
+        }
+        
+        setupEventListeners() {
+            // Close popup
+            this.popup.querySelector('.popup-close').addEventListener('click', () => {
+                this.hidePopup();
+            });
+            
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!this.popup.contains(e.target) && !e.target.classList.contains('interactive-word')) {
+                    this.hidePopup();
+                }
+            });
+            
+            // Word click handler
+            document.addEventListener('click', (e) => {
+                if (e.target.classList.contains('interactive-word')) {
+                    e.preventDefault();
+                    const word = e.target.getAttribute('data-word');
+                    this.showWordInfo(word, e.clientX, e.clientY);
+                }
+            });
+            
+            // ESC key to close
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') {
+                    this.hidePopup();
+                }
+            });
+        }
+        
+        async showWordInfo(word, x, y) {
+            this.popup.querySelector('.popup-word').textContent = word;
+            this.popup.querySelector('.popup-content').innerHTML = '<div class="popup-loading">Loading...</div>';
+            
+            // Position popup
+            this.popup.style.display = 'block';
+            this.popup.style.left = Math.min(x, window.innerWidth - this.popup.offsetWidth - 20) + 'px';
+            this.popup.style.top = Math.min(y, window.innerHeight - this.popup.offsetHeight - 20) + 'px';
+            
+            try {
+                const wordInfo = await this.fetchWordInfo(word);
+                this.displayWordInfo(wordInfo);
+            } catch (error) {
+                this.displayError(word);
+            }
+        }
+        
+        async fetchWordInfo(word) {
+            // Use Free Dictionary API
+            const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+            if (!response.ok) throw new Error('Word not found');
+            
+            const data = await response.json();
+            return data[0]; // Take first result
+        }
+        
+        displayWordInfo(wordInfo) {
+            const { word, phonetics, meanings } = wordInfo;
+            const firstMeaning = meanings[0];
+            const definition = firstMeaning.definitions[0];
+            
+            // Get phonetic
+            const phonetic = phonetics.find(p => p.text) || {};
+            const audioUrl = phonetics.find(p => p.audio)?.audio;
+            
+            const content = `
+                <div class="popup-pronunciation">
+                    <span class="popup-phonetic">${phonetic.text || ''}</span>
+                    <button class="speak-button" onclick="wordLearner.speak('${word}')">🔊</button>
+                </div>
+                <div class="popup-definition">
+                    <strong>${firstMeaning.partOfSpeech}</strong>: ${definition.definition}
+                </div>
+                ${definition.example ? `<div class="popup-example">"${definition.example}"</div>` : ''}
+            `;
+            
+            this.popup.querySelector('.popup-content').innerHTML = content;
+        }
+        
+        displayError(word) {
+            const content = `
+                <div class="popup-pronunciation">
+                    <button class="speak-button" onclick="wordLearner.speak('${word}')">🔊</button>
+                </div>
+                <div class="popup-definition">
+                    Definition not found. Click the speaker to hear pronunciation.
+                </div>
+            `;
+            this.popup.querySelector('.popup-content').innerHTML = content;
+        }
+        
+        speak(text) {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.8;
+                speechSynthesis.speak(utterance);
+            }
+        }
+        
+        hidePopup() {
+            this.popup.style.display = 'none';
+        }
+    }
+    
+    // Initialize when DOM is ready
+    window.wordLearner = new WordLearner();
+    </script>
+</body>
+</html>

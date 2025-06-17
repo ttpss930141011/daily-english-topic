@@ -19,6 +19,12 @@ fi
 echo "Using markdown file: $MD_FILE"
 marp --html --output "docs/$DATE_MDY/index.html" "$MD_FILE"
 
+# Enhance slides with interactive features (if available)
+if [ -f "scripts/enhance_slides.py" ]; then
+    echo "Enhancing slides with interactive features..."
+    python scripts/enhance_slides.py
+fi
+
 # Use animated index updater if available, otherwise fall back to simple version
 if [ -f "scripts/update_index_animated.py" ]; then
     echo "Using animated index updater..."
