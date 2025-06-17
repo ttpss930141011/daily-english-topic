@@ -260,7 +260,27 @@ def generate_animated_index(topics: List[Dict]) -> str:
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily English Topics</title>
+    <title>Daily English Topics - Learn English with Reddit Discussions</title>
+    <meta name="description" content="Daily English learning topics generated from Reddit discussions. Improve your vocabulary, grammar, and conversation skills with real-world content.">
+    <meta name="keywords" content="English learning, vocabulary, grammar, conversation, Reddit, daily topics, language practice">
+    <meta name="author" content="Daily English Topics">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Daily English Topics - Learn English with Reddit">
+    <meta property="og:description" content="Daily English learning topics from real Reddit discussions. Improve vocabulary and conversation skills.">
+    <meta property="og:url" content="https://ttpss930141011.github.io/daily-english-topic/">
+    <meta property="og:site_name" content="Daily English Topics">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Daily English Topics">
+    <meta name="twitter:description" content="Learn English with daily topics from Reddit discussions">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -679,6 +699,83 @@ def generate_animated_index(topics: List[Dict]) -> str:
             color: var(--white);
         }
 
+        /* Advertisement Sections */
+        .ad-section {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .ad-label {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .sponsor-section {
+            background: var(--gradient-primary);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sponsor-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 100 100\"><circle cx=\"50\" cy=\"50\" r=\"2\" fill=\"rgba(255,255,255,0.1)\"><animate attributeName=\"r\" values=\"2;4;2\" dur=\"3s\" repeatCount=\"indefinite\"/></circle></svg>') repeat;
+            opacity: 0.3;
+        }
+
+        .sponsor-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .sponsor-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .sponsor-text {
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 1.5rem;
+        }
+
+        .sponsor-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50px;
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .sponsor-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
         /* Responsive Design */
         @media (max-width: 768px) {
             .header {
@@ -787,6 +884,35 @@ def generate_animated_index(topics: List[Dict]) -> str:
 
         <section class="topics-grid" id="topicsGrid">
 ''' + '\n\n'.join(topic_cards) + '''
+        </section>
+
+        <!-- Sponsor Section -->
+        <section class="sponsor-section">
+            <div class="sponsor-content">
+                <h3 class="sponsor-title">
+                    <i class="fas fa-heart"></i>
+                    Support This Project
+                </h3>
+                <p class="sponsor-text">
+                    Help us keep Daily English Topics free for everyone. Your support helps us create better content and add new features.
+                </p>
+                <a href="https://buymeacoffee.com/your-username" class="sponsor-button" target="_blank" rel="noopener">
+                    <i class="fas fa-coffee"></i>
+                    Buy Me a Coffee
+                </a>
+            </div>
+        </section>
+
+        <!-- Advertisement Section -->
+        <section class="ad-section">
+            <div class="ad-label">Advertisement</div>
+            <div id="adContainer">
+                <!-- Google AdSense or other ad network code goes here -->
+                <p style="color: var(--gray-light); font-style: italic;">
+                    <i class="fas fa-bullhorn"></i>
+                    Ad space available - Contact for partnerships
+                </p>
+            </div>
         </section>
     </main>
 
