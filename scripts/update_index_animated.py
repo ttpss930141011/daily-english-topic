@@ -208,6 +208,23 @@ def collect_topics() -> List[Dict]:
 def generate_animated_index(topics: List[Dict]) -> str:
     """Generate the animated index.html content."""
     
+    # Collect categories and their counts for dynamic filter tabs
+    categories = {}
+    for topic in topics:
+        cat = topic['category']
+        categories[cat] = categories.get(cat, 0) + 1
+    
+    # Generate filter tabs based on actual categories
+    filter_tabs = ['<a href="#" class="filter-tab active" data-filter="all">All Topics</a>']
+    filter_tabs.append('<a href="#" class="filter-tab" data-filter="recent">Recent</a>')
+    
+    # Add category-specific tabs, sorted by count (most popular first)
+    sorted_categories = sorted(categories.items(), key=lambda x: x[1], reverse=True)
+    for category, count in sorted_categories:
+        filter_tabs.append(f'<a href="#" class="filter-tab" data-filter="{category.lower()}">{category} ({count})</a>')
+    
+    filter_tabs_html = '\n                '.join(filter_tabs)
+    
     # Generate topic cards
     topic_cards = []
     for topic in topics:
@@ -764,10 +781,7 @@ def generate_animated_index(topics: List[Dict]) -> str:
             </div>
             
             <div class="filter-tabs">
-                <a href="#" class="filter-tab active" data-filter="all">All Topics</a>
-                <a href="#" class="filter-tab" data-filter="recent">Recent</a>
-                <a href="#" class="filter-tab" data-filter="popular">Popular</a>
-                <a href="#" class="filter-tab" data-filter="discussion">Discussion</a>
+                ''' + filter_tabs_html + '''
             </div>
         </section>
 
@@ -787,7 +801,7 @@ def generate_animated_index(topics: List[Dict]) -> str:
                 <a href="#" class="footer-link">Terms</a>
             </div>
             <p class="footer-text">
-                Updated on <span id="lastUpdated">''' + today + '''</span> • 
+                Updated on <span id="lastUpdated">''' + today + r'''</span> • 
                 Powered by Reddit API & Azure OpenAI
             </p>
         </div>
@@ -832,13 +846,20 @@ def generate_animated_index(topics: List[Dict]) -> str:
                     let shouldShow = true;
                     
                     if (filter === 'recent') {
+                        // Show only the 5 most recent topics
                         shouldShow = index < 5;
-                    } else if (filter === 'popular') {
-                        const category = card.querySelector('.topic-category').textContent.toLowerCase();
-                        shouldShow = category.includes('discussion') || category.includes('lifestyle');
-                    } else if (filter === 'discussion') {
-                        const category = card.querySelector('.topic-category').textContent.toLowerCase();
-                        shouldShow = category.includes('discussion') || category.includes('ethics');
+                    } else if (filter === 'all') {
+                        // Show all topics
+                        shouldShow = true;
+                    } else {
+                        // Category-specific filtering
+                        const categoryElement = card.querySelector('.topic-category');
+                        if (categoryElement) {
+                            const category = categoryElement.textContent.trim().toLowerCase();
+                            // Remove count numbers like "(7)" from category text
+                            const cleanCategory = category.replace(/\s*\(\d+\)\s*$/, '');
+                            shouldShow = cleanCategory === filter.toLowerCase();
+                        }
                     }
                     
                     if (shouldShow) {

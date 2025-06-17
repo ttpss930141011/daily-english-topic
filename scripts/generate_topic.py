@@ -38,9 +38,16 @@ API_KEY = os.environ.get("AZURE_API_KEY")
 if not API_KEY:
     raise SystemExit("AZURE_API_KEY env variable is required")
 
-# Read base prompt
-with open("prompt.txt", "r", encoding="utf-8") as f:
-    base_prompt = f.read()
+# Read base prompt with metadata support
+try:
+    with open("prompt_with_metadata.txt", "r", encoding="utf-8") as f:
+        base_prompt = f.read()
+    print("✅ Using enhanced prompt with metadata support")
+except FileNotFoundError:
+    # Fallback to old prompt
+    with open("prompt.txt", "r", encoding="utf-8") as f:
+        base_prompt = f.read()
+    print("⚠️  Using legacy prompt (no metadata)")
 
 # Ensure output directory exists
 os.makedirs(config["output"]["posts_directory"], exist_ok=True)
@@ -179,19 +186,27 @@ response = client.chat.completions.create(
     max_completion_tokens=config["llm"]["max_tokens"],
 )
 
-raw = response.choices[0].message.content
+raw_content = response.choices[0].message.content
 
-# Extract JSON object from the response
-m = re.search(r"{.*}", raw, re.S)
-if not m:
-    raise ValueError("No JSON object found in LLM response")
-data = json.loads(m.group(0))
-topic = data.get("topic", "topic")
-content = data.get("content", "")
+# Check if response contains metadata frontmatter or is legacy JSON format
+if raw_content.strip().startswith("---"):
+    # New format: Direct markdown with YAML frontmatter
+    content = raw_content
+    topic = title  # Use Reddit title as topic
+    print("✅ Received markdown content with metadata")
+else:
+    # Legacy format: Try to extract JSON
+    m = re.search(r"{.*}", raw_content, re.S)
+    if not m:
+        raise ValueError("No JSON object found in LLM response")
+    data = json.loads(m.group(0))
+    topic = data.get("topic", "topic")
+    content = data.get("content", "")
+    print("⚠️  Received legacy JSON format")
 
-# Determine file name using new format [title]-DDMMYYYY.md
+# Determine file name using MMDDYYYY format (correct project standard)
 today = datetime.datetime.utcnow()
-dmy = today.strftime("%d%m%Y")
+mdy = today.strftime("%m%d%Y")  # MMDDYYYY format
 
 def slugify_title_for_filename(text: str) -> str:
     """Convert title to lowercase slug format for filename."""
@@ -205,10 +220,10 @@ def slugify_title_for_filename(text: str) -> str:
     text = re.sub(r'-+', '-', text)  # Replace multiple hyphens with single
     return text.strip('-')  # Remove leading/trailing hyphens
 
-# Use Reddit title for filename in slug-DDMMYYYY.md format
+# Use Reddit title for filename in slug-MMDDYYYY.md format
 slug_title = slugify_title_for_filename(title)
 filename_template = config["output"]["filename_format"]
-fname = filename_template.format(title=slug_title, date=dmy)
+fname = filename_template.format(title=slug_title, date=mdy)
 
 # Create full path in posts directory
 posts_dir = config["output"]["posts_directory"]

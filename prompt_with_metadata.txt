@@ -45,8 +45,6 @@ Briefly summarize the Reddit thread based on the provided title, content, and co
 
 ## 2. Target Expressions:
 
----
-
 ### 2.1 Key Phrases and Idioms:
 
 Extract 5-7 important phrases, slang, or idiomatic expressions from the discussion. For each, provide:
@@ -86,8 +84,6 @@ Identify 3-5 challenging words or phrases for pronunciation. For each, provide:
 
 ## 4. Discussion & Analysis:
 
----
-
 ### 4.1 Discussion Questions:
 
 Create 5 thought-provoking questions related to the topic that encourage learners to practice speaking and critical thinking.
@@ -107,8 +103,6 @@ Explain any cultural references, social norms, or background knowledge needed to
 ---
 
 ## 6. Speaking Practice:
-
----
 
 ### 6.1 Role-play Scenarios:
 

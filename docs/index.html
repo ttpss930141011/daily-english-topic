@@ -526,8 +526,11 @@
             <div class="filter-tabs">
                 <a href="#" class="filter-tab active" data-filter="all">All Topics</a>
                 <a href="#" class="filter-tab" data-filter="recent">Recent</a>
-                <a href="#" class="filter-tab" data-filter="popular">Popular</a>
-                <a href="#" class="filter-tab" data-filter="discussion">Discussion</a>
+                <a href="#" class="filter-tab" data-filter="lifestyle">Lifestyle (6)</a>
+                <a href="#" class="filter-tab" data-filter="ethics">Ethics (3)</a>
+                <a href="#" class="filter-tab" data-filter="language">Language (2)</a>
+                <a href="#" class="filter-tab" data-filter="discussion">Discussion (1)</a>
+                <a href="#" class="filter-tab" data-filter="career">Career (1)</a>
             </div>
         </section>
 
@@ -811,13 +814,20 @@
                     let shouldShow = true;
                     
                     if (filter === 'recent') {
+                        // Show only the 5 most recent topics
                         shouldShow = index < 5;
-                    } else if (filter === 'popular') {
-                        const category = card.querySelector('.topic-category').textContent.toLowerCase();
-                        shouldShow = category.includes('discussion') || category.includes('lifestyle');
-                    } else if (filter === 'discussion') {
-                        const category = card.querySelector('.topic-category').textContent.toLowerCase();
-                        shouldShow = category.includes('discussion') || category.includes('ethics');
+                    } else if (filter === 'all') {
+                        // Show all topics
+                        shouldShow = true;
+                    } else {
+                        // Category-specific filtering
+                        const categoryElement = card.querySelector('.topic-category');
+                        if (categoryElement) {
+                            const category = categoryElement.textContent.trim().toLowerCase();
+                            // Remove count numbers like "(7)" from category text
+                            const cleanCategory = category.replace(/\s*\(\d+\)\s*$/, '');
+                            shouldShow = cleanCategory === filter.toLowerCase();
+                        }
                     }
                     
                     if (shouldShow) {
