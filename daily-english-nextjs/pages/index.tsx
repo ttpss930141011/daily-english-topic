@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { getAllTopics, Topic } from '../lib/topics'
+import { getAllTopics, Topic } from '@/lib/topics'
 
 interface HomeProps {
   topics: Topic[]
