@@ -45,6 +45,11 @@
             --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
             --gradient-accent: linear-gradient(135deg, var(--accent), var(--success));
             --gradient-dark: linear-gradient(135deg, var(--dark), var(--dark-light));
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
             
             /* Light mode specific */
             --bg-main: #ffffff;
@@ -89,12 +94,6 @@
         
         [data-theme="light"] .header {
             background: var(--gradient-primary);
-        }
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
         }
 
         * {
@@ -1082,7 +1081,7 @@
         // Search functionality
         const searchInput = document.getElementById('searchInput');
         const topicsGrid = document.getElementById('topicsGrid');
-        const filterTabs = document.querySelectorAll('.filter-tab');
+        let filterTabs = document.querySelectorAll('.filter-tab');
 
         searchInput.addEventListener('input', function() {
             const searchTerm = this.value.toLowerCase();
@@ -1101,47 +1100,55 @@
             });
         });
 
-        // Filter functionality
-        filterTabs.forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
+        // Filter functionality - Helper function
+        function applyFilter(filterType) {
+            const topicCards = topicsGrid.querySelectorAll('.topic-card');
+            
+            topicCards.forEach((card, index) => {
+                let shouldShow = true;
                 
-                // Update active tab
-                filterTabs.forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-                
-                const filter = this.dataset.filter;
-                const topicCards = topicsGrid.querySelectorAll('.topic-card');
-                
-                topicCards.forEach((card, index) => {
-                    let shouldShow = true;
-                    
-                    if (filter === 'recent') {
-                        // Show only the 5 most recent topics
-                        shouldShow = index < 5;
-                    } else if (filter === 'all') {
-                        // Show all topics
-                        shouldShow = true;
-                    } else {
-                        // Category-specific filtering
-                        const categoryElement = card.querySelector('.topic-category');
-                        if (categoryElement) {
-                            const category = categoryElement.textContent.trim().toLowerCase();
-                            // Remove count numbers like "(7)" from category text
-                            const cleanCategory = category.replace(/\s*\(\d+\)\s*$/, '');
-                            shouldShow = cleanCategory === filter.toLowerCase();
-                        }
+                if (filterType === 'recent') {
+                    shouldShow = index < 5;
+                } else if (filterType === 'all') {
+                    shouldShow = true;
+                } else if (filterType === 'favorites') {
+                    const topicId = card.querySelector('.favorite-btn').dataset.topicId;
+                    shouldShow = favorites.includes(topicId);
+                } else {
+                    const categoryElement = card.querySelector('.topic-category');
+                    if (categoryElement) {
+                        const category = categoryElement.textContent.trim().toLowerCase();
+                        shouldShow = category.includes(filterType.toLowerCase());
                     }
+                }
+                
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    card.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        // Add click handlers to all filter tabs
+        function setupFilterTabs() {
+            filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
                     
-                    if (shouldShow) {
-                        card.style.display = 'block';
-                        card.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
-                    } else {
-                        card.style.display = 'none';
-                    }
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const filter = this.dataset.filter;
+                    applyFilter(filter);
                 });
             });
-        });
+        }
+
+        // Initial setup
+        setupFilterTabs();
 
         // Smooth animations on scroll
         const observerOptions = {
@@ -1158,27 +1165,12 @@
             });
         }, observerOptions);
 
-        // Observe all topic cards
         document.querySelectorAll('.topic-card').forEach(card => {
             observer.observe(card);
         });
 
         // Update last updated date
         document.getElementById('lastUpdated').textContent = new Date().toLocaleDateString();
-        
-        // Add typing effect to search placeholder
-        const searchPlaceholders = [
-            'Search topics...',
-            'Find discussions...',
-            'Explore conversations...',
-            'Discover insights...'
-        ];
-        
-        let placeholderIndex = 0;
-        setInterval(() => {
-            searchInput.placeholder = searchPlaceholders[placeholderIndex];
-            placeholderIndex = (placeholderIndex + 1) % searchPlaceholders.length;
-        }, 3000);
         
         // Theme Toggle
         const themeToggle = document.getElementById('themeToggle');
@@ -1238,14 +1230,13 @@
             
             if (favorites.length > 0) {
                 if (!favTab) {
-                    // Create favorites tab if it doesn't exist
+                    // Create favorites tab
                     const tabsContainer = document.querySelector('.filter-tabs');
                     const favTabHtml = `<a href="#" class="filter-tab" data-filter="favorites">Favorites (${favorites.length})</a>`;
                     tabsContainer.insertAdjacentHTML('beforeend', favTabHtml);
                     
-                    // Add event listener to new tab
-                    favTab = document.querySelector('[data-filter="favorites"]');
-                    favTab.addEventListener('click', handleFilterClick);
+                    // Re-setup all filter tabs
+                    setupFilterTabs();
                 } else {
                     // Update count
                     favTab.textContent = `Favorites (${favorites.length})`;
@@ -1254,44 +1245,6 @@
                 // Remove favorites tab if no favorites
                 favTab.remove();
             }
-        }
-        
-        function handleFilterClick(e) {
-            e.preventDefault();
-            
-            // Update active tab
-            filterTabs.forEach(t => t.classList.remove('active'));
-            e.currentTarget.classList.add('active');
-            
-            const filter = e.currentTarget.dataset.filter;
-            const topicCards = topicsGrid.querySelectorAll('.topic-card');
-            
-            topicCards.forEach((card, index) => {
-                let shouldShow = false;
-                
-                if (filter === 'favorites') {
-                    const topicId = card.querySelector('.favorite-btn').dataset.topicId;
-                    shouldShow = favorites.includes(topicId);
-                } else if (filter === 'recent') {
-                    shouldShow = index < 5;
-                } else if (filter === 'all') {
-                    shouldShow = true;
-                } else {
-                    const categoryElement = card.querySelector('.topic-category');
-                    if (categoryElement) {
-                        const category = categoryElement.textContent.trim().toLowerCase();
-                        const cleanCategory = category.replace(/\\s*\\(\\d+\\)\\s*$/, '');
-                        shouldShow = cleanCategory === filter.toLowerCase();
-                    }
-                }
-                
-                if (shouldShow) {
-                    card.style.display = 'block';
-                    card.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
-                } else {
-                    card.style.display = 'none';
-                }
-            });
         }
         
         // Initialize favorites on page load
@@ -1308,139 +1261,6 @@
         
         // Make toggleFavorite global
         window.toggleFavorite = toggleFavorite;
-            event.stopPropagation();
-            
-            const btn = event.currentTarget;
-            const icon = btn.querySelector('i');
-            let favorites = loadFavorites();
-            
-            if (favorites.includes(topicId)) {
-                // Remove from favorites
-                favorites = favorites.filter(id => id !== topicId);
-                btn.classList.remove('active');
-                icon.classList.remove('fas');
-                icon.classList.add('far');
-            } else {
-                // Add to favorites
-                favorites.push(topicId);
-                btn.classList.add('active');
-                icon.classList.remove('far');
-                icon.classList.add('fas');
-            }
-            
-            saveFavorites(favorites);
-            
-            // Update filter count if favorites filter exists
-            updateFavoritesCount();
-        }
-        
-        // Update favorites count in filter tab
-        function updateFavoritesCount() {
-            const favorites = loadFavorites();
-            const favoritesTab = document.querySelector('[data-filter="favorites"]');
-            if (favoritesTab) {
-                favoritesTab.textContent = `Favorites (${favorites.length})`;
-            }
-        }
-        
-        // Initialize favorites on page load
-        function initializeFavorites() {
-            const favorites = loadFavorites();
-            
-            document.querySelectorAll('.favorite-btn').forEach(btn => {
-                const topicId = btn.getAttribute('data-topic-id');
-                const icon = btn.querySelector('i');
-                
-                if (favorites.includes(topicId)) {
-                    btn.classList.add('active');
-                    icon.classList.remove('far');
-                    icon.classList.add('fas');
-                }
-            });
-            
-            // Add favorites filter tab if there are favorites
-            if (favorites.length > 0) {
-                addFavoritesFilterTab();
-            }
-        }
-        
-        // Add favorites filter tab
-        function addFavoritesFilterTab() {
-            const filterTabs = document.querySelector('.filter-tabs');
-            const existingFavTab = filterTabs.querySelector('[data-filter="favorites"]');
-            
-            if (!existingFavTab) {
-                const favTab = document.createElement('a');
-                favTab.href = '#';
-                favTab.className = 'filter-tab';
-                favTab.setAttribute('data-filter', 'favorites');
-                favTab.textContent = `Favorites (${loadFavorites().length})`;
-                
-                // Insert after "Recent" tab
-                const recentTab = filterTabs.querySelector('[data-filter="recent"]');
-                if (recentTab && recentTab.nextSibling) {
-                    filterTabs.insertBefore(favTab, recentTab.nextSibling);
-                } else {
-                    filterTabs.appendChild(favTab);
-                }
-                
-                // Add click event
-                favTab.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    // Update active tab
-                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const favorites = loadFavorites();
-                    const topicCards = document.querySelectorAll('.topic-card');
-                    
-                    topicCards.forEach((card, index) => {
-                        const favoriteBtn = card.querySelector('.favorite-btn');
-                        const topicId = favoriteBtn ? favoriteBtn.getAttribute('data-topic-id') : null;
-                        
-                        if (favorites.includes(topicId)) {
-                            card.style.display = 'block';
-                            card.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
-                        } else {
-                            card.style.display = 'none';
-                        }
-                    });
-                });
-            }
-        }
-        
-        // Initialize favorites when page loads
-        initializeFavorites();
-        
-        // Add theme toggle functionality
-        const themeToggle = document.getElementById('themeToggle');
-        const themeIcon = document.getElementById('themeIcon');
-        const body = document.body;
-        
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme') || 'dark';
-        body.setAttribute('data-theme', savedTheme);
-        updateThemeIcon(savedTheme);
-        
-        themeToggle.addEventListener('click', () => {
-            const currentTheme = body.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            
-            body.setAttribute('data-theme', newTheme);
-            localStorage.setItem('theme', newTheme);
-            updateThemeIcon(newTheme);
-        });
-        
-        function updateThemeIcon(theme) {
-            if (theme === 'dark') {
-                themeIcon.classList.remove('fa-sun');
-                themeIcon.classList.add('fa-moon');
-            } else {
-                themeIcon.classList.remove('fa-moon');
-                themeIcon.classList.add('fa-sun');
-            }
-        }
     </script>
 </body>
 </html>
