@@ -234,6 +234,9 @@ def generate_animated_index(topics: List[Dict]) -> str:
         icon = CATEGORY_ICONS.get(topic['category'], CATEGORY_ICONS['General'])
         
         card_html = f"""            <a href="{topic['folder_date']}/index.html" class="topic-card" data-date="{topic['date_str']}">
+                <button class="favorite-btn" data-topic-id="{topic['folder_date']}" onclick="toggleFavorite(event, '{topic['folder_date']}')">
+                    <i class="far fa-heart"></i>
+                </button>
                 <div class="topic-date">
                     <i class="fas fa-calendar-alt"></i>
                     {formatted_date}
@@ -302,6 +305,51 @@ def generate_animated_index(topics: List[Dict]) -> str:
             --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
             --gradient-accent: linear-gradient(135deg, var(--accent), var(--success));
             --gradient-dark: linear-gradient(135deg, var(--dark), var(--dark-light));
+            
+            /* Light mode specific */
+            --bg-main: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border-color: #e2e8f0;
+            --card-bg: rgba(255, 255, 255, 0.9);
+        }
+        
+        /* Dark mode */
+        [data-theme="dark"] {
+            --bg-main: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border-color: #334155;
+            --card-bg: rgba(30, 41, 59, 0.9);
+            --gradient-primary: linear-gradient(135deg, var(--primary), var(--secondary));
+            --gradient-accent: linear-gradient(135deg, var(--accent), var(--success));
+            --gradient-dark: linear-gradient(135deg, #1e293b, #334155);
+        }
+        
+        /* Light mode styles */
+        [data-theme="light"] {
+            --gradient-dark: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+        }
+        
+        [data-theme="light"] .bg-animation {
+            background: var(--gradient-dark);
+        }
+        
+        [data-theme="light"] .topic-card {
+            background: var(--card-bg);
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        
+        [data-theme="light"] .topic-title {
+            color: var(--text-primary);
+        }
+        
+        [data-theme="light"] .header {
+            background: var(--gradient-primary);
+        }
             --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
             --shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1), 0 1px 2px -1px rgb(0 0 0 / 0.1);
             --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
@@ -775,6 +823,92 @@ def generate_animated_index(topics: List[Dict]) -> str:
             transform: translateY(-2px);
             box-shadow: var(--shadow-lg);
         }
+        
+        /* Theme Toggle */
+        .theme-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 50px;
+            padding: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            box-shadow: var(--shadow-md);
+            backdrop-filter: blur(10px);
+        }
+        
+        .theme-toggle-btn {
+            background: transparent;
+            border: none;
+            padding: 0.5rem;
+            border-radius: 50%;
+            cursor: pointer;
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+        
+        .theme-toggle-btn:hover {
+            background: var(--primary);
+            color: var(--white);
+        }
+        
+        .theme-toggle-btn i {
+            font-size: 1.25rem;
+        }
+        
+        /* Favorite Button */
+        .favorite-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: var(--gray-light);
+        }
+        
+        .favorite-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+        
+        .favorite-btn.active {
+            background: var(--danger);
+            border-color: var(--danger);
+            color: var(--white);
+        }
+        
+        .favorite-btn.active i {
+            animation: heartbeat 0.6s ease-in-out;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+        }
+        
+        /* Favorites Filter */
+        .filter-tab[data-filter="favorites"] {
+            background: var(--gradient-accent);
+            border-color: var(--accent);
+            color: var(--white);
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -839,8 +973,15 @@ def generate_animated_index(topics: List[Dict]) -> str:
         }
     </style>
 </head>
-<body>
+<body data-theme="dark">
     <div class="bg-animation"></div>
+    
+    <!-- Theme Toggle -->
+    <div class="theme-toggle">
+        <button class="theme-toggle-btn" id="themeToggle" title="Toggle theme">
+            <i class="fas fa-moon" id="themeIcon"></i>
+        </button>
+    </div>
     
     <header class="header">
         <div class="header-content">
@@ -1034,6 +1175,268 @@ def generate_animated_index(topics: List[Dict]) -> str:
             searchInput.placeholder = searchPlaceholders[placeholderIndex];
             placeholderIndex = (placeholderIndex + 1) % searchPlaceholders.length;
         }, 3000);
+        
+        // Theme Toggle
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fas fa-moon';
+            } else {
+                themeIcon.className = 'fas fa-sun';
+            }
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        // Favorites functionality
+        let favorites = JSON.parse(localStorage.getItem('favorites') || '[]');
+        
+        function toggleFavorite(event, topicId) {
+            event.preventDefault();
+            event.stopPropagation();
+            
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('i');
+            
+            if (favorites.includes(topicId)) {
+                // Remove from favorites
+                favorites = favorites.filter(id => id !== topicId);
+                icon.className = 'far fa-heart';
+                btn.classList.remove('active');
+            } else {
+                // Add to favorites
+                favorites.push(topicId);
+                icon.className = 'fas fa-heart';
+                btn.classList.add('active');
+            }
+            
+            localStorage.setItem('favorites', JSON.stringify(favorites));
+            updateFavoritesTab();
+        }
+        
+        function updateFavoritesTab() {
+            let favTab = document.querySelector('[data-filter="favorites"]');
+            
+            if (favorites.length > 0) {
+                if (!favTab) {
+                    // Create favorites tab if it doesn't exist
+                    const tabsContainer = document.querySelector('.filter-tabs');
+                    const favTabHtml = `<a href="#" class="filter-tab" data-filter="favorites">Favorites (${favorites.length})</a>`;
+                    tabsContainer.insertAdjacentHTML('beforeend', favTabHtml);
+                    
+                    // Add event listener to new tab
+                    favTab = document.querySelector('[data-filter="favorites"]');
+                    favTab.addEventListener('click', handleFilterClick);
+                } else {
+                    // Update count
+                    favTab.textContent = `Favorites (${favorites.length})`;
+                }
+            } else if (favTab) {
+                // Remove favorites tab if no favorites
+                favTab.remove();
+            }
+        }
+        
+        function handleFilterClick(e) {
+            e.preventDefault();
+            
+            // Update active tab
+            filterTabs.forEach(t => t.classList.remove('active'));
+            e.currentTarget.classList.add('active');
+            
+            const filter = e.currentTarget.dataset.filter;
+            const topicCards = topicsGrid.querySelectorAll('.topic-card');
+            
+            topicCards.forEach((card, index) => {
+                let shouldShow = false;
+                
+                if (filter === 'favorites') {
+                    const topicId = card.querySelector('.favorite-btn').dataset.topicId;
+                    shouldShow = favorites.includes(topicId);
+                } else if (filter === 'recent') {
+                    shouldShow = index < 5;
+                } else if (filter === 'all') {
+                    shouldShow = true;
+                } else {
+                    const categoryElement = card.querySelector('.topic-category');
+                    if (categoryElement) {
+                        const category = categoryElement.textContent.trim().toLowerCase();
+                        const cleanCategory = category.replace(/\\s*\\(\\d+\\)\\s*$/, '');
+                        shouldShow = cleanCategory === filter.toLowerCase();
+                    }
+                }
+                
+                if (shouldShow) {
+                    card.style.display = 'block';
+                    card.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+        
+        // Initialize favorites on page load
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            const topicId = btn.dataset.topicId;
+            if (favorites.includes(topicId)) {
+                btn.classList.add('active');
+                btn.querySelector('i').className = 'fas fa-heart';
+            }
+        });
+        
+        // Update favorites tab on load
+        updateFavoritesTab();
+        
+        // Make toggleFavorite global
+        window.toggleFavorite = toggleFavorite;
+            event.stopPropagation();
+            
+            const btn = event.currentTarget;
+            const icon = btn.querySelector('i');
+            let favorites = loadFavorites();
+            
+            if (favorites.includes(topicId)) {
+                // Remove from favorites
+                favorites = favorites.filter(id => id !== topicId);
+                btn.classList.remove('active');
+                icon.classList.remove('fas');
+                icon.classList.add('far');
+            } else {
+                // Add to favorites
+                favorites.push(topicId);
+                btn.classList.add('active');
+                icon.classList.remove('far');
+                icon.classList.add('fas');
+            }
+            
+            saveFavorites(favorites);
+            
+            // Update filter count if favorites filter exists
+            updateFavoritesCount();
+        }
+        
+        // Update favorites count in filter tab
+        function updateFavoritesCount() {
+            const favorites = loadFavorites();
+            const favoritesTab = document.querySelector('[data-filter="favorites"]');
+            if (favoritesTab) {
+                favoritesTab.textContent = `Favorites (${favorites.length})`;
+            }
+        }
+        
+        // Initialize favorites on page load
+        function initializeFavorites() {
+            const favorites = loadFavorites();
+            
+            document.querySelectorAll('.favorite-btn').forEach(btn => {
+                const topicId = btn.getAttribute('data-topic-id');
+                const icon = btn.querySelector('i');
+                
+                if (favorites.includes(topicId)) {
+                    btn.classList.add('active');
+                    icon.classList.remove('far');
+                    icon.classList.add('fas');
+                }
+            });
+            
+            // Add favorites filter tab if there are favorites
+            if (favorites.length > 0) {
+                addFavoritesFilterTab();
+            }
+        }
+        
+        // Add favorites filter tab
+        function addFavoritesFilterTab() {
+            const filterTabs = document.querySelector('.filter-tabs');
+            const existingFavTab = filterTabs.querySelector('[data-filter="favorites"]');
+            
+            if (!existingFavTab) {
+                const favTab = document.createElement('a');
+                favTab.href = '#';
+                favTab.className = 'filter-tab';
+                favTab.setAttribute('data-filter', 'favorites');
+                favTab.textContent = `Favorites (${loadFavorites().length})`;
+                
+                // Insert after "Recent" tab
+                const recentTab = filterTabs.querySelector('[data-filter="recent"]');
+                if (recentTab && recentTab.nextSibling) {
+                    filterTabs.insertBefore(favTab, recentTab.nextSibling);
+                } else {
+                    filterTabs.appendChild(favTab);
+                }
+                
+                // Add click event
+                favTab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Update active tab
+                    document.querySelectorAll('.filter-tab').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const favorites = loadFavorites();
+                    const topicCards = document.querySelectorAll('.topic-card');
+                    
+                    topicCards.forEach((card, index) => {
+                        const favoriteBtn = card.querySelector('.favorite-btn');
+                        const topicId = favoriteBtn ? favoriteBtn.getAttribute('data-topic-id') : null;
+                        
+                        if (favorites.includes(topicId)) {
+                            card.style.display = 'block';
+                            card.style.animation = `slideInUp 0.6s ease-out ${index * 0.1}s both`;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        }
+        
+        // Initialize favorites when page loads
+        initializeFavorites();
+        
+        // Add theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const body = document.body;
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme') || 'dark';
+        body.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+        
+        themeToggle.addEventListener('click', () => {
+            const currentTheme = body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            body.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateThemeIcon(newTheme);
+        });
+        
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        }
     </script>
 </body>
 </html>'''
