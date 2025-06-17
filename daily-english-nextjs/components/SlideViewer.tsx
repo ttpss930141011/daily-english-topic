@@ -10,10 +10,10 @@ interface SlideViewerProps {
   theme?: 'light' | 'dark'
 }
 
-export default function SlideViewer({ 
-  topic, 
-  interactive = true, 
-  theme = 'light' 
+export default function SlideViewer({
+  topic,
+  interactive = true,
+  theme = 'light'
 }: SlideViewerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -89,7 +89,7 @@ export default function SlideViewer({
 
   const handleWordClick = useCallback((word: string, event: React.MouseEvent) => {
     if (!interactive) return
-    
+
     setSelectedWord(word)
     setWordPosition({ x: event.clientX, y: event.clientY })
   }, [interactive])
@@ -102,17 +102,17 @@ export default function SlideViewer({
 
     // Parse and render with interactive words
     let html = marked(slide.content) as string
-    
+
     // Add interactive word spans
     slide.interactiveWords?.forEach(wordObj => {
       const regex = new RegExp(`\\b${wordObj.word}\\b`, 'gi')
-      html = html.replace(regex, (match) => 
+      html = html.replace(regex, (match) =>
         `<span class="interactive-word" data-word="${wordObj.word.toLowerCase()}">${match}</span>`
       )
     })
 
     return (
-      <div 
+      <div
         dangerouslySetInnerHTML={{ __html: html }}
         onClick={(e) => {
           const target = e.target as HTMLElement
@@ -128,6 +128,17 @@ export default function SlideViewer({
   }
 
   const currentSlideData = topic.slides[currentSlide]
+
+  // Sync fullscreen state with external fullscreen changes
+  useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(!!document.fullscreenElement)
+    }
+    document.addEventListener('fullscreenchange', handleFullscreenChange)
+    return () => {
+      document.removeEventListener('fullscreenchange', handleFullscreenChange)
+    }
+  }, [])
 
   return (
     <div className={`slide-viewer ${theme} ${isFullscreen ? 'fullscreen' : ''}`}>
@@ -158,16 +169,16 @@ export default function SlideViewer({
         </div>
 
         {/* Navigation Arrows */}
-        <button 
-          className="nav-arrow nav-prev" 
+        <button
+          className="nav-arrow nav-prev"
           onClick={previousSlide}
           disabled={currentSlide === 0}
           aria-label="Previous slide"
         >
           ←
         </button>
-        <button 
-          className="nav-arrow nav-next" 
+        <button
+          className="nav-arrow nav-next"
           onClick={nextSlide}
           disabled={currentSlide === topic.slides.length - 1}
           aria-label="Next slide"
@@ -190,7 +201,7 @@ export default function SlideViewer({
 
       {/* Progress Bar */}
       <div className="progress-bar">
-        <div 
+        <div
           className="progress-fill"
           style={{ width: `${((currentSlide + 1) / topic.slides.length) * 100}%` }}
         />
