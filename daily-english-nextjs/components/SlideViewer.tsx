@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
-import { Topic, Slide } from '@/lib/topics'
+import { Topic, Slide } from '../lib/topics'
 import InteractiveWord from './InteractiveWord'
 import WordPopup from './WordPopup'
 
