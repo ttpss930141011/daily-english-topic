@@ -51,6 +51,20 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
+# Next.js
+daily-english-nextjs/.next/
+daily-english-nextjs/out/
+daily-english-nextjs/build/
+
+# Next.js env files
+daily-english-nextjs/.env.local
+daily-english-nextjs/.env.development.local
+daily-english-nextjs/.env.test.local
+daily-english-nextjs/.env.production.local
+
+# Vercel
+daily-english-nextjs/.vercel
+
 # Logs
 *.log
 
