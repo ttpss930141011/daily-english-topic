@@ -1,7 +1,7 @@
 import { GetStaticProps } from 'next'
 import Head from 'next/head'
 import Link from 'next/link'
-import { getAllTopics, Topic } from '@/lib/topics'
+import { getAllTopics, Topic } from '../lib/topics'
 
 interface HomeProps {
   topics: Topic[]
@@ -11,38 +11,51 @@ export default function Home({ topics }: HomeProps) {
   return (
     <>
       <Head>
-        <title>Daily English Topics - Interactive Learning</title>
-        <meta name="description" content="Learn English through daily topics and interactive slides" />
+        <title>Daily English Topics - Learn English with Reddit Discussions</title>
+        <meta name="description" content="Daily English learning topics generated from Reddit discussions. Improve your vocabulary, grammar, and conversation skills with real-world content." />
+        <meta name="keywords" content="English learning, vocabulary, grammar, conversation, Reddit, daily topics, language practice" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>💬</text></svg>" />
       </Head>
 
-      <main className="container">
-        <header className="hero">
-          <h1>🎓 Daily English Topics</h1>
-          <p>Learn English through interactive slide presentations</p>
-        </header>
+      {/* Animated Background */}
+      <div className="bg-animation"></div>
 
+      {/* Header */}
+      <header className="header">
+        <div className="header-content">
+          <h1 className="logo">💬 Daily English Topics</h1>
+          <p className="subtitle">
+            Learn English through interactive slide presentations from real Reddit discussions
+          </p>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="main-content">
         <section className="topics-grid">
-          {topics.map((topic) => (
-            <div key={topic.date} className="topic-card">
-              <Link href={`/topic/${topic.date}`}>
-                <div className="card-content">
-                  <h3>{topic.title}</h3>
-                  <p className="topic-date">{formatDate(topic.date)}</p>
-                  {topic.description && (
-                    <p className="topic-description">{topic.description}</p>
-                  )}
-                  <div className="topic-tags">
-                    {topic.tags?.map(tag => (
-                      <span key={tag} className="tag">{tag}</span>
-                    ))}
-                  </div>
-                  <button className="slide-button">
-                    ▶ Start Learning
-                  </button>
+          {topics.map((topic, index) => (
+            <Link key={topic.date} href={`/topic/${topic.date}`} className="topic-card">
+              <div className="card-content">
+                <div className="topic-date">
+                  <i className="fas fa-calendar-alt"></i>
+                  {formatDate(topic.date)}
                 </div>
-              </Link>
-            </div>
+                <h3 className="topic-title">{topic.title}</h3>
+                {topic.description && (
+                  <p className="topic-description">{topic.description}</p>
+                )}
+                <div className="topic-tags">
+                  {topic.tags.map(tag => (
+                    <span key={tag} className="tag">{tag}</span>
+                  ))}
+                </div>
+                <button className="slide-button">
+                  <i className="fas fa-play"></i>
+                  Start Learning
+                </button>
+              </div>
+            </Link>
           ))}
         </section>
       </main>

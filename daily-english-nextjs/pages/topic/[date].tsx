@@ -1,8 +1,8 @@
 import { GetStaticProps, GetStaticPaths } from 'next'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { getAllTopics, getTopicByDate, Topic } from '@/lib/topics'
-import SlideViewer from '@/components/SlideViewer'
+import { getAllTopics, getTopicByDate, Topic } from '../../lib/topics'
+import SlideViewer from '../../components/SlideViewer'
 
 interface TopicPageProps {
   topic: Topic
