@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
 import { Topic, Slide } from '@/lib/topics'

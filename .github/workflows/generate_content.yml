@@ -1,0 +1,48 @@
+name: Generate and Commit Daily Topics
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs at 00:00 UTC daily
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
+          persist-credentials: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Python dependencies
+        run: |
+          pip install openai requests
+
+      - name: Generate new topic markdown
+        env:
+          AZURE_API_KEY: ${{ secrets.AZURE_API_KEY }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+        run: |
+          python scripts/generate_topic.py
+
+      - name: Commit new topics
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add posts
+          git diff --quiet || (git commit -m "chore: auto-generate daily topic" && git push)
+
+      - name: Copy posts into Next.js app
+        run: cp -R posts/ daily-english-nextjs/posts/
+
+      - name: Build Next.js
+        working-directory: daily-english-nextjs
+        run: |
+          npm install
+          npm run build
