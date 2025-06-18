@@ -6,22 +6,28 @@
  * Topic related types
  */
 export interface Topic {
-  title: string
   date: string
-  description?: string
-  tags: string[]
+  title: string
+  description: string | null
   slides: Slide[]
+  tags: string[]
+  redditUrl: string | null
+  difficulty: 'beginner' | 'intermediate' | 'advanced'
+  metadata: Record<string, any>
 }
 
 export interface Slide {
-  type: 'title' | 'content' | 'summary'
+  id: string
   content: string
+  type: 'title' | 'content' | 'exercise' | 'summary'
   interactiveWords?: InteractiveWord[]
 }
 
 export interface InteractiveWord {
   word: string
-  definition?: string
+  definition: string | null
+  pronunciation: string | null
+  partOfSpeech: string | null
 }
 
 /**

@@ -2,30 +2,11 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 
-export interface Topic {
-  date: string
-  title: string
-  description: string | null
-  slides: Slide[]
-  tags: string[]
-  redditUrl: string | null
-  difficulty: 'beginner' | 'intermediate' | 'advanced'
-  metadata: Record<string, any>
-}
+// Import types from centralized location
+import { Topic, Slide, InteractiveWord } from '@/types'
 
-export interface Slide {
-  id: string
-  content: string
-  type: 'title' | 'content' | 'exercise' | 'summary'
-  interactiveWords?: InteractiveWord[]
-}
-
-export interface InteractiveWord {
-  word: string
-  definition: string | null
-  pronunciation: string | null
-  partOfSpeech: string | null
-}
+// Re-export for backward compatibility
+export type { Topic, Slide, InteractiveWord }
 
 const POSTS_DIRECTORY = path.join(process.cwd(), 'posts')
 

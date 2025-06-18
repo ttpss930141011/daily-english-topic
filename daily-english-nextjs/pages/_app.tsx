@@ -1,7 +1,7 @@
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, Transition } from 'framer-motion'
 import '@/styles/globals.css'
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -25,9 +25,9 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }
   
-  const pageTransition = {
-    type: 'tween',
-    ease: 'anticipate',
+  const pageTransition: Transition = {
+    type: 'tween' as const,
+    ease: 'anticipate' as const,
     duration: 0.6
   }
   

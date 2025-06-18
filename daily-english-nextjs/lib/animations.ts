@@ -151,7 +151,11 @@ export const hoverGlow = {
  */
 export const spinnerAnimation = {
   animate: { rotate: 360 },
-  transition: { duration: 1, repeat: Infinity, ease: "linear" }
+  transition: { 
+    duration: 1, 
+    repeat: Infinity, 
+    ease: "linear" as const 
+  } as Transition
 }
 
 /**
