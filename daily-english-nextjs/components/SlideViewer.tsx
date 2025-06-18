@@ -1,14 +1,13 @@
 import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
-import { Topic, Slide } from '@/lib/topics'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Topic, Slide, SlideViewerProps } from '@/types'
+import { slideVariants, slideTransition } from '@/lib'
+import { useKeyboardNavigation, useFullscreen } from '@/hooks'
+import { SlideHeader, SlideNavigation } from '@/components/slide'
 import InteractiveWord from '@/components/InteractiveWord'
 import WordPopup from '@/components/WordPopup'
 
-interface SlideViewerProps {
-  topic: Topic
-  interactive?: boolean
-  theme?: 'light' | 'dark'
-}
 
 export default function SlideViewer({ 
   topic, 
@@ -16,47 +15,11 @@ export default function SlideViewer({
   theme = 'light' 
 }: SlideViewerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [isFullscreen, setIsFullscreen] = useState(false)
   const [selectedWord, setSelectedWord] = useState<string | null>(null)
   const [wordPosition, setWordPosition] = useState<{ x: number; y: number } | null>(null)
-
-  // Keyboard navigation
-  useEffect(() => {
-    const handleKeyDown = (event: KeyboardEvent) => {
-      switch (event.key) {
-        case 'ArrowLeft':
-        case 'ArrowUp':
-          previousSlide()
-          break
-        case 'ArrowRight':
-        case 'ArrowDown':
-        case ' ':
-          nextSlide()
-          break
-        case 'Home':
-          setCurrentSlide(0)
-          break
-        case 'End':
-          setCurrentSlide(topic.slides.length - 1)
-          break
-        case 'Escape':
-          if (selectedWord) {
-            setSelectedWord(null)
-          } else if (isFullscreen) {
-            exitFullscreen()
-          }
-          break
-        case 'f':
-        case 'F11':
-          event.preventDefault()
-          toggleFullscreen()
-          break
-      }
-    }
-
-    window.addEventListener('keydown', handleKeyDown)
-    return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentSlide, topic.slides.length, selectedWord, isFullscreen])
+  const [[page, direction], setPage] = useState([0, 0])
+  
+  const { isFullscreen, toggleFullscreen, exitFullscreen } = useFullscreen()
 
   const nextSlide = useCallback(() => {
     setCurrentSlide(prev => Math.min(prev + 1, topic.slides.length - 1))
@@ -69,23 +32,23 @@ export default function SlideViewer({
   const goToSlide = useCallback((index: number) => {
     setCurrentSlide(Math.max(0, Math.min(index, topic.slides.length - 1)))
   }, [topic.slides.length])
-
-  const toggleFullscreen = useCallback(() => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen()
-      setIsFullscreen(true)
-    } else {
-      document.exitFullscreen()
-      setIsFullscreen(false)
-    }
-  }, [])
-
-  const exitFullscreen = useCallback(() => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
-      setIsFullscreen(false)
-    }
-  }, [])
+  
+  // Use keyboard navigation hook
+  useKeyboardNavigation({
+    onNext: nextSlide,
+    onPrevious: previousSlide,
+    onHome: () => setCurrentSlide(0),
+    onEnd: () => setCurrentSlide(topic.slides.length - 1),
+    onEscape: () => {
+      if (selectedWord) {
+        setSelectedWord(null)
+      } else if (isFullscreen) {
+        exitFullscreen()
+      }
+    },
+    onFullscreen: toggleFullscreen,
+    enabled: true
+  })
 
   const handleWordClick = useCallback((word: string, event: React.MouseEvent) => {
     if (!interactive) return
@@ -127,74 +90,58 @@ export default function SlideViewer({
     )
   }
 
+  // Update page direction for animations
+  useEffect(() => {
+    setPage([currentSlide, currentSlide > page ? 1 : -1])
+  }, [currentSlide, page])
+  
   const currentSlideData = topic.slides[currentSlide]
 
   return (
-    <div className={`slide-viewer ${theme} ${isFullscreen ? 'fullscreen' : ''}`}>
+    <motion.div 
+      className={`slide-viewer ${theme} ${isFullscreen ? 'fullscreen' : ''}`}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
       {/* Navigation Header */}
-      {!isFullscreen && (
-        <header className="slide-header">
-          <div className="slide-info">
-            <h1>{topic.title}</h1>
-            <div className="slide-progress">
-              Slide {currentSlide + 1} of {topic.slides.length}
-            </div>
-          </div>
-          <div className="slide-controls">
-            <button onClick={toggleFullscreen} className="control-btn">
-              🔳 Fullscreen
-            </button>
-            <button onClick={() => window.history.back()} className="control-btn">
-              ← Back
-            </button>
-          </div>
-        </header>
-      )}
+      <AnimatePresence>
+        {!isFullscreen && (
+          <SlideHeader
+            title={topic.title}
+            currentSlide={currentSlide}
+            totalSlides={topic.slides.length}
+            onFullscreen={toggleFullscreen}
+            onBack={() => window.history.back()}
+          />
+        )}
+      </AnimatePresence>
 
       {/* Main Slide Display */}
       <main className="slide-container">
-        <div className={`slide slide-${currentSlideData.type}`}>
-          {renderSlideContent(currentSlideData)}
-        </div>
-
-        {/* Navigation Arrows */}
-        <button 
-          className="nav-arrow nav-prev" 
-          onClick={previousSlide}
-          disabled={currentSlide === 0}
-          aria-label="Previous slide"
-        >
-          ←
-        </button>
-        <button 
-          className="nav-arrow nav-next" 
-          onClick={nextSlide}
-          disabled={currentSlide === topic.slides.length - 1}
-          aria-label="Next slide"
-        >
-          →
-        </button>
-      </main>
-
-      {/* Slide Navigation Dots */}
-      <nav className="slide-dots">
-        {topic.slides.map((_, index) => (
-          <button
-            key={index}
-            className={`dot ${index === currentSlide ? 'active' : ''}`}
-            onClick={() => goToSlide(index)}
-            aria-label={`Go to slide ${index + 1}`}
-          />
-        ))}
-      </nav>
-
-      {/* Progress Bar */}
-      <div className="progress-bar">
-        <div 
-          className="progress-fill"
-          style={{ width: `${((currentSlide + 1) / topic.slides.length) * 100}%` }}
+        <AnimatePresence initial={false} custom={direction}>
+          <motion.div
+            key={currentSlide}
+            custom={direction}
+            variants={slideVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            transition={slideTransition}
+            className={`slide slide-${currentSlideData.type}`}
+          >
+            {renderSlideContent(currentSlideData)}
+          </motion.div>
+        </AnimatePresence>
+        
+        <SlideNavigation
+          currentSlide={currentSlide}
+          totalSlides={topic.slides.length}
+          onNext={nextSlide}
+          onPrevious={previousSlide}
+          onGoToSlide={goToSlide}
         />
-      </div>
+      </main>
 
       {/* Word Popup */}
       {selectedWord && wordPosition && (
@@ -206,13 +153,20 @@ export default function SlideViewer({
       )}
 
       {/* Keyboard Shortcuts Help */}
-      {isFullscreen && (
-        <div className="keyboard-help">
-          <div className="help-text">
-            ← → Navigation | F Fullscreen | ESC Exit
-          </div>
-        </div>
-      )}
-    </div>
+      <AnimatePresence>
+        {isFullscreen && (
+          <motion.div 
+            className="keyboard-help"
+            initial={{ y: 50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 50, opacity: 0 }}
+          >
+            <div className="help-text">
+              ← → Navigation | F Fullscreen | ESC Exit
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   )
 }

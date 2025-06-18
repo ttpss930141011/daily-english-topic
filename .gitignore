@@ -11,6 +11,7 @@ downloads/
 eggs/
 .eggs/
 lib/
+!daily-english-nextjs/lib/
 lib64/
 parts/
 sdist/
