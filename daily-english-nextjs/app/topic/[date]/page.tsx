@@ -18,9 +18,5 @@ export default async function TopicPage({ params }: TopicPageProps) {
     notFound()
   }
 
-  return (
-    <main className="slide-page">
-      <SlideViewer topic={topic} interactive />
-    </main>
-  )
+  return <SlideViewer topic={topic} interactive />
 }

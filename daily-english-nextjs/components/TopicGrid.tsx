@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { Topic } from '@/lib/topics';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
-import { Search, Grid as IconGrid, List as IconList, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users } from 'lucide-react';
+import { Search, Grid as IconGrid, List as IconList, BookOpen, X as IconX, Tag as IconTag, Sparkles } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -26,7 +26,7 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      delayChildren: 0.3,
+      delayChildren: 0.2,
       staggerChildren: 0.1
     }
   }
@@ -45,28 +45,12 @@ const itemVariants = {
   }
 };
 
-const heroVariants = {
-  hidden: { scale: 0.8, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-    transition: {
-      type: "spring" as const,
-      damping: 20,
-      stiffness: 100,
-      delay: 0.2
-    }
-  }
-};
-
 export default function TopicGrid({ topics }: TopicGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({ tags: [] });
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
-  const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
-    setIsLoaded(true);
+    // Component loaded
   }, []);
 
   const allTags = Array.from(new Set(topics.flatMap(t => t.tags)));
@@ -84,124 +68,22 @@ export default function TopicGrid({ topics }: TopicGridProps) {
 
   return (
     <div className="min-h-screen relative">
-      {/* Hero Section */}
+      {/* Simplified Header */}
       <motion.div 
-        className="relative pt-24 pb-16 px-6"
-        variants={heroVariants}
-        initial="hidden"
-        animate={isLoaded ? "visible" : "hidden"}
+        className="relative pt-20 pb-12 px-6"
+        initial={{ y: 30, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.3, duration: 0.8 }}
       >
-        <div className="max-w-6xl mx-auto text-center">
-          {/* Floating Icons */}
-          <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            <motion.div
-              className="absolute top-16 left-16 text-purple-300 opacity-20"
-              animate={{ 
-                y: [0, -20, 0],
-                rotate: [0, 10, -10, 0]
-              }}
-              transition={{ 
-                duration: 6, 
-                repeat: Infinity, 
-                ease: "easeInOut" 
-              }}
-            >
-              <BookOpen size={32} />
-            </motion.div>
-            <motion.div
-              className="absolute top-32 right-20 text-blue-300 opacity-20"
-              animate={{ 
-                y: [0, 15, 0],
-                rotate: [0, -10, 10, 0]
-              }}
-              transition={{ 
-                duration: 8, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: 1
-              }}
-            >
-              <Sparkles size={28} />
-            </motion.div>
-            <motion.div
-              className="absolute bottom-16 left-1/4 text-indigo-300 opacity-20"
-              animate={{ 
-                y: [0, -15, 0],
-                x: [0, 10, 0]
-              }}
-              transition={{ 
-                duration: 7, 
-                repeat: Infinity, 
-                ease: "easeInOut",
-                delay: 2
-              }}
-            >
-              <TrendingUp size={30} />
-            </motion.div>
-          </div>
-
-          {/* Main Title */}
-          <motion.div
-            initial={{ y: 30, opacity: 0 }}
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.p
+            className="text-lg md:text-xl text-gray-400 mb-8 max-w-2xl mx-auto leading-relaxed"
+            initial={{ y: 20, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            <h1 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight">
-              Daily English
-              <br />
-              <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                Topics
-              </span>
-            </h1>
-          </motion.div>
-
-          <motion.p
-            className="text-xl md:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed"
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.7, duration: 0.8 }}
-          >
-            Dive into interactive learning experiences crafted from real Reddit discussions. 
-            <span className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text font-semibold"> Master English</span> through authentic conversations.
+            Explore interactive English learning experiences crafted from real Reddit discussions
           </motion.p>
-
-          {/* Stats Cards */}
-          <motion.div
-            className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl mx-auto mb-16"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.9, duration: 0.8 }}
-          >
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-              <div className="flex items-center justify-center mb-3">
-                <div className="p-3 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full">
-                  <BookOpen className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">{topics.length}+</h3>
-              <p className="text-gray-300">Interactive Topics</p>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-              <div className="flex items-center justify-center mb-3">
-                <div className="p-3 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-full">
-                  <Users className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">10K+</h3>
-              <p className="text-gray-300">Real Conversations</p>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
-              <div className="flex items-center justify-center mb-3">
-                <div className="p-3 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-full">
-                  <Clock className="w-6 h-6 text-white" />
-                </div>
-              </div>
-              <h3 className="text-2xl font-bold text-white mb-1">Daily</h3>
-              <p className="text-gray-300">Fresh Content</p>
-            </div>
-          </motion.div>
         </div>
       </motion.div>
 
@@ -212,17 +94,17 @@ export default function TopicGrid({ topics }: TopicGridProps) {
           className="mb-12"
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 1.1, duration: 0.8 }}
+          transition={{ delay: 0.7, duration: 0.8 }}
         >
-          <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl">
+          <div className="bg-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/10 shadow-2xl">
             <div className="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0 lg:space-x-6">
               <div className="relative flex-1 w-full">
                 <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                 <Input
-                  placeholder="Search for topics, discussions, or keywords..."
+                  placeholder="Search topics, discussions, or keywords..."
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400 transition-all duration-300"
+                  className="pl-12 h-12 bg-white/5 border-white/10 text-white placeholder:text-gray-400 focus:border-emerald-400 transition-all duration-300"
                 />
               </div>
               
@@ -231,7 +113,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                   <PopoverTrigger asChild>
                     <Button 
                       variant="outline" 
-                      className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+                      className="bg-white/5 border-white/10 text-white hover:bg-white/10 transition-all duration-300"
                     >
                       <IconTag className="w-4 h-4 mr-2" /> 
                       Tags {filters.tags.length > 0 && `(${filters.tags.length})`}
@@ -274,12 +156,12 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                   </Button>
                 )}
                 
-                <div className="flex bg-white/10 rounded-lg p-1">
+                <div className="flex bg-white/5 rounded-lg p-1">
                   <Button 
                     variant={viewMode === 'grid' ? 'default' : 'ghost'} 
                     size="sm" 
                     onClick={() => setViewMode('grid')}
-                    className={viewMode === 'grid' ? 'bg-purple-600 hover:bg-purple-700' : 'text-gray-300 hover:text-white hover:bg-white/20'}
+                    className={viewMode === 'grid' ? 'bg-emerald-600 hover:bg-emerald-700' : 'text-gray-300 hover:text-white hover:bg-white/20'}
                   >
                     <IconGrid className="w-4 h-4" />
                   </Button>
@@ -287,7 +169,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                     variant={viewMode === 'list' ? 'default' : 'ghost'} 
                     size="sm" 
                     onClick={() => setViewMode('list')}
-                    className={viewMode === 'list' ? 'bg-purple-600 hover:bg-purple-700' : 'text-gray-300 hover:text-white hover:bg-white/20'}
+                    className={viewMode === 'list' ? 'bg-emerald-600 hover:bg-emerald-700' : 'text-gray-300 hover:text-white hover:bg-white/20'}
                   >
                     <IconList className="w-4 h-4" />
                   </Button>
@@ -302,10 +184,10 @@ export default function TopicGrid({ topics }: TopicGridProps) {
           className="text-center mb-8"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 1.3, duration: 0.6 }}
+          transition={{ delay: 0.9, duration: 0.6 }}
         >
-          <p className="text-gray-300">
-            Showing <span className="text-purple-400 font-semibold">{filteredTopics.length}</span> of <span className="text-blue-400 font-semibold">{topics.length}</span> topics
+          <p className="text-gray-400">
+            Showing <span className="text-emerald-400 font-semibold">{filteredTopics.length}</span> of <span className="text-blue-400 font-semibold">{topics.length}</span> topics
           </p>
         </motion.div>
 
@@ -334,17 +216,17 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                 }}
                 className="group"
               >
-                <Card className="h-full flex flex-col bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg border border-white/20 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative">
+                <Card className="h-full flex flex-col bg-gradient-to-br from-white/8 to-white/4 backdrop-blur-lg border border-white/10 shadow-xl hover:shadow-2xl transition-all duration-300 overflow-hidden relative">
                   {/* Hover Glow Effect */}
-                  <div className="absolute inset-0 bg-gradient-to-r from-purple-600/20 to-blue-600/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div className="absolute inset-0 bg-gradient-to-r from-emerald-600/10 to-blue-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   
                   {/* Card Number */}
-                  <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full flex items-center justify-center text-white text-sm font-bold z-10">
+                  <div className="absolute top-4 right-4 w-8 h-8 bg-gradient-to-r from-emerald-500 to-teal-500 rounded-full flex items-center justify-center text-white text-sm font-bold z-10">
                     {index + 1}
                   </div>
                   
                   <CardHeader className="pb-3 relative z-10">
-                    <CardTitle className="text-xl text-white group-hover:text-purple-200 transition-colors duration-300 pr-10">
+                    <CardTitle className="text-xl text-white group-hover:text-emerald-200 transition-colors duration-300 pr-10">
                       {topic.title}
                     </CardTitle>
                     {topic.description && (
@@ -361,20 +243,20 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                           <Badge 
                             key={tag} 
                             variant="outline" 
-                            className="text-xs bg-white/10 border-white/30 text-gray-200 hover:bg-white/20 transition-colors duration-300"
+                            className="text-xs bg-white/5 border-white/20 text-gray-200 hover:bg-white/10 transition-colors duration-300"
                           >
                             {tag}
                           </Badge>
                         ))}
                         {topic.tags.length > 3 && (
-                          <Badge variant="outline" className="text-xs bg-white/10 border-white/30 text-gray-400">
+                          <Badge variant="outline" className="text-xs bg-white/5 border-white/20 text-gray-400">
                             +{topic.tags.length - 3}
                           </Badge>
                         )}
                       </div>
                       
                       <Button 
-                        className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform group-hover:scale-105" 
+                        className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform group-hover:scale-105" 
                         asChild
                       >
                         <a href={`/topic/${topic.date}`} className="flex items-center justify-center">
@@ -398,13 +280,13 @@ export default function TopicGrid({ topics }: TopicGridProps) {
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
           >
-            <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 max-w-md mx-auto border border-white/20">
+            <div className="bg-white/5 backdrop-blur-lg rounded-3xl p-12 max-w-md mx-auto border border-white/10">
               <BookOpen className="mx-auto mb-6 w-16 h-16 text-gray-400" />
               <h3 className="text-2xl font-bold text-white mb-3">No topics found</h3>
               <p className="text-gray-300 mb-6">Try adjusting your search or filters to discover more content.</p>
               <Button 
                 onClick={clearAllFilters}
-                className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700"
               >
                 Clear All Filters
               </Button>
