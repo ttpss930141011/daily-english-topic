@@ -1,6 +1,6 @@
 {
   "reddit": {
-    "comment_limit": 8,
+    "comment_limit": 20,
     "subreddit": "AskReddit",
     "post_limit": 1
   },
