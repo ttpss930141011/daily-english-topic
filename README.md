@@ -160,7 +160,7 @@ GitHub Actions runs daily topic generation:
 2. **AI Analysis**: LangChain + Azure OpenAI processes content
 3. **Structured Output**: Pydantic models ensure consistent formatting
 4. **Quality Assurance**: Validates generated content structure
-5. **Deployment**: Commits and deploys to GitHub Pages
+5. **Deployment**: Commits and auto-deploys to Vercel
 
 ## 🔐 Reddit API Setup
 
@@ -178,7 +178,7 @@ Automatically uses basic HTTP requests when OAuth unavailable.
 
 ## 🌐 Live Demo
 
-Visit: [Daily English Topics](https://ttpss930141011.github.io/daily-english-topic/)
+Visit: [Daily English Topics](https://daily-english-topic.vercel.app/) <!-- Update with your actual Vercel domain -->
 
 ### Sample Pages
 - **Homepage**: Browse all topics with filtering and search
@@ -205,7 +205,7 @@ npm run build
 - **Frontend**: Next.js 15, TypeScript, Tailwind CSS, Framer Motion
 - **Backend**: Python, LangChain, Pydantic, Azure OpenAI
 - **UI Components**: Radix UI, Lucide React icons
-- **Deployment**: GitHub Pages, GitHub Actions
+- **Deployment**: Vercel, GitHub Actions
 
 ## 📊 Content Quality
 

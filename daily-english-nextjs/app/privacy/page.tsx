@@ -48,11 +48,11 @@ export default function PrivacyPage() {
             <h2 className="text-2xl font-semibold text-white mb-4">Third-Party Services</h2>
             <div className="space-y-4">
               <div>
-                <h3 className="text-lg font-medium text-purple-300 mb-2">GitHub Pages</h3>
+                <h3 className="text-lg font-medium text-purple-300 mb-2">Vercel Hosting</h3>
                 <p className="text-gray-300 text-sm">
-                  This website is hosted on GitHub Pages. Please refer to 
-                  <a href="https://docs.github.com/en/site-policy/privacy-policies/github-privacy-statement" 
-                     className="text-blue-400 hover:text-blue-300 transition-colors"> GitHub&apos;s Privacy Policy</a> 
+                  This website is hosted on Vercel. Please refer to 
+                  <a href="https://vercel.com/legal/privacy-policy" 
+                     className="text-blue-400 hover:text-blue-300 transition-colors"> Vercel&apos;s Privacy Policy</a> 
                   for information about their data handling practices.
                 </p>
               </div>
