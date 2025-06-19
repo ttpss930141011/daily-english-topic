@@ -31,9 +31,9 @@ export default function HomePage() {
             <a href="https://github.com/ttpss930141011/daily-english-topic" className="hover:text-white transition-colors">
               <i className="fab fa-github mr-1"></i>GitHub
             </a>
-            <a href="#" className="hover:text-white transition-colors">About</a>
-            <a href="#" className="hover:text-white transition-colors">Privacy</a>
-            <a href="#" className="hover:text-white transition-colors">Terms</a>
+            <a href="/about" className="hover:text-white transition-colors">About</a>
+            <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
+            <a href="/terms" className="hover:text-white transition-colors">Terms</a>
           </div>
           <p className="mt-4 text-center text-sm">
             Updated on {new Date().toLocaleDateString()} • Powered by Reddit API & Azure OpenAI
