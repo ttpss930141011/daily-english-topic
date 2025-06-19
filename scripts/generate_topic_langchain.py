@@ -189,7 +189,7 @@ if __name__ == "__main__":
         api_version=API_VERSION,
         api_key=API_KEY,
         temperature=0.7,
-        max_tokens=config["llm"]["max_tokens"]
+        max_completion_tokens=config["llm"]["max_tokens"]
     )
     
     # Create parser and get format instructions
