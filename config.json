@@ -5,7 +5,7 @@
     "post_limit": 1
   },
   "output": {
-    "posts_directory": "posts",
+    "posts_directory": "daily-english-nextjs/posts",
     "docs_directory": "docs",
     "filename_format": "{title}-{date}.md"
   },

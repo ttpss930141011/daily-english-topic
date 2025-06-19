@@ -1,3 +1,5 @@
+'use client'
+
 import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -5,14 +7,13 @@ import { Topic, Slide, SlideViewerProps } from '@/types'
 import { slideVariants, slideTransition } from '@/lib'
 import { useKeyboardNavigation, useFullscreen } from '@/hooks'
 import { SlideHeader, SlideNavigation } from '@/components/slide'
-import InteractiveWord from '@/components/InteractiveWord'
 import WordPopup from '@/components/WordPopup'
 
 
-export default function SlideViewer({ 
-  topic, 
-  interactive = true, 
-  theme = 'light' 
+export default function SlideViewer({
+  topic,
+  interactive = true,
+  theme = 'light'
 }: SlideViewerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [selectedWord, setSelectedWord] = useState<string | null>(null)
@@ -22,27 +23,27 @@ export default function SlideViewer({
   const { isFullscreen, toggleFullscreen, exitFullscreen } = useFullscreen()
 
   const nextSlide = useCallback(() => {
-    setCurrentSlide(prev => Math.min(prev + 1, topic.slides.length - 1))
-  }, [topic.slides.length])
+    if (currentSlide < topic.slides.length - 1) {
+      setCurrentSlide(prev => prev + 1)
+    }
+  }, [currentSlide, topic.slides.length])
 
   const previousSlide = useCallback(() => {
-    setCurrentSlide(prev => Math.max(prev - 1, 0))
-  }, [])
+    if (currentSlide > 0) {
+      setCurrentSlide(prev => prev - 1)
+    }
+  }, [currentSlide])
 
   const goToSlide = useCallback((index: number) => {
-    setCurrentSlide(Math.max(0, Math.min(index, topic.slides.length - 1)))
-  }, [topic.slides.length])
-  
-  // Use keyboard navigation hook
+    setCurrentSlide(index)
+  }, [])
+
+  // Keyboard navigation
   useKeyboardNavigation({
     onNext: nextSlide,
     onPrevious: previousSlide,
-    onHome: () => setCurrentSlide(0),
-    onEnd: () => setCurrentSlide(topic.slides.length - 1),
     onEscape: () => {
-      if (selectedWord) {
-        setSelectedWord(null)
-      } else if (isFullscreen) {
+      if (isFullscreen) {
         exitFullscreen()
       }
     },
@@ -52,7 +53,7 @@ export default function SlideViewer({
 
   const handleWordClick = useCallback((word: string, event: React.MouseEvent) => {
     if (!interactive) return
-    
+
     setSelectedWord(word)
     setWordPosition({ x: event.clientX, y: event.clientY })
   }, [interactive])
@@ -65,17 +66,17 @@ export default function SlideViewer({
 
     // Parse and render with interactive words
     let html = marked(slide.content) as string
-    
+
     // Add interactive word spans
     slide.interactiveWords?.forEach(wordObj => {
       const regex = new RegExp(`\\b${wordObj.word}\\b`, 'gi')
-      html = html.replace(regex, (match) => 
+      html = html.replace(regex, (match) =>
         `<span class="interactive-word" data-word="${wordObj.word.toLowerCase()}">${match}</span>`
       )
     })
 
     return (
-      <div 
+      <div
         dangerouslySetInnerHTML={{ __html: html }}
         onClick={(e) => {
           const target = e.target as HTMLElement
@@ -86,6 +87,7 @@ export default function SlideViewer({
             }
           }
         }}
+        className="slide-content"
       />
     )
   }
@@ -108,9 +110,9 @@ export default function SlideViewer({
       <AnimatePresence>
         {!isFullscreen && (
           <SlideHeader
-            title={topic.title}
             currentSlide={currentSlide}
             totalSlides={topic.slides.length}
+            title={topic.title}
             onFullscreen={toggleFullscreen}
             onBack={() => window.history.back()}
           />
@@ -148,25 +150,12 @@ export default function SlideViewer({
         <WordPopup
           word={selectedWord}
           position={wordPosition}
-          onClose={() => setSelectedWord(null)}
+          onClose={() => {
+            setSelectedWord(null)
+            setWordPosition(null)
+          }}
         />
       )}
-
-      {/* Keyboard Shortcuts Help */}
-      <AnimatePresence>
-        {isFullscreen && (
-          <motion.div 
-            className="keyboard-help"
-            initial={{ y: 50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            exit={{ y: 50, opacity: 0 }}
-          >
-            <div className="help-text">
-              ← → Navigation | F Fullscreen | ESC Exit
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
     </motion.div>
   )
 }
