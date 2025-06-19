@@ -38,20 +38,20 @@ export default function HomePage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="loading-container">
         <LoadingSpinner size="lg" />
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen">
+    <div>
       <HomeHeader topicsCount={topics.length} />
       
-      <main className="container mx-auto px-4 pb-20">
+      <main className="main-content">
         {/* Category Filter */}
         <motion.div 
-          className="flex flex-wrap justify-center gap-3 mb-12"
+          className="filter-container"
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
@@ -60,11 +60,23 @@ export default function HomePage() {
             <button
               key={category}
               onClick={() => setSelectedCategory(category)}
-              className={`px-6 py-2 rounded-full text-sm font-medium transition-all ${
-                selectedCategory === category
-                  ? 'bg-white text-gray-900 shadow-lg scale-105'
-                  : 'bg-white/10 text-white/80 hover:bg-white/20'
+              className={`filter-button ${
+                selectedCategory === category ? 'active' : ''
               }`}
+              style={{
+                padding: '0.5rem 1.5rem',
+                borderRadius: '9999px',
+                fontSize: '0.875rem',
+                fontWeight: '500',
+                transition: 'all 0.2s',
+                background: selectedCategory === category 
+                  ? 'linear-gradient(135deg, #6366f1, #8b5cf6)'
+                  : 'rgba(255, 255, 255, 0.1)',
+                color: selectedCategory === category ? 'white' : 'rgba(255, 255, 255, 0.8)',
+                border: '1px solid transparent',
+                transform: selectedCategory === category ? 'scale(1.05)' : 'scale(1)',
+                cursor: 'pointer'
+              }}
             >
               {category.charAt(0).toUpperCase() + category.slice(1)}
             </button>
@@ -76,7 +88,11 @@ export default function HomePage() {
           variants={staggerContainer}
           initial="hidden"
           animate="show"
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+          style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(350px, 1fr))',
+            gap: '2rem'
+          }}
         >
           {filteredTopics.map((topic, index) => (
             <motion.div key={topic.date} variants={fadeInUp}>
@@ -95,9 +111,13 @@ export default function HomePage() {
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-20"
+            style={{
+              textAlign: 'center',
+              padding: '5rem 0',
+              gridColumn: '1 / -1'
+            }}
           >
-            <p className="text-white/60 text-lg">
+            <p style={{ color: 'rgba(255, 255, 255, 0.6)', fontSize: '1.125rem' }}>
               No topics found in this category.
             </p>
           </motion.div>

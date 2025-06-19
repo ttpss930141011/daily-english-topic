@@ -41,7 +41,7 @@ export default function TopicPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="loading-container" style={{ minHeight: '100vh' }}>
         <LoadingSpinner size="lg" />
       </div>
     )
@@ -50,18 +50,20 @@ export default function TopicPage() {
   if (error || !topic) {
     return (
       <motion.div 
-        className="min-h-screen flex items-center justify-center"
+        className="loading-container"
+        style={{ minHeight: '100vh' }}
         variants={fadeIn}
         initial="hidden"
         animate="show"
       >
         <div className="text-center">
-          <h2 className="text-2xl font-bold mb-4">
+          <h2 style={{ fontSize: '1.5rem', fontWeight: 'bold', marginBottom: '1rem', color: '#f1f5f9' }}>
             {error || 'Topic not found'}
           </h2>
           <button
             onClick={() => router.push('/')}
-            className="px-6 py-3 bg-white/10 hover:bg-white/20 rounded-lg transition-colors"
+            className="back-button"
+            style={{ fontSize: '1rem' }}
           >
             Back to Home
           </button>
@@ -72,7 +74,6 @@ export default function TopicPage() {
 
   return (
     <motion.div
-      className="min-h-screen"
       variants={fadeIn}
       initial="hidden"
       animate="show"
