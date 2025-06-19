@@ -1,26 +1,23 @@
 # Daily English Topics
 
-An automated English learning platform that generates daily discussion topics from Reddit's most popular posts, presented as interactive slides.
+An automated English learning platform that generates daily discussion topics from Reddit's most popular posts, presented as interactive slide presentations.
 
 ## 🌟 Features
 
-- **Automated Content Generation**: Fetches hot posts from r/AskReddit daily using Reddit API
-- **OAuth Authentication**: Supports Reddit OAuth to bypass IP blocking in CI environments  
-- **Interactive Learning Slides**: Converts content to engaging Marp presentations
-- **Comprehensive Learning Materials**: Each topic includes:
-  - Vocabulary and phrases analysis
-  - Cultural context explanations
-  - Grammar points and usage examples
-  - Extension activities for practice
-- **Organized Archive**: All topics stored with descriptive slugified filenames
-- **Responsive Web Interface**: Clean, mobile-friendly topic browser
+- **Modern Next.js Interface**: Interactive slide viewer with navigation and search
+- **Automated Content Generation**: Daily topics from Reddit's r/AskReddit using LangChain + Azure OpenAI
+- **Structured Learning Materials**: Each topic includes vocabulary, grammar, cultural context, and practice activities
+- **Advanced Filtering**: Filter by tags, categories, and difficulty levels with date sorting
+- **Interactive Slide Navigation**: Smooth slide transitions with keyboard shortcuts and progress tracking
+- **Responsive Design**: Mobile-friendly interface with modern UI/UX
+- **OAuth Authentication**: Robust Reddit API integration with fallback mechanisms
 
 ## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.x
-- Node.js (for Marp CLI)
+- Python 3.x with LangChain support
+- Node.js 18+ and npm
 - Azure OpenAI API access
 - Reddit API credentials (optional, for OAuth)
 
@@ -32,81 +29,143 @@ An automated English learning platform that generates daily discussion topics fr
    cd daily-english-topic
    ```
 
-2. **Install dependencies**
+2. **Install Python dependencies**
    ```bash
-   # Python dependencies
-   pip install openai requests
-   
-   # Node.js dependencies  
-   npm install -g @marp-team/marp-cli
+   pip install openai langchain-openai pydantic requests
    ```
 
-3. **Configure environment variables**
+3. **Install and setup Next.js frontend**
+   ```bash
+   cd daily-english-nextjs
+   npm install
+   npm run build
+   ```
+
+4. **Configure environment variables**
    ```bash
    export AZURE_API_KEY="your-azure-openai-key"
    export REDDIT_CLIENT_ID="your-reddit-client-id"     # Optional
    export REDDIT_CLIENT_SECRET="your-reddit-secret"    # Optional
    ```
 
-4. **Generate a topic**
+5. **Generate a topic**
    ```bash
-   python scripts/generate_topic.py
+   python scripts/generate_topic_langchain.py
    ```
 
-5. **Build HTML slides**
+6. **Start the development server**
    ```bash
-   bash scripts/build_html.sh
+   cd daily-english-nextjs
+   npm run dev
    ```
 
 ## 📁 Project Structure
 
 ```
 daily-english-topic/
-├── posts/                          # Generated topic markdown files
-│   └── {slug}-{ddmmyyyy}.md        # Format: what-is-your-biggest-regret-15062025.md
-├── docs/                           # Generated HTML presentations
-│   ├── {mmddyyyy}/index.html       # Daily slide presentations
-│   └── index.html                  # Topic archive browser
+├── daily-english-nextjs/           # Next.js frontend application
+│   ├── app/                        # App router pages
+│   │   ├── about/                  # About page
+│   │   ├── privacy/                # Privacy policy
+│   │   ├── terms/                  # Terms of service
+│   │   └── topic/[date]/           # Dynamic topic pages
+│   ├── components/                 # React components
+│   │   ├── TopicGrid.tsx          # Main topic browser with filtering
+│   │   ├── SlideViewer.tsx        # Interactive slide presentation
+│   │   └── BuyMeACoffeeButton.tsx # Support button
+│   ├── lib/                       # Utility functions
+│   │   └── topics.ts              # Topic data parsing and management
+│   └── posts/                     # Generated markdown content
 ├── scripts/
-│   ├── generate_topic.py           # Main topic generation script
-│   ├── reddit_oauth.py             # Reddit OAuth authentication
-│   ├── build_html.sh              # HTML build script
-│   ├── update_index.py             # Archive index generator
-│   └── debug_ci.py                 # CI debugging utilities
+│   ├── generate_topic_langchain.py # LangChain-powered topic generation
+│   ├── reddit_oauth.py            # Reddit OAuth authentication
+│   └── debug_ci.py                # CI debugging utilities
 ├── .github/workflows/daily.yml     # Automated daily generation
 ├── config.json                     # Configuration settings
-├── prompt.txt                      # LLM prompt template
+├── prompt_langchain.txt            # Structured LLM prompt template
 └── CLAUDE.md                       # Development guidelines
 ```
 
 ## ⚙️ Configuration
 
-Edit `config.json` to customize the behavior:
+Edit `config.json` to customize behavior:
 
 ```json
 {
   "reddit": {
-    "comment_limit": 8,              # Number of comments to fetch
+    "comment_limit": 20,             # Number of comments to analyze
     "subreddit": "AskReddit",        # Target subreddit
-    "post_limit": 1                  # Number of posts to fetch
+    "post_limit": 1                  # Posts to fetch per run
   },
   "output": {
-    "posts_directory": "posts",      # Markdown output directory
-    "docs_directory": "docs",        # HTML output directory  
-    "filename_format": "{title}-{date}.md"  # File naming pattern
+    "posts_directory": "daily-english-nextjs/posts",
+    "docs_directory": "docs",        # Legacy HTML output
+    "filename_format": "{title}-{date}.md"
   },
   "llm": {
-    "max_tokens": 100000,           # Maximum response length
+    "max_tokens": 100000,           # Token limit for responses
     "model": "o4-mini"              # Azure OpenAI model
   }
 }
 ```
 
+## 🎯 Topic Format & Structure
+
+Each generated topic follows a comprehensive educational structure:
+
+### Content Sections
+- **Link**: Original Reddit discussion
+- **Topic Introduction**: Context and learning relevance
+- **Learning Points**: 
+  - Colloquial phrases & idioms
+  - Internet slang & abbreviations  
+  - Grammar patterns with examples
+- **Pronunciation Practice**: Phonetic guides and stress patterns
+- **Discussion Questions**: Open-ended conversation starters
+- **Template Answers**: Example responses using lesson vocabulary
+- **Cultural Context**: Background explanations and cultural insights
+- **Extension Activity**: Practical role-play and practice exercises
+
+### Metadata Structure
+```yaml
+---
+title: "Topic Title"
+category: "Discussion|Language|Lifestyle|Ethics|Career|General"
+date: "YYYY-MM-DD"
+subreddit: "AskReddit"
+tags: ["tag1", "tag2", "tag3"]
+difficulty: "beginner|intermediate|advanced"
+---
+```
+
+## 🎨 User Interface Features
+
+### Topic Browser
+- **Smart Filtering**: Filter by category, tags, and difficulty
+- **Date Sorting**: Sort topics by newest/oldest first
+- **Search Functionality**: Find topics by title or content
+- **Responsive Cards**: Beautiful topic cards with metadata display
+
+### Slide Viewer
+- **Interactive Navigation**: Arrow keys, click navigation, and progress dots
+- **Fullscreen Mode**: Distraction-free presentation view
+- **Responsive Design**: Optimized for all screen sizes
+- **Support Integration**: Buy Me a Coffee button on final slides
+
+## 🤖 Automated Generation
+
+GitHub Actions runs daily topic generation:
+
+1. **Content Discovery**: Fetches trending Reddit discussions
+2. **AI Analysis**: LangChain + Azure OpenAI processes content
+3. **Structured Output**: Pydantic models ensure consistent formatting
+4. **Quality Assurance**: Validates generated content structure
+5. **Deployment**: Commits and deploys to GitHub Pages
+
 ## 🔐 Reddit API Setup
 
-### Option 1: OAuth Authentication (Recommended for CI)
-
-1. Create a Reddit app at https://www.reddit.com/prefs/apps
+### OAuth Authentication (Recommended)
+1. Create Reddit app at https://www.reddit.com/prefs/apps
 2. Choose "script" type application
 3. Set environment variables:
    ```bash
@@ -114,89 +173,55 @@ Edit `config.json` to customize the behavior:
    export REDDIT_CLIENT_SECRET="your-app-secret"
    ```
 
-### Option 2: Basic HTTP Requests
-
-The system automatically falls back to basic requests when OAuth credentials are unavailable. Note that this may be blocked by Reddit in some CI environments.
-
-## 🤖 Automated Generation
-
-GitHub Actions automatically generates new topics daily at midnight UTC. The workflow:
-
-1. Fetches the hottest post from r/AskReddit
-2. Retrieves top comments for context
-3. Generates educational content using Azure OpenAI
-4. Creates Marp presentation slides
-5. Updates the topic archive
-6. Commits and publishes to GitHub Pages
-
-## 📚 Topic Format
-
-Each generated topic follows a structured format optimized for English learners:
-
-### Content Sections
-- **Link**: Original Reddit discussion
-- **Topic Introduction**: Context and relevance
-- **Learning Points**: Vocabulary, idioms, slang, grammar
-- **Cultural Context**: Background information
-- **Extension Activity**: Practice exercises
-
-### File Naming Convention
-- **Markdown**: `posts/{slug}-{ddmmyyyy}.md`
-- **HTML**: `docs/{mmddyyyy}/index.html`  
-- **Display**: Humanized titles in archive
-
-Example: `posts/what-is-your-biggest-regret-15062025.md` → "What Is Your Biggest Regret"
-
-## 🛠️ Development
-
-### Adding New Features
-
-1. Check `CLAUDE.md` for development guidelines
-2. Update configuration in `config.json` if needed
-3. Test locally before deploying
-4. Follow conventional commit format
-
-### Debugging
-
-Use the debug script to troubleshoot issues:
-
-```bash
-python scripts/debug_ci.py
-```
-
-This script provides detailed information about:
-- Environment variables
-- File structure
-- API connectivity
-- Configuration validation
-
-## 📖 Usage Examples
-
-### Manual Topic Generation
-```bash
-# Generate today's topic
-python scripts/generate_topic.py
-
-# Build HTML presentation
-bash scripts/build_html.sh
-
-# Update topic archive
-python scripts/update_index.py
-```
-
-### Custom Subreddit
-Modify `config.json` to fetch from different subreddits:
-```json
-{
-  "reddit": {
-    "subreddit": "explainlikeimfive"
-  }
-}
-```
+### Fallback Mode
+Automatically uses basic HTTP requests when OAuth unavailable.
 
 ## 🌐 Live Demo
 
-Visit the live site: [Daily English Topics](https://ttpss930141011.github.io/daily-english-topic/)
+Visit: [Daily English Topics](https://ttpss930141011.github.io/daily-english-topic/)
+
+### Sample Pages
+- **Homepage**: Browse all topics with filtering and search
+- **About**: Project information and technology details
+- **Privacy**: Data handling and privacy policy
+- **Terms**: Usage terms and content licensing
+
+## 🛠️ Development
+
+### Local Development
+```bash
+# Backend: Generate new content
+python scripts/generate_topic_langchain.py
+
+# Frontend: Start development server
+cd daily-english-nextjs
+npm run dev
+
+# Build for production
+npm run build
+```
+
+### Key Technologies
+- **Frontend**: Next.js 15, TypeScript, Tailwind CSS, Framer Motion
+- **Backend**: Python, LangChain, Pydantic, Azure OpenAI
+- **UI Components**: Radix UI, Lucide React icons
+- **Deployment**: GitHub Pages, GitHub Actions
+
+## 📊 Content Quality
+
+The LangChain integration ensures high-quality educational content:
+
+- **Structured Parsing**: Pydantic models validate output format
+- **Authentic Language**: Direct extraction from real conversations
+- **Educational Focus**: Systematic coverage of vocabulary, grammar, and culture
+- **Consistency**: Template-driven generation for uniform quality
+
+## ☕ Support
+
+If you find this project helpful, consider supporting it:
+- [Buy me a coffee](https://coff.ee/o927416847f) ☕
+- ⭐ Star this repository
+- 🐛 Report issues or suggest features
 
 ## 📄 License
 
@@ -204,8 +229,19 @@ This project is open source and available under the [MIT License](LICENSE).
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
+Contributions welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
-## 📧 Support
+For major changes, open an issue first to discuss your ideas.
 
-If you encounter any issues or have questions, please [open an issue](https://github.com/ttpss930141011/daily-english-topic/issues) on GitHub.
+## 📧 Support & Issues
+
+- [GitHub Issues](https://github.com/ttpss930141011/daily-english-topic/issues)
+- [Discussions](https://github.com/ttpss930141011/daily-english-topic/discussions)
+
+---
+
+**Made with ❤️ for English learners worldwide**

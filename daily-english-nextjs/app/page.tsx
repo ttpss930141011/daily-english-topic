@@ -1,5 +1,7 @@
 import { getAllTopics, Topic } from '@/lib/topics'
 import TopicGrid from '@/components/TopicGrid'
+import BuyMeACoffeeButton from '@/components/BuyMeACoffeeButton'
+import Link from 'next/link'
 
 export default function HomePage() {
   const topics: Topic[] = getAllTopics()
@@ -22,6 +24,11 @@ export default function HomePage() {
       {/* Main Content */}
       <main className="relative z-10">
         <TopicGrid topics={topics} />
+        
+        {/* Buy Me a Coffee Section */}
+        <div className="max-w-7xl mx-auto px-6 pb-16">
+          <BuyMeACoffeeButton />
+        </div>
       </main>
 
       {/* Footer */}
@@ -31,9 +38,9 @@ export default function HomePage() {
             <a href="https://github.com/ttpss930141011/daily-english-topic" className="hover:text-white transition-colors">
               <i className="fab fa-github mr-1"></i>GitHub
             </a>
-            <a href="/about" className="hover:text-white transition-colors">About</a>
-            <a href="/privacy" className="hover:text-white transition-colors">Privacy</a>
-            <a href="/terms" className="hover:text-white transition-colors">Terms</a>
+            <Link href="/about" className="hover:text-white transition-colors">About</Link>
+            <Link href="/privacy" className="hover:text-white transition-colors">Privacy</Link>
+            <Link href="/terms" className="hover:text-white transition-colors">Terms</Link>
           </div>
           <p className="mt-4 text-center text-sm">
             Updated on {new Date().toLocaleDateString()} • Powered by Reddit API & Azure OpenAI

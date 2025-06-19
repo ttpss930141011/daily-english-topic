@@ -4,7 +4,6 @@ import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
 import { Topic, Slide } from '@/lib/topics'
 import WordPopup from '@/components/WordPopup'
-import BuyMeACoffeeButton from '@/components/BuyMeACoffeeButton'
 
 interface SlideViewerProps {
   topic: Topic
@@ -229,12 +228,6 @@ export default function SlideViewer({
         />
       </div>
 
-      {/* Buy Me a Coffee Button - Show on last slide */}
-      {currentSlide === topic.slides.length - 1 && !isFullscreen && (
-        <div className="px-8 py-6">
-          <BuyMeACoffeeButton />
-        </div>
-      )}
 
       {/* Word Popup */}
       {selectedWord && wordPosition && (
