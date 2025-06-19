@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * AnimatedBackground Component
  * Renders animated particles and gradient orbs that respond to mouse movement

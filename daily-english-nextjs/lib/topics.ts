@@ -8,9 +8,9 @@ import { Topic, Slide, InteractiveWord } from '@/types'
 // Re-export for backward compatibility
 export type { Topic, Slide, InteractiveWord }
 
-const POSTS_DIRECTORY = path.join(process.cwd(), 'posts')
+const POSTS_DIRECTORY = path.join(process.cwd(), '..', 'posts')
 
-export async function getAllTopics(): Promise<Topic[]> {
+export function getAllTopics(): Topic[] {
   try {
     // Check if posts directory exists
     if (!fs.existsSync(POSTS_DIRECTORY)) {
@@ -19,25 +19,26 @@ export async function getAllTopics(): Promise<Topic[]> {
     }
 
     const fileNames = fs.readdirSync(POSTS_DIRECTORY)
-    const topics = await Promise.all(
-      fileNames
-        .filter(fileName => fileName.endsWith('.md'))
-        .map(async fileName => {
-          const topic = await getTopicFromFile(fileName)
-          return topic
-        })
-    )
+    const topics = fileNames
+      .filter(fileName => fileName.endsWith('.md'))
+      .map(fileName => getTopicFromFile(fileName))
+      .filter(Boolean) as Topic[]
 
-    return topics.filter(Boolean) as Topic[]
+    // Sort by date, newest first
+    return topics.sort((a, b) => {
+      const dateA = parseDateString(a.date)
+      const dateB = parseDateString(b.date)
+      return dateB.getTime() - dateA.getTime()
+    })
   } catch (error) {
     console.error('Error loading topics:', error)
     return []
   }
 }
 
-export async function getTopicByDate(date: string): Promise<Topic | null> {
+export function getTopicByDate(date: string): Topic | null {
   try {
-    const topics = await getAllTopics()
+    const topics = getAllTopics()
     return topics.find(topic => topic.date === date) || null
   } catch (error) {
     console.error('Error getting topic by date:', error)
@@ -45,7 +46,7 @@ export async function getTopicByDate(date: string): Promise<Topic | null> {
   }
 }
 
-async function getTopicFromFile(fileName: string): Promise<Topic | null> {
+function getTopicFromFile(fileName: string): Topic | null {
   try {
     const fullPath = path.join(POSTS_DIRECTORY, fileName)
     const fileContents = fs.readFileSync(fullPath, 'utf8')
@@ -74,6 +75,7 @@ async function getTopicFromFile(fileName: string): Promise<Topic | null> {
       tags: data.tags || [],
       redditUrl: data.redditUrl || null,
       difficulty: data.difficulty || 'intermediate',
+      category: data.category || 'general',
       metadata: data || {}
     }
   } catch (error) {
@@ -156,4 +158,12 @@ function extractInteractiveWords(content: string): InteractiveWord[] {
   }
 
   return words
+}
+
+function parseDateString(dateStr: string): Date {
+  // Parse DDMMYYYY format
+  const day = parseInt(dateStr.substring(0, 2))
+  const month = parseInt(dateStr.substring(2, 4)) - 1 // Month is 0-indexed
+  const year = parseInt(dateStr.substring(4, 8))
+  return new Date(year, month, day)
 }

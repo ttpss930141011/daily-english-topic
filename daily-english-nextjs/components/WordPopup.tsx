@@ -248,7 +248,7 @@ export default function WordPopup({ word, position, onClose }: WordPopupProps) {
 
                 {definition.meanings[0].definitions[0].example && (
                   <div className="popup-example">
-                    \"{definition.meanings[0].definitions[0].example}\"
+                    &ldquo;{definition.meanings[0].definitions[0].example}&rdquo;
                   </div>
                 )}
               </motion.div>

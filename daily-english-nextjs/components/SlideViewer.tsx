@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Topic, Slide, SlideViewerProps } from '@/types'
+import { Slide, SlideViewerProps } from '@/types'
 import { slideVariants, slideTransition } from '@/lib'
 import { useKeyboardNavigation, useFullscreen } from '@/hooks'
 import { SlideHeader, SlideNavigation } from '@/components/slide'

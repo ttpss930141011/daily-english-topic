@@ -13,6 +13,7 @@ export interface Topic {
   tags: string[]
   redditUrl: string | null
   difficulty: 'beginner' | 'intermediate' | 'advanced'
+  category?: string
   metadata: Record<string, any>
 }
 

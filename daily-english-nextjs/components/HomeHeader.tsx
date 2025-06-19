@@ -1,3 +1,5 @@
+'use client'
+
 /**
  * HomeHeader Component
  * Displays the main header with animated title and statistics
