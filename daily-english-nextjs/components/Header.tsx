@@ -3,7 +3,8 @@ import { usePathname } from 'next/navigation';
 
 export default function Header() {
     const pathname = usePathname();
-    if (pathname.startsWith('/topic/')) {
+    // 對於主頁，不顯示 Header，讓 TopicGrid 來處理英雄部分
+    if (pathname === '/' || pathname.startsWith('/topic/')) {
         return null;
     }
     return (
@@ -15,20 +16,6 @@ export default function Header() {
                 <p className="mt-4 text-lg text-white/80">
                     Learn English through interactive slide presentations from Reddit discussions.
                 </p>
-                <div className="mt-10 grid grid-cols-1 sm:grid-cols-3 gap-6">
-                    <div className="p-6 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <div className="text-3xl font-bold">13</div>
-                        <div className="mt-1 text-sm uppercase text-white/80">Total Topics</div>
-                    </div>
-                    <div className="p-6 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <div className="text-3xl font-bold">Daily</div>
-                        <div className="mt-1 text-sm uppercase text-white/80">New Content</div>
-                    </div>
-                    <div className="p-6 bg-white/10 rounded-lg backdrop-blur-sm">
-                        <div className="text-3xl font-bold">100%</div>
-                        <div className="mt-1 text-sm uppercase text-white/80">Free Access</div>
-                    </div>
-                </div>
             </div>
         </header>
     );

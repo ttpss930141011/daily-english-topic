@@ -13,8 +13,7 @@ interface SlideViewerProps {
 
 export default function SlideViewer({
   topic,
-  interactive = true,
-  theme = 'light'
+  interactive = true
 }: SlideViewerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -143,21 +142,27 @@ export default function SlideViewer({
   }, [])
 
   return (
-    <div className={`slide-viewer ${theme} ${isFullscreen ? 'fullscreen' : ''}`}>
+    <div className={`h-screen flex flex-col bg-slate-800 text-white ${isFullscreen ? 'fixed top-0 left-0 w-screen z-[9999]' : ''}`}>
       {/* Navigation Header */}
       {!isFullscreen && (
-        <header className="slide-header">
-          <div className="slide-info">
-            <h1>{topic.title}</h1>
-            <div className="slide-progress">
+        <header className="bg-black/10 backdrop-blur-lg px-8 py-4 flex justify-between items-center">
+          <div>
+            <h1 className="text-2xl font-semibold mb-1">{topic.title}</h1>
+            <div className="text-slate-400 text-sm">
               Slide {currentSlide + 1} of {topic.slides.length}
             </div>
           </div>
-          <div className="slide-controls">
-            <button onClick={toggleFullscreen} className="control-btn">
+          <div className="flex gap-4">
+            <button 
+              onClick={toggleFullscreen} 
+              className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all duration-200 border-none cursor-pointer"
+            >
               🔳 Fullscreen
             </button>
-            <button onClick={() => window.history.back()} className="control-btn">
+            <button 
+              onClick={() => window.history.back()} 
+              className="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all duration-200 border-none cursor-pointer"
+            >
               ← Back
             </button>
           </div>
@@ -165,14 +170,18 @@ export default function SlideViewer({
       )}
 
       {/* Main Slide Display */}
-      <main className="slide-container">
-        <div className={`slide slide-${currentSlideData.type}`}>
+      <main className="flex-1 flex items-center justify-center relative p-8">
+        <div className="max-w-4xl w-full aspect-video bg-white text-slate-800 rounded-2xl p-12 flex flex-col justify-center shadow-2xl text-xl leading-relaxed">
           {renderSlideContent(currentSlideData)}
         </div>
 
         {/* Navigation Arrows */}
         <button
-          className="nav-arrow nav-prev"
+          className={`absolute left-8 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full backdrop-blur-lg text-2xl flex items-center justify-center transition-all duration-200 border-none cursor-pointer
+            ${currentSlide === 0 
+              ? 'bg-white/5 text-white/30 cursor-not-allowed' 
+              : 'bg-white/10 hover:bg-white/20 text-white hover:scale-110'
+            }`}
           onClick={previousSlide}
           disabled={currentSlide === 0}
           aria-label="Previous slide"
@@ -180,7 +189,11 @@ export default function SlideViewer({
           ←
         </button>
         <button
-          className="nav-arrow nav-next"
+          className={`absolute right-8 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full backdrop-blur-lg text-2xl flex items-center justify-center transition-all duration-200 border-none cursor-pointer
+            ${currentSlide === topic.slides.length - 1 
+              ? 'bg-white/5 text-white/30 cursor-not-allowed' 
+              : 'bg-white/10 hover:bg-white/20 text-white hover:scale-110'
+            }`}
           onClick={nextSlide}
           disabled={currentSlide === topic.slides.length - 1}
           aria-label="Next slide"
@@ -190,11 +203,15 @@ export default function SlideViewer({
       </main>
 
       {/* Slide Navigation Dots */}
-      <nav className="slide-dots">
+      <nav className="flex justify-center gap-2 px-4 py-4">
         {topic.slides.map((_, index) => (
           <button
             key={index}
-            className={`dot ${index === currentSlide ? 'active' : ''}`}
+            className={`w-3 h-3 rounded-full transition-all duration-200 border-none cursor-pointer ${
+              index === currentSlide
+                ? 'bg-white scale-[1.2]'
+                : 'bg-white/30 hover:bg-white/60'
+            }`}
             onClick={() => goToSlide(index)}
             aria-label={`Go to slide ${index + 1}`}
           />
@@ -202,9 +219,9 @@ export default function SlideViewer({
       </nav>
 
       {/* Progress Bar */}
-      <div className="progress-bar">
+      <div className="h-1 bg-white/10">
         <div
-          className="progress-fill"
+          className="h-full bg-gradient-to-r from-indigo-500 to-purple-500 transition-all duration-300 ease-out"
           style={{ width: `${((currentSlide + 1) / topic.slides.length) * 100}%` }}
         />
       </div>
@@ -220,8 +237,8 @@ export default function SlideViewer({
 
       {/* Keyboard Shortcuts Help */}
       {isFullscreen && (
-        <div className="keyboard-help">
-          <div className="help-text">
+        <div className="fixed bottom-4 left-1/2 -translate-x-1/2 bg-black/50 backdrop-blur-lg text-white px-4 py-2 rounded-lg text-sm z-50">
+          <div className="text-center">
             ← → Navigation | F Fullscreen | ESC Exit
           </div>
         </div>

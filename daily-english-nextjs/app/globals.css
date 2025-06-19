@@ -517,3 +517,17 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Interactive Word Styles */
+.interactive-word {
+  cursor: pointer;
+  border-bottom: 1px dotted #6366f1;
+  transition: all 0.2s ease;
+  padding: 0 1px;
+}
+
+.interactive-word:hover {
+  background: rgba(99, 102, 241, 0.1);
+  border-bottom-color: #4f46e5;
+}
