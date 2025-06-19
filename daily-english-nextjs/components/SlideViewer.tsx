@@ -21,6 +21,36 @@ export default function SlideViewer({
   const [selectedWord, setSelectedWord] = useState<string | null>(null)
   const [wordPosition, setWordPosition] = useState<{ x: number; y: number } | null>(null)
 
+  // Define navigation functions first
+  const nextSlide = useCallback(() => {
+    setCurrentSlide(prev => Math.min(prev + 1, topic.slides.length - 1))
+  }, [topic.slides.length])
+
+  const previousSlide = useCallback(() => {
+    setCurrentSlide(prev => Math.max(prev - 1, 0))
+  }, [])
+
+  const goToSlide = useCallback((index: number) => {
+    setCurrentSlide(Math.max(0, Math.min(index, topic.slides.length - 1)))
+  }, [topic.slides.length])
+
+  const toggleFullscreen = useCallback(() => {
+    if (!document.fullscreenElement) {
+      document.documentElement.requestFullscreen()
+      setIsFullscreen(true)
+    } else {
+      document.exitFullscreen()
+      setIsFullscreen(false)
+    }
+  }, [])
+
+  const exitFullscreen = useCallback(() => {
+    if (document.fullscreenElement) {
+      document.exitFullscreen()
+      setIsFullscreen(false)
+    }
+  }, [])
+
   // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -57,36 +87,7 @@ export default function SlideViewer({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentSlide, topic.slides.length, selectedWord, isFullscreen])
-
-  const nextSlide = useCallback(() => {
-    setCurrentSlide(prev => Math.min(prev + 1, topic.slides.length - 1))
-  }, [topic.slides.length])
-
-  const previousSlide = useCallback(() => {
-    setCurrentSlide(prev => Math.max(prev - 1, 0))
-  }, [])
-
-  const goToSlide = useCallback((index: number) => {
-    setCurrentSlide(Math.max(0, Math.min(index, topic.slides.length - 1)))
-  }, [topic.slides.length])
-
-  const toggleFullscreen = useCallback(() => {
-    if (!document.fullscreenElement) {
-      document.documentElement.requestFullscreen()
-      setIsFullscreen(true)
-    } else {
-      document.exitFullscreen()
-      setIsFullscreen(false)
-    }
-  }, [])
-
-  const exitFullscreen = useCallback(() => {
-    if (document.fullscreenElement) {
-      document.exitFullscreen()
-      setIsFullscreen(false)
-    }
-  }, [])
+  }, [currentSlide, topic.slides.length, selectedWord, isFullscreen, nextSlide, previousSlide, toggleFullscreen, exitFullscreen])
 
   const handleWordClick = useCallback((word: string, event: React.MouseEvent) => {
     if (!interactive) return
