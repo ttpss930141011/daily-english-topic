@@ -3,6 +3,7 @@ marp: true
 category: Lifestyle
 tags: ["habits", "self-improvement", "life hacks", "productivity"]
 difficulty: intermediate
+date: "2025-06-13"
 ---
 
 ---

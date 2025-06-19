@@ -3,6 +3,7 @@ marp: true
 category: Lifestyle
 tags: ["daily life", "complaints", "pet peeves", "emotions"]
 difficulty: beginner
+date: "2025-06-08"
 ---
 
 ---

@@ -3,6 +3,7 @@ marp: true
 category: Language
 tags: ["language learning", "study habits", "daily routine", "education"]
 difficulty: beginner
+date: "2025-06-02"
 ---
 
 ---

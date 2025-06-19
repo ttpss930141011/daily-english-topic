@@ -3,6 +3,7 @@ marp: true
 category: Lifestyle
 tags: ["emotions", "pet peeves", "daily life", "complaints"]
 difficulty: beginner
+date: "2025-06-10"
 ---
 ## Link:
 https://www.reddit.com/r/AskReddit/comments/abcd12/what_small_things_annoy_you_irrationally

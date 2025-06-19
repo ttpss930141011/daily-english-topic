@@ -3,6 +3,7 @@ marp: true
 category: Ethics
 tags: ["public transport", "courtesy", "social norms", "parenting"]
 difficulty: intermediate
+date: "2025-06-11"
 ---
 ## Link:
 https://www.reddit.com/r/AmItheAsshole/comments/xyz123/aita_for_not_giving_up_my_seat_on_the_bus_to_a_crying/

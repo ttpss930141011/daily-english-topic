@@ -199,3 +199,19 @@ body {
   background: rgba(99, 102, 241, 0.1);
   border-bottom-color: #4f46e5;
 }
+
+/* Slide Content Styles */
+.slide-content {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.slide-content a {
+  word-break: break-all;
+  color: #3b82f6;
+  text-decoration: underline;
+}
+
+.slide-content a:hover {
+  color: #2563eb;
+}

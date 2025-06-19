@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Topic } from '@/lib/topics';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users, Calendar, BarChart3 } from 'lucide-react';
+import { Search, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users, Calendar, BarChart3, ArrowUp, ArrowDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -19,6 +19,8 @@ interface TopicGridProps {
 interface FilterState {
   tags: string[];
 }
+
+type SortOrder = 'asc' | 'desc';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -61,6 +63,7 @@ const heroVariants = {
 export default function TopicGrid({ topics }: TopicGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({ tags: [] });
+  const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -69,14 +72,20 @@ export default function TopicGrid({ topics }: TopicGridProps) {
 
   const allTags = Array.from(new Set(topics.flatMap(t => t.tags)));
 
-  const filteredTopics = topics.filter(topic => {
-    const matchesSearch =
-      topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (topic.description ?? '').toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTags =
-      filters.tags.length === 0 || filters.tags.some(tag => topic.tags.includes(tag));
-    return matchesSearch && matchesTags;
-  });
+  const filteredTopics = topics
+    .filter(topic => {
+      const matchesSearch =
+        topic.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        (topic.description ?? '').toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesTags =
+        filters.tags.length === 0 || filters.tags.some(tag => topic.tags.includes(tag));
+      return matchesSearch && matchesTags;
+    })
+    .sort((a, b) => {
+      const dateA = new Date(a.date).getTime();
+      const dateB = new Date(b.date).getTime();
+      return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
+    });
 
   const clearAllFilters = () => setFilters({ tags: [] });
 
@@ -225,6 +234,18 @@ export default function TopicGrid({ topics }: TopicGridProps) {
               </div>
               
               <div className="flex items-center space-x-3">
+                <Button
+                  variant="outline"
+                  onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+                >
+                  {sortOrder === 'desc' ? (
+                    <><ArrowDown className="w-4 h-4 mr-2" /> Newest First</>
+                  ) : (
+                    <><ArrowUp className="w-4 h-4 mr-2" /> Oldest First</>
+                  )}
+                </Button>
+                
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button 
@@ -235,11 +256,14 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                       Tags {filters.tags.length > 0 && `(${filters.tags.length})`}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-60 bg-gray-900/95 backdrop-blur-lg border-gray-700">
-                    <Command>
-                      <CommandInput placeholder="Filter tags..." className="text-white" />
-                      <CommandList>
-                        <CommandEmpty>No tags found.</CommandEmpty>
+                  <PopoverContent className="w-64 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
+                    <Command className="bg-transparent">
+                      <CommandInput 
+                        placeholder="Search tags..." 
+                        className="text-white placeholder:text-gray-400 border-gray-700" 
+                      />
+                      <CommandList className="max-h-64 overflow-y-auto">
+                        <CommandEmpty className="text-gray-400 py-4 text-center">No tags found.</CommandEmpty>
                         <CommandGroup>
                           {allTags.map(tag => (
                             <CommandItem
@@ -250,10 +274,13 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                                   : [...filters.tags, tag];
                                 setFilters({ tags: newTags });
                               }}
-                              className="text-gray-200 hover:bg-gray-800"
+                              className="text-gray-200 hover:bg-purple-600/20 hover:text-white cursor-pointer transition-colors"
                             >
-                              <Checkbox checked={filters.tags.includes(tag)} className="mr-2" />
-                              {tag}
+                              <Checkbox 
+                                checked={filters.tags.includes(tag)} 
+                                className="mr-2 border-gray-600 data-[state=checked]:bg-purple-600 data-[state=checked]:border-purple-600" 
+                              />
+                              <span className="capitalize">{tag}</span>
                             </CommandItem>
                           ))}
                         </CommandGroup>

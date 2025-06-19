@@ -51,12 +51,22 @@ function getTopicData(filename: string): Topic {
     }
   }
 
-  // Format date to YYYY-MM-DD
-  const formattedDate = `20${date.slice(4, 6)}-${date.slice(0, 2)}-${date.slice(2, 4)}`
+  // Format date from metadata if available, otherwise parse from filename
+  let formattedDate: string
+  if (data.date) {
+    // Use date from metadata (preferred)
+    formattedDate = data.date
+  } else {
+    // Parse from filename: MMDDYYYY format
+    const month = date.slice(0, 2)
+    const day = date.slice(2, 4)
+    const year = date.slice(4, 8)
+    formattedDate = `${year}-${month}-${day}`
+  }
 
   return {
     date: formattedDate,
-    title,
+    title: data.title || title,  // Prefer title from metadata
     tags: data.tags || [],
     category: data.category,
     difficulty: data.difficulty,

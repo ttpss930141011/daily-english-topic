@@ -171,8 +171,10 @@ export default function SlideViewer({
 
       {/* Main Slide Display */}
       <main className="flex-1 flex items-center justify-center relative p-8">
-        <div className="max-w-4xl w-full aspect-video bg-white text-slate-800 rounded-2xl p-12 flex flex-col justify-center shadow-2xl text-xl leading-relaxed">
-          {renderSlideContent(currentSlideData)}
+        <div className="max-w-4xl w-full aspect-video bg-white text-slate-800 rounded-2xl p-12 flex flex-col justify-center shadow-2xl text-xl leading-relaxed overflow-hidden">
+          <div className="overflow-y-auto max-h-full slide-content">
+            {renderSlideContent(currentSlideData)}
+          </div>
         </div>
 
         {/* Navigation Arrows */}
