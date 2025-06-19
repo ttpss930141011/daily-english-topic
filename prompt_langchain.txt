@@ -1,4 +1,4 @@
-Create an engaging English learning topic based on the Reddit discussion provided below.
+Create an engaging English learning presentation based on the Reddit discussion provided below.
 
 {format_instructions}
 
@@ -9,46 +9,79 @@ Post text: {selftext}
 Top comments:
 {comments}
 
-Please generate comprehensive English learning content following this structure:
+IMPORTANT: You must format the content as a slide presentation with proper structure. Each section must be separated by "---" and follow the exact format shown below.
 
-1. **Topic Overview**
-   - Brief introduction to the discussion topic
-   - Why this topic is interesting for language learners
+Required Format (with "---" slide separators):
 
-2. **Key Vocabulary & Phrases**
-   - Extract 10-15 important words/phrases from the Reddit discussion
-   - Include definitions and example sentences
-   - Highlight any slang, idioms, or colloquialisms
+## Link:
+{permalink}
 
-3. **Grammar Focus**
-   - Identify 2-3 grammar patterns used in the discussion
-   - Explain each pattern with examples from the comments
-   - Provide practice exercises
+---
+## 1. Topic Introduction:
+[Brief introduction explaining the Reddit discussion topic and why it's interesting for English learners. Include specific context about slang, idioms, or real-life language usage. Keep it engaging and educational.]
 
-4. **Pronunciation Practice**
-   - Select 5-8 challenging words
-   - Include phonetic spelling
-   - Note common pronunciation mistakes
+---
+## 2. Learning Points:
 
-5. **Discussion Questions**
-   - Create 5-7 thought-provoking questions
-   - Include both simple and complex questions
-   - Provide vocabulary hints for answers
+---
 
-6. **Cultural Context**
-   - Explain any cultural references
-   - Discuss how this topic relates to different cultures
-   - Include interesting facts or statistics
+### 2.1 Common Colloquial Phrases & Idioms:
+- "[phrase]" → [clear definition with context]
+- "[phrase]" → [clear definition with context]
+- "[phrase]" → [clear definition with context]
+- "[phrase]" → [clear definition with context]
 
-7. **Practice Activities**
-   - Role-play scenarios
-   - Writing prompts
-   - Speaking exercises
-   - Interactive activities
+---
+
+### 2.2 Abbreviations & Internet Slang:
+- [ABBR] → "[full meaning]" ([context explanation])
+- [ABBR] → "[full meaning]" ([context explanation])
+- [ABBR] → "[full meaning]" ([context explanation])
+
+---
+### 2.3 Key Grammar & Sentence Patterns:
+1. [Grammar point name]:
+2. [Grammar point name]:
+
+- "[example from Reddit comments]"
+- "[example from Reddit comments]"
+- "[example from Reddit comments]"
+
+---
+## 3. Pronunciation & Intonation Practice:
+Practice these phrases with natural stress and intonation:
+
+- "[phrase from discussion]"
+- "[phrase from discussion]"
+- "[phrase from discussion]"
+- "[phrase from discussion]"
+
+---
+## 4. Open-Ended Discussion Questions:
+1. [Thoughtful question related to the topic and culture]
+2. [Question that encourages personal experience sharing]
+
+---
+## 5. Template Answers (Conversational English):
+Answer 1:
+"[Natural, conversational response using vocabulary from the lesson]"
+
+Answer 2:
+"[Alternative perspective using different phrases from the lesson]"
+
+---
+## 6. Cultural Background or Context Explanation:
+[Explain cultural context, social norms, or background information that helps understand the discussion. Include how this topic might vary across cultures.]
+
+---
+## 7. Extension Activity:
+[Specific role-play or practice activity using the vocabulary and grammar from the lesson. Should be practical and engaging.]
 
 Remember to:
-- Use clear, educational language
-- Include examples from the actual Reddit comments
-- Make content appropriate for the specified difficulty level
-- Format as Marp-compatible markdown with slide separators (---)
-- Each major section should be on its own slide
+- Use authentic phrases directly from the Reddit comments
+- Make each slide focused and not too crowded
+- Include phonetic pronunciation where helpful
+- Create discussion questions that encourage real conversation
+- Provide cultural context that helps international learners
+- Keep language appropriate for the specified difficulty level
+- Ensure every slide has proper "---" separators for slide navigation
