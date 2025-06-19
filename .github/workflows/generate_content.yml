@@ -21,7 +21,7 @@ jobs:
 
       - name: Install Python dependencies
         run: |
-          pip install openai requests
+          pip install -r requirements.txt
 
       - name: Generate new topic markdown
         env:
@@ -29,7 +29,7 @@ jobs:
           REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
           REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
         run: |
-          python scripts/generate_topic.py
+          python scripts/generate_topic_langchain.py
 
       - name: Commit new topics
         run: |

@@ -1,0 +1,54 @@
+Create an engaging English learning topic based on the Reddit discussion provided below.
+
+{format_instructions}
+
+Reddit Information:
+Reddit post title: {title}
+Link: {permalink}
+Post text: {selftext}
+Top comments:
+{comments}
+
+Please generate comprehensive English learning content following this structure:
+
+1. **Topic Overview**
+   - Brief introduction to the discussion topic
+   - Why this topic is interesting for language learners
+
+2. **Key Vocabulary & Phrases**
+   - Extract 10-15 important words/phrases from the Reddit discussion
+   - Include definitions and example sentences
+   - Highlight any slang, idioms, or colloquialisms
+
+3. **Grammar Focus**
+   - Identify 2-3 grammar patterns used in the discussion
+   - Explain each pattern with examples from the comments
+   - Provide practice exercises
+
+4. **Pronunciation Practice**
+   - Select 5-8 challenging words
+   - Include phonetic spelling
+   - Note common pronunciation mistakes
+
+5. **Discussion Questions**
+   - Create 5-7 thought-provoking questions
+   - Include both simple and complex questions
+   - Provide vocabulary hints for answers
+
+6. **Cultural Context**
+   - Explain any cultural references
+   - Discuss how this topic relates to different cultures
+   - Include interesting facts or statistics
+
+7. **Practice Activities**
+   - Role-play scenarios
+   - Writing prompts
+   - Speaking exercises
+   - Interactive activities
+
+Remember to:
+- Use clear, educational language
+- Include examples from the actual Reddit comments
+- Make content appropriate for the specified difficulty level
+- Format as Marp-compatible markdown with slide separators (---)
+- Each major section should be on its own slide
