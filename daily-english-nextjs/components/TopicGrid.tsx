@@ -3,12 +3,11 @@
 import React, { useState, useEffect } from 'react';
 import { Topic } from '@/lib/topics';
 import { motion, AnimatePresence } from 'framer-motion';
-import { cn } from '@/lib/utils';
-import { Search, Grid as IconGrid, List as IconList, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users } from 'lucide-react';
+import { Search, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users, Calendar, BarChart3 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command';
 import { Checkbox } from '@/components/ui/checkbox';
@@ -62,7 +61,6 @@ const heroVariants = {
 export default function TopicGrid({ topics }: TopicGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({ tags: [] });
-  const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
@@ -273,25 +271,6 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                     <IconX className="w-4 h-4 mr-1" /> Clear
                   </Button>
                 )}
-                
-                <div className="flex bg-white/10 rounded-lg p-1">
-                  <Button 
-                    variant={viewMode === 'grid' ? 'default' : 'ghost'} 
-                    size="sm" 
-                    onClick={() => setViewMode('grid')}
-                    className={viewMode === 'grid' ? 'bg-purple-600 hover:bg-purple-700' : 'text-gray-300 hover:text-white hover:bg-white/20'}
-                  >
-                    <IconGrid className="w-4 h-4" />
-                  </Button>
-                  <Button 
-                    variant={viewMode === 'list' ? 'default' : 'ghost'} 
-                    size="sm" 
-                    onClick={() => setViewMode('list')}
-                    className={viewMode === 'list' ? 'bg-purple-600 hover:bg-purple-700' : 'text-gray-300 hover:text-white hover:bg-white/20'}
-                  >
-                    <IconList className="w-4 h-4" />
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
@@ -311,12 +290,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
 
         {/* Topics Grid */}
         <motion.div
-          className={cn(
-            'gap-6',
-            viewMode === 'grid'
-              ? 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr'
-              : 'flex flex-col space-y-6'
-          )}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 auto-rows-fr gap-6"
           variants={containerVariants}
           initial="hidden"
           animate="visible"
@@ -347,10 +321,24 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                     <CardTitle className="text-xl text-white group-hover:text-purple-200 transition-colors duration-300 pr-10">
                       {topic.title}
                     </CardTitle>
-                    {topic.description && (
-                      <CardDescription className="text-gray-300 line-clamp-2">
-                        {topic.description}
-                      </CardDescription>
+                    <div className="flex items-center gap-4 mt-2 text-sm text-gray-400">
+                      <div className="flex items-center gap-1">
+                        <Calendar className="w-4 h-4" />
+                        <span>{new Date(topic.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
+                      </div>
+                      {topic.difficulty && (
+                        <div className="flex items-center gap-1">
+                          <BarChart3 className="w-4 h-4" />
+                          <span className="capitalize">{topic.difficulty}</span>
+                        </div>
+                      )}
+                    </div>
+                    {topic.category && (
+                      <div className="mt-2">
+                        <Badge variant="secondary" className="bg-purple-500/20 text-purple-200 border-purple-400/30">
+                          {topic.category}
+                        </Badge>
+                      </div>
                     )}
                   </CardHeader>
                   

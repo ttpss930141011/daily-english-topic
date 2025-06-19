@@ -1,5 +1,8 @@
 ---
 marp: true
+category: Lifestyle
+tags: ["habits", "self-improvement", "daily routine", "personal growth"]
+difficulty: intermediate
 ---
 
 ---

@@ -1,5 +1,8 @@
 ---
 marp: true
+category: General
+tags: ["health", "gender", "taboo topics", "body awareness"]
+difficulty: advanced
 ---
 ## Link:
 https://www.reddit.com/r/AskReddit/comments/1lce8he/women_of_reddit_what_are_some_things_the_guys/

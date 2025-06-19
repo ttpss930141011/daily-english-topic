@@ -1,7 +1,8 @@
 ---
-
 marp: true
-
+category: Language
+tags: ["language learning", "study habits", "daily routine", "education"]
+difficulty: beginner
 ---
 
 ---

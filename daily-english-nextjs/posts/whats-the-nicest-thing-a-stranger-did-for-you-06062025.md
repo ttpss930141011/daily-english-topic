@@ -1,5 +1,8 @@
 ---
 marp: true
+category: General
+tags: ["kindness", "personal stories", "human connection", "gratitude"]
+difficulty: intermediate
 ---
 
 ---

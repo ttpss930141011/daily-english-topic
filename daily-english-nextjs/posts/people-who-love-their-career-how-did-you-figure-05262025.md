@@ -1,5 +1,8 @@
 ---
 marp: true
+category: Career
+tags: ["career development", "self-discovery", "work satisfaction", "professional growth"]
+difficulty: advanced
 ---
 
 Link: [People who love their career, how did you figure it out? : r/AskReddit](https://www.reddit.com/r/AskReddit/comments/1kvxmyf/people_who_love_their_career_how_did_you_figure/)

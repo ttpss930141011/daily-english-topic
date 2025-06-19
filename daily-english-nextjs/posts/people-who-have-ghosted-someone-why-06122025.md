@@ -1,5 +1,8 @@
 ---
 marp: true
+category: Discussion
+tags: ["relationships", "communication", "social behavior", "modern culture"]
+difficulty: intermediate
 ---
 
 ---

@@ -1,5 +1,8 @@
 ---
 marp: true
+category: Lifestyle
+tags: ["habits", "self-improvement", "life hacks", "productivity"]
+difficulty: intermediate
 ---
 
 ---

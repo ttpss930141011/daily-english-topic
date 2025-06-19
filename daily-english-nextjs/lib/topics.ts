@@ -13,6 +13,9 @@ export interface Topic {
   title: string
   description?: string
   tags: string[]
+  category?: string
+  difficulty?: 'beginner' | 'intermediate' | 'advanced'
+  redditUrl?: string
   slides: Slide[]
 }
 
@@ -28,7 +31,7 @@ function getTopicData(filename: string): Topic {
     .join(' ')
   const filePath = path.join(postsDirectory, filename)
   const fileContents = fs.readFileSync(filePath, 'utf8')
-  const { content } = matter(fileContents)
+  const { content, data } = matter(fileContents)
 
   // Split slides by '---' delimiter and filter out empty segments
   const rawSlides = content.split(/^---$/m).filter(segment => segment.trim().length > 0)
@@ -39,10 +42,25 @@ function getTopicData(filename: string): Topic {
     interactiveWords: []
   }))
 
+  // Extract Reddit URL from the first slide if it contains a link
+  let redditUrl: string | undefined
+  if (slides.length > 0 && slides[0].content.includes('Link:')) {
+    const urlMatch = slides[0].content.match(/https:\/\/www\.reddit\.com\/[^\s]+/)
+    if (urlMatch) {
+      redditUrl = urlMatch[0]
+    }
+  }
+
+  // Format date to YYYY-MM-DD
+  const formattedDate = `20${date.slice(4, 6)}-${date.slice(0, 2)}-${date.slice(2, 4)}`
+
   return {
-    date,
+    date: formattedDate,
     title,
-    tags: [],
+    tags: data.tags || [],
+    category: data.category,
+    difficulty: data.difficulty,
+    redditUrl: data.subreddit ? redditUrl : undefined,
     slides
   }
 }

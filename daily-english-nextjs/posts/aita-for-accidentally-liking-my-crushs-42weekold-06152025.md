@@ -1,5 +1,8 @@
 ---
 marp: true
+category: Discussion
+tags: ["social media", "relationships", "embarrassment", "etiquette"]
+difficulty: beginner
 ---
 
 ---
