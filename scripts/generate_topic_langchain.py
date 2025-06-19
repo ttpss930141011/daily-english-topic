@@ -188,7 +188,7 @@ if __name__ == "__main__":
         azure_deployment=DEPLOYMENT,
         api_version=API_VERSION,
         api_key=API_KEY,
-        temperature=0.7,
+        temperature=1,  # o4-mini only supports default temperature
         max_completion_tokens=config["llm"]["max_tokens"]
     )
     
