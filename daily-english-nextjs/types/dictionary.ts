@@ -35,26 +35,51 @@ export interface Dictionary {
       title: string
       subtitle: string
       description: string
+      masterEnglish: string
+      throughConversations: string
     }
     stats: {
+      interactiveTopics: string
       realConversations: string
+      daily: string
       freshContent: string
       interactiveLearning: string
     }
     filters: {
       all: string
+      allCategories: string
+      allLevels: string
       difficulty: string
       category: string
       tags: string
+      selectCategory: string
+      selectDifficulty: string
+      newestFirst: string
+      oldestFirst: string
+      clearAll: string
     }
     search: {
       placeholder: string
+      searchTags: string
       noResults: string
       tryDifferent: string
     }
     topicCard: {
       slides: string
       readMore: string
+    }
+    topicCount: {
+      showing: string
+      of: string
+      topics: string
+    }
+    emptyState: {
+      noTopicsFound: string
+      tryAdjusting: string
+      clearAllFilters: string
+    }
+    tags: {
+      noTagsFound: string
     }
   }
   wordLookup: {

@@ -34,27 +34,52 @@
     "hero": {
       "title": "Daily English",
       "subtitle": "Topics",
-      "description": "Reddit の実際の議論から取られたインタラクティブなスライドプレゼンテーションを通じて英語を学びましょう"
+      "description": "Reddit の実際の議論から取られたインタラクティブなスライドプレゼンテーションを通じて英語を学びましょう",
+      "masterEnglish": "英語をマスター",
+      "throughConversations": "実際の会話を通じて"
     },
     "stats": {
+      "interactiveTopics": "インタラクティブトピック",
       "realConversations": "実際の会話",
+      "daily": "毎日更新",
       "freshContent": "新鮮なコンテンツ",
       "interactiveLearning": "インタラクティブ学習"
     },
     "filters": {
       "all": "すべて",
+      "allCategories": "すべてのカテゴリー",
+      "allLevels": "すべてのレベル",
       "difficulty": "難易度",
       "category": "カテゴリー",
-      "tags": "タグ"
+      "tags": "タグ",
+      "selectCategory": "カテゴリーを選択",
+      "selectDifficulty": "難易度を選択",
+      "newestFirst": "新しい順",
+      "oldestFirst": "古い順",
+      "clearAll": "すべてクリア"
     },
     "search": {
       "placeholder": "トピックを検索...",
+      "searchTags": "タグを検索...",
       "noResults": "結果が見つかりません",
       "tryDifferent": "別のキーワードをお試しください"
     },
     "topicCard": {
       "slides": "スライド",
       "readMore": "読み始める"
+    },
+    "topicCount": {
+      "showing": "表示中",
+      "of": "件中",
+      "topics": "トピック"
+    },
+    "emptyState": {
+      "noTopicsFound": "トピックが見つかりません",
+      "tryAdjusting": "検索やフィルターを調整してください",
+      "clearAllFilters": "すべてのフィルターをクリア"
+    },
+    "tags": {
+      "noTagsFound": "タグが見つかりません"
     }
   }
 }

@@ -32,29 +32,54 @@
   },
   "homepage": {
     "hero": {
-      "title": "Daily English",
-      "subtitle": "Topics",
-      "description": "透過互動式投影片展示學習英語對話，取材自真實的 Reddit 討論"
+      "title": "每日英語",
+      "subtitle": "話題",
+      "description": "透過互動式投影片展示學習英語對話，取材自真實的 Reddit 討論",
+      "masterEnglish": "精通英語",
+      "throughConversations": "透過真實對話"
     },
     "stats": {
+      "interactiveTopics": "互動話題",
       "realConversations": "真實對話",
+      "daily": "每日更新",
       "freshContent": "新鮮內容",
       "interactiveLearning": "互動學習"
     },
     "filters": {
       "all": "全部",
+      "allCategories": "所有類別",
+      "allLevels": "所有難度",
       "difficulty": "難度",
       "category": "類別",
-      "tags": "標籤"
+      "tags": "標籤",
+      "selectCategory": "選擇類別",
+      "selectDifficulty": "選擇難度",
+      "newestFirst": "最新優先",
+      "oldestFirst": "最舊優先",
+      "clearAll": "清除全部"
     },
     "search": {
       "placeholder": "搜尋主題...",
+      "searchTags": "搜尋標籤...",
       "noResults": "找不到符合的結果",
       "tryDifferent": "試試不同的關鍵字"
     },
     "topicCard": {
       "slides": "張投影片",
       "readMore": "開始閱讀"
+    },
+    "topicCount": {
+      "showing": "顯示",
+      "of": "共",
+      "topics": "個話題"
+    },
+    "emptyState": {
+      "noTopicsFound": "找不到話題",
+      "tryAdjusting": "試著調整搜尋或篩選條件",
+      "clearAllFilters": "清除所有篩選"
+    },
+    "tags": {
+      "noTagsFound": "找不到標籤"
     }
   },
   "wordLookup": {

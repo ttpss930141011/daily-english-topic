@@ -34,27 +34,52 @@
     "hero": {
       "title": "Daily English",
       "subtitle": "Topics",
-      "description": "通过互动式幻灯片演示学习英语对话，取材自真实的 Reddit 讨论"
+      "description": "通过互动式幻灯片演示学习英语对话，取材自真实的 Reddit 讨论",
+      "masterEnglish": "掌握英语",
+      "throughConversations": "通过真实对话"
     },
     "stats": {
+      "interactiveTopics": "互动主题",
       "realConversations": "真实对话",
+      "daily": "每日更新",
       "freshContent": "新鲜内容",
       "interactiveLearning": "互动学习"
     },
     "filters": {
       "all": "全部",
+      "allCategories": "所有类别",
+      "allLevels": "所有级别",
       "difficulty": "难度",
       "category": "类别",
-      "tags": "标签"
+      "tags": "标签",
+      "selectCategory": "选择类别",
+      "selectDifficulty": "选择难度",
+      "newestFirst": "最新优先",
+      "oldestFirst": "最旧优先",
+      "clearAll": "清除全部"
     },
     "search": {
       "placeholder": "搜索主题...",
+      "searchTags": "搜索标签...",
       "noResults": "找不到符合的结果",
       "tryDifferent": "试试不同的关键字"
     },
     "topicCard": {
       "slides": "张幻灯片",
       "readMore": "开始阅读"
+    },
+    "topicCount": {
+      "showing": "显示",
+      "of": "的",
+      "topics": "个主题"
+    },
+    "emptyState": {
+      "noTopicsFound": "未找到主题",
+      "tryAdjusting": "尝试调整您的搜索或筛选条件",
+      "clearAllFilters": "清除所有筛选条件"
+    },
+    "tags": {
+      "noTagsFound": "未找到标签"
     }
   },
   "wordLookup": {
