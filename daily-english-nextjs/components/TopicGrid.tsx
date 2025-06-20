@@ -74,8 +74,8 @@ export default function TopicGrid({ topics }: TopicGridProps) {
   }, []);
 
   const allTags = Array.from(new Set(topics.flatMap(t => t.tags)));
-  const allCategories = Array.from(new Set(topics.map(t => t.category).filter(Boolean)));
-  const allDifficulties = Array.from(new Set(topics.map(t => t.difficulty).filter(Boolean)));
+  const allCategories = Array.from(new Set(topics.map(t => t.category).filter((cat): cat is string => Boolean(cat))));
+  const allDifficulties = Array.from(new Set(topics.map(t => t.difficulty).filter((diff): diff is NonNullable<Topic['difficulty']> => Boolean(diff))));
 
   const categoryOptions = [
     { value: 'all', label: 'All Categories' },
