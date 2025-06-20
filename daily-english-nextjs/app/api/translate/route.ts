@@ -37,9 +37,18 @@ Response format (JSON):
     const result = await model.generateContent(prompt)
     const response = result.response.text()
     
-    // Parse JSON response
+    // Parse JSON response (handle markdown code blocks)
     try {
-      const parsed = JSON.parse(response)
+      let jsonStr = response.trim()
+      
+      // Remove markdown code block formatting if present
+      if (jsonStr.startsWith('```json')) {
+        jsonStr = jsonStr.replace(/```json\s*/, '').replace(/\s*```$/, '')
+      } else if (jsonStr.startsWith('```')) {
+        jsonStr = jsonStr.replace(/```\s*/, '').replace(/\s*```$/, '')
+      }
+      
+      const parsed = JSON.parse(jsonStr.trim())
       return {
         originalText: text,
         translation: parsed.translation || text,

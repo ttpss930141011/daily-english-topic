@@ -17,7 +17,10 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
     isLoadingDictionary,
     hideQuickLookup,
     lookupWord,
-    playPronunciation
+    playPronunciation,
+    openDeepDrawer,
+    explainText,
+    createDeepTab
   } = useWordLookup()
 
   const { t } = useTranslation()
@@ -227,9 +230,24 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
             
             {currentDictionary.definitions.length > 2 && (
               <button 
-                onClick={() => {
-                  // TODO: Expand to show all definitions or trigger deep explanation
-                  console.log('Show more definitions for:', activeSelection?.text)
+                onClick={async () => {
+                  if (activeSelection?.text) {
+                    // Create a new deep explanation tab
+                    const tabId = createDeepTab(activeSelection.text)
+                    
+                    // Open the deep drawer
+                    openDeepDrawer()
+                    
+                    // Start explaining the text
+                    try {
+                      await explainText(activeSelection.text)
+                    } catch (error) {
+                      console.error('Failed to generate deep explanation:', error)
+                    }
+                    
+                    // Hide the quick lookup popup
+                    hideQuickLookup()
+                  }
                 }}
                 className="text-xs text-purple-600 hover:text-purple-800 flex items-center space-x-1 transition-colors"
               >
