@@ -118,19 +118,30 @@ export function useTextSelection({
       return
     }
 
+    // Only set isSelecting to true, don't trigger callback yet
     setIsSelecting(true)
 
-    // Debounce the selection callback
+    // Debounce the selection callback - only trigger after user stops selecting
     debounceTimeoutRef.current = setTimeout(() => {
-      const { cleanText, isWord, wordCount } = cleanAndAnalyzeText(text)
+      // Double-check selection still exists and is valid
+      const currentSelection = window.getSelection()
+      const currentText = currentSelection?.toString().trim()
+      
+      if (!currentText || currentText.length < minSelectionLength) {
+        setIsSelecting(false)
+        return
+      }
+
+      const { cleanText, isWord, wordCount } = cleanAndAnalyzeText(currentText)
       
       if (cleanText && wordCount > 0) {
-        const position = getSelectionPosition(range)
+        const currentRange = currentSelection!.getRangeAt(0)
+        const position = getSelectionPosition(currentRange)
         const textSelection: TextSelection = {
           text: cleanText,
           position,
           isWord,
-          element: range.commonAncestorContainer.parentElement
+          element: currentRange.commonAncestorContainer.parentElement
         }
         
         setSelection(textSelection)

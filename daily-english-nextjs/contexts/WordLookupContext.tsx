@@ -173,7 +173,8 @@ export function WordLookupProvider({
     setState(prev => ({ 
       ...prev, 
       showTranslationPopup: true,
-      showContextMenu: false 
+      showContextMenu: false,
+      showDeepDrawer: false
     }))
   }, [])
 
@@ -182,7 +183,12 @@ export function WordLookupProvider({
   }, [])
 
   const openDeepDrawer = useCallback(() => {
-    setState(prev => ({ ...prev, showDeepDrawer: true }))
+    setState(prev => ({ 
+      ...prev, 
+      showDeepDrawer: true,
+      showTranslationPopup: false,
+      showContextMenu: false
+    }))
   }, [])
 
   const closeDeepDrawer = useCallback(() => {

@@ -1,8 +1,8 @@
 'use client'
 
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { ChevronDown, Volume2 } from 'lucide-react'
+import { ChevronDown, Volume2, Move } from 'lucide-react'
 
 interface QuickLookupPopupProps {
   className?: string
@@ -20,14 +20,17 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
   } = useWordLookup()
 
   const popupRef = useRef<HTMLDivElement>(null)
+  const [isDragging, setIsDragging] = useState(false)
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
+  const [position, setPosition] = useState({ x: 0, y: 0 })
 
-  // Position popup relative to selection
+  // Position popup relative to selection (only when first shown)
   useEffect(() => {
-    if (showQuickLookup && activeSelection && popupRef.current) {
+    if (showQuickLookup && activeSelection && popupRef.current && !isDragging) {
       const popup = popupRef.current
       const { x, y } = activeSelection.position
       
-      // Calculate position with screen bounds checking
+      // Calculate initial position with screen bounds checking
       const viewportWidth = window.innerWidth
       const popupRect = popup.getBoundingClientRect()
       
@@ -45,10 +48,64 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
         top = y + 30 // Show below selection instead
       }
       
-      popup.style.left = `${left}px`
-      popup.style.top = `${top}px`
+      setPosition({ x: left, y: top })
     }
-  }, [showQuickLookup, activeSelection])
+  }, [showQuickLookup, activeSelection, isDragging])
+
+  // Dragging handlers
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    if (e.target === e.currentTarget || (e.target as HTMLElement).closest('.drag-handle')) {
+      setIsDragging(true)
+      setDragOffset({
+        x: e.clientX - position.x,
+        y: e.clientY - position.y
+      })
+      e.preventDefault()
+    }
+  }, [position])
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isDragging) {
+      const newX = e.clientX - dragOffset.x
+      const newY = e.clientY - dragOffset.y
+      
+      // Keep popup within viewport bounds
+      const viewportWidth = window.innerWidth
+      const viewportHeight = window.innerHeight
+      const popup = popupRef.current
+      if (!popup) return
+      
+      const rect = popup.getBoundingClientRect()
+      const constrainedX = Math.max(0, Math.min(newX, viewportWidth - rect.width))
+      const constrainedY = Math.max(0, Math.min(newY, viewportHeight - rect.height))
+      
+      setPosition({ x: constrainedX, y: constrainedY })
+    }
+  }, [isDragging, dragOffset])
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false)
+  }, [])
+
+  // Add global mouse event listeners for dragging
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove)
+      document.addEventListener('mouseup', handleMouseUp)
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove)
+        document.removeEventListener('mouseup', handleMouseUp)
+      }
+    }
+  }, [isDragging, handleMouseMove, handleMouseUp])
+
+  // Update popup position when state changes
+  useEffect(() => {
+    if (popupRef.current) {
+      popupRef.current.style.left = `${position.x}px`
+      popupRef.current.style.top = `${position.y}px`
+    }
+  }, [position])
 
   // Auto-lookup word when selection changes
   useEffect(() => {
@@ -84,13 +141,33 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
   return (
     <div
       ref={popupRef}
-      className={`fixed z-50 bg-white/95 backdrop-blur-sm border border-purple-200 rounded-lg shadow-xl p-4 max-w-sm min-w-[280px] ${className}`}
+      className={`fixed z-50 bg-white/95 backdrop-blur-sm border border-purple-200 rounded-lg shadow-xl max-w-sm min-w-[280px] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} ${className}`}
       style={{ 
         position: 'fixed',
-        animation: 'fadeInScale 200ms ease-out'
+        animation: showQuickLookup ? 'fadeInScale 200ms ease-out' : '',
+        userSelect: 'none'
       }}
+      onMouseDown={handleMouseDown}
     >
-      {/* Loading State */}
+      {/* Drag handle */}
+      <div className="drag-handle flex items-center justify-between p-2 border-b border-purple-100 cursor-grab active:cursor-grabbing">
+        <div className="flex items-center space-x-2 text-xs text-purple-600">
+          <Move className="h-3 w-3" />
+          <span>拖拽移動</span>
+        </div>
+        <button
+          onClick={hideQuickLookup}
+          className="text-gray-400 hover:text-gray-600"
+          title="關閉"
+        >
+          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="p-4">
+        {/* Loading State */}
       {isLoadingDictionary && (
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-purple-500 border-t-transparent"></div>
@@ -146,7 +223,13 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
             ))}
             
             {currentDictionary.definitions.length > 2 && (
-              <button className="text-xs text-purple-600 hover:text-purple-800 flex items-center space-x-1">
+              <button 
+                onClick={() => {
+                  // TODO: Expand to show all definitions or trigger deep explanation
+                  console.log('Show more definitions for:', activeSelection?.text)
+                }}
+                className="text-xs text-purple-600 hover:text-purple-800 flex items-center space-x-1 transition-colors"
+              >
                 <span>查看更多定義</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
@@ -158,21 +241,11 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       {/* Error State */}
       {!isLoadingDictionary && !currentDictionary && (
         <div className="text-sm text-gray-600">
-          <p>找不到「{activeSelection.text}」的定義</p>
+          <p>找不到「{activeSelection?.text}」的定義</p>
           <p className="text-xs text-gray-500 mt-1">請檢查拼寫或嘗試其他單字</p>
         </div>
       )}
-
-      {/* Close button */}
-      <button
-        onClick={hideQuickLookup}
-        className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-        title="關閉"
-      >
-        <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+      </div>
 
       <style jsx>{`
         @keyframes fadeInScale {

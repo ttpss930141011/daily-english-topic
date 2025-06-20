@@ -100,8 +100,8 @@ async function translateText(text: string, targetLanguage: string): Promise<stri
       return commonTranslations[wordKey][targetLangCode]
     }
 
-    // Fallback: return the original text with a note
-    return `${text} (翻譯)`
+    // Fallback: return original text without suffix  
+    return text
   } catch (error) {
     console.error('Translation error:', error)
     return text
