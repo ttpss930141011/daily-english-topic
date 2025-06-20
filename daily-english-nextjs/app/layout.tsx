@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import "./globals.css";
+import { I18nProvider } from "@/components/providers/I18nProvider";
+import { FALLBACK_DICTIONARY } from "@/lib/fallback-dictionary";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -35,7 +37,9 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;600;700&family=Noto+Sans+JP:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} text-white`}>
-        {children}
+        <I18nProvider dictionary={FALLBACK_DICTIONARY} locale="zh-TW">
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );
