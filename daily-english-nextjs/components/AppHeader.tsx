@@ -53,7 +53,7 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
   }, [])
 
   return (
-    <header className={`bg-transparent sticky top-0 z-30 ${className}`}>
+    <header className={`bg-gradient-to-r from-purple-900/20 via-slate-800/30 to-blue-900/20 backdrop-blur-md border-b border-white/10 sticky top-0 z-30 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Empty left side */}
@@ -68,28 +68,28 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
                 className="p-2 hover:bg-white/20 rounded-lg transition-colors"
                 title={t('changeLanguage')}
               >
-                <Globe className="h-5 w-5 text-gray-600" />
+                <Globe className="h-5 w-5 text-white" />
               </button>
 
               {showLanguageMenu && (
-                <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                  <div className="px-3 py-2 text-xs font-medium text-gray-500 border-b border-gray-100">
+                <div className="absolute right-0 mt-2 w-48 bg-black/80 backdrop-blur-lg rounded-lg shadow-xl border border-white/20 py-2 z-50">
+                  <div className="px-3 py-2 text-xs font-medium text-gray-300 border-b border-white/20">
                     {t('selectLanguage')}
                   </div>
                   {availableLanguages.map((lang) => (
                     <button
                       key={lang.code}
                       onClick={() => handleLanguageChange(lang.code)}
-                      className={`w-full text-left px-3 py-2 text-sm hover:bg-gray-50 transition-colors ${
+                      className={`w-full text-left px-3 py-2 text-sm hover:bg-white/10 transition-colors ${
                         currentLanguage === lang.code 
-                          ? 'text-purple-600 bg-purple-50' 
-                          : 'text-gray-700'
+                          ? 'text-purple-400 bg-purple-500/20' 
+                          : 'text-gray-200'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span>{lang.name}</span>
                         {currentLanguage === lang.code && (
-                          <div className="w-2 h-2 bg-purple-600 rounded-full"></div>
+                          <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                         )}
                       </div>
                     </button>

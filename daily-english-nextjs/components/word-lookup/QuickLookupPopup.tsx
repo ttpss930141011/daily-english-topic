@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
 import { useAppTranslation } from '@/components/providers/I18nProvider'
-import { ChevronDown, Volume2, Move } from 'lucide-react'
+import { ChevronDown, Volume2 } from 'lucide-react'
 
 interface QuickLookupPopupProps {
   className?: string
@@ -166,11 +166,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       onMouseDown={handleMouseDown}
     >
       {/* Drag handle */}
-      <div className="drag-handle flex items-center justify-between p-2 border-b border-purple-100 cursor-grab active:cursor-grabbing">
-        <div className="flex items-center space-x-2 text-xs text-purple-600">
-          <Move className="h-3 w-3" />
-          <span>{t('dragToMove')}</span>
-        </div>
+      <div className="drag-handle flex items-center justify-end p-2 border-b border-purple-100 cursor-grab active:cursor-grabbing">
         <button
           onClick={hideQuickLookup}
           className="text-gray-400 hover:text-gray-600"
@@ -209,7 +205,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
             <button
               onClick={handlePronunciationClick}
               className="p-1 hover:bg-purple-100 rounded transition-colors"
-              title="播放發音"
+              title={t('playAudio')}
             >
               <Volume2 className="h-4 w-4 text-purple-600" />
             </button>
