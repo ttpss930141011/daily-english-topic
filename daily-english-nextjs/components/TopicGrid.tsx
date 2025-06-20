@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { Topic } from '@/lib/topics';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Search, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users, Calendar, BarChart3, ArrowUp, ArrowDown } from 'lucide-react';
+import { Search, BookOpen, X as IconX, Tag as IconTag, Sparkles, TrendingUp, Clock, Users, Calendar, BarChart3, ArrowUp, ArrowDown, Filter, ChevronDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
@@ -18,6 +18,8 @@ interface TopicGridProps {
 
 interface FilterState {
   tags: string[];
+  category: string;
+  difficulty: string;
 }
 
 type SortOrder = 'asc' | 'desc';
@@ -62,15 +64,31 @@ const heroVariants = {
 
 export default function TopicGrid({ topics }: TopicGridProps) {
   const [searchQuery, setSearchQuery] = useState('');
-  const [filters, setFilters] = useState<FilterState>({ tags: [] });
+  const [filters, setFilters] = useState<FilterState>({ tags: [], category: 'all', difficulty: 'all' });
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
   const [isLoaded, setIsLoaded] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
   useEffect(() => {
     setIsLoaded(true);
   }, []);
 
   const allTags = Array.from(new Set(topics.flatMap(t => t.tags)));
+  const allCategories = Array.from(new Set(topics.map(t => t.category).filter(Boolean)));
+  const allDifficulties = Array.from(new Set(topics.map(t => t.difficulty).filter(Boolean)));
+
+  const categoryOptions = [
+    { value: 'all', label: 'All Categories' },
+    ...allCategories.map(cat => ({ value: cat, label: cat }))
+  ];
+
+  const difficultyOptions = [
+    { value: 'all', label: 'All Levels' },
+    ...Array.from(new Set(allDifficulties.map(diff => diff.toLowerCase()))).map(diff => ({ 
+      value: diff, 
+      label: diff.charAt(0).toUpperCase() + diff.slice(1) 
+    }))
+  ];
 
   const filteredTopics = topics
     .filter(topic => {
@@ -79,7 +97,11 @@ export default function TopicGrid({ topics }: TopicGridProps) {
         (topic.description ?? '').toLowerCase().includes(searchQuery.toLowerCase());
       const matchesTags =
         filters.tags.length === 0 || filters.tags.some(tag => topic.tags.includes(tag));
-      return matchesSearch && matchesTags;
+      const matchesCategory =
+        filters.category === 'all' || topic.category === filters.category;
+      const matchesDifficulty =
+        filters.difficulty === 'all' || (topic.difficulty?.toLowerCase() || '') === filters.difficulty;
+      return matchesSearch && matchesTags && matchesCategory && matchesDifficulty;
     })
     .sort((a, b) => {
       const dateA = new Date(a.date).getTime();
@@ -87,7 +109,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
       return sortOrder === 'desc' ? dateB - dateA : dateA - dateB;
     });
 
-  const clearAllFilters = () => setFilters({ tags: [] });
+  const clearAllFilters = () => setFilters({ tags: [], category: 'all', difficulty: 'all' });
 
   return (
     <div className="min-h-screen relative">
@@ -222,18 +244,92 @@ export default function TopicGrid({ topics }: TopicGridProps) {
           transition={{ delay: 1.1, duration: 0.8 }}
         >
           <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20 shadow-2xl">
-            <div className="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0 lg:space-x-6">
-              <div className="relative flex-1 w-full">
-                <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-                <Input
-                  placeholder="Search for topics, discussions, or keywords..."
-                  value={searchQuery}
-                  onChange={e => setSearchQuery(e.target.value)}
-                  className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400 transition-all duration-300"
-                />
-              </div>
-              
-              <div className="flex items-center space-x-3">
+            {/* Search Bar */}
+            <div className="relative w-full mb-6">
+              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Input
+                placeholder="Search for topics, discussions, or keywords..."
+                value={searchQuery}
+                onChange={e => setSearchQuery(e.target.value)}
+                className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400 transition-all duration-300"
+              />
+            </div>
+            
+            {/* Filters Row */}
+            <div className="flex flex-col lg:flex-row items-center justify-between space-y-4 lg:space-y-0 lg:space-x-4">
+              <div className="flex flex-wrap items-center gap-3 flex-1">
+                {/* Category Filter */}
+                <Popover open={openDropdown === 'category'} onOpenChange={(open) => setOpenDropdown(open ? 'category' : null)}>
+                  <PopoverTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+                    >
+                      <Filter className="w-4 h-4 mr-2" /> 
+                      {categoryOptions.find(opt => opt.value === filters.category)?.label || 'Category'}
+                      <ChevronDown className="w-4 h-4 ml-2" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-white mb-3">Select Category</h4>
+                      {categoryOptions.map(option => (
+                        <Button
+                          key={option.value}
+                          variant="ghost"
+                          className={`w-full justify-start text-sm ${
+                            filters.category === option.value 
+                              ? 'bg-purple-600/30 text-purple-200' 
+                              : 'text-gray-300 hover:bg-purple-600/20 hover:text-white'
+                          }`}
+                          onClick={() => {
+                            setFilters(prev => ({ ...prev, category: option.value }));
+                            setOpenDropdown(null);
+                          }}
+                        >
+                          {option.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
+                {/* Difficulty Filter */}
+                <Popover open={openDropdown === 'difficulty'} onOpenChange={(open) => setOpenDropdown(open ? 'difficulty' : null)}>
+                  <PopoverTrigger asChild>
+                    <Button 
+                      variant="outline" 
+                      className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
+                    >
+                      <BarChart3 className="w-4 h-4 mr-2" /> 
+                      {difficultyOptions.find(opt => opt.value === filters.difficulty)?.label || 'Difficulty'}
+                      <ChevronDown className="w-4 h-4 ml-2" />
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-56 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
+                    <div className="space-y-2">
+                      <h4 className="text-sm font-medium text-white mb-3">Select Difficulty</h4>
+                      {difficultyOptions.map(option => (
+                        <Button
+                          key={option.value}
+                          variant="ghost"
+                          className={`w-full justify-start text-sm ${
+                            filters.difficulty === option.value 
+                              ? 'bg-purple-600/30 text-purple-200' 
+                              : 'text-gray-300 hover:bg-purple-600/20 hover:text-white'
+                          }`}
+                          onClick={() => {
+                            setFilters(prev => ({ ...prev, difficulty: option.value }));
+                            setOpenDropdown(null);
+                          }}
+                        >
+                          {option.label}
+                        </Button>
+                      ))}
+                    </div>
+                  </PopoverContent>
+                </Popover>
+
                 <Button
                   variant="outline"
                   onClick={() => setSortOrder(sortOrder === 'desc' ? 'asc' : 'desc')}
@@ -245,8 +341,11 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                     <><ArrowUp className="w-4 h-4 mr-2" /> Oldest First</>
                   )}
                 </Button>
-                
-                <Popover>
+              </div>
+              
+              <div className="flex flex-wrap items-center gap-3">
+                {/* Tags Filter */}
+                <Popover open={openDropdown === 'tags'} onOpenChange={(open) => setOpenDropdown(open ? 'tags' : null)}>
                   <PopoverTrigger asChild>
                     <Button 
                       variant="outline" 
@@ -254,6 +353,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                     >
                       <IconTag className="w-4 h-4 mr-2" /> 
                       Tags {filters.tags.length > 0 && `(${filters.tags.length})`}
+                      <ChevronDown className="w-4 h-4 ml-2" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-64 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
@@ -272,7 +372,8 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                                 const newTags = filters.tags.includes(tag)
                                   ? filters.tags.filter(t => t !== tag)
                                   : [...filters.tags, tag];
-                                setFilters({ tags: newTags });
+                                setFilters(prev => ({ ...prev, tags: newTags }));
+                                // Don't close the dropdown for tags as users might want to select multiple
                               }}
                               className="text-gray-200 hover:bg-purple-600/20 hover:text-white cursor-pointer transition-colors"
                             >
@@ -289,13 +390,14 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                   </PopoverContent>
                 </Popover>
                 
-                {filters.tags.length > 0 && (
+                {/* Clear Filters Button */}
+                {(filters.tags.length > 0 || filters.category !== 'all' || filters.difficulty !== 'all') && (
                   <Button 
                     variant="ghost" 
                     onClick={clearAllFilters}
-                    className="text-gray-300 hover:text-white hover:bg-white/10"
+                    className="text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300"
                   >
-                    <IconX className="w-4 h-4 mr-1" /> Clear
+                    <IconX className="w-4 h-4 mr-1" /> Clear All
                   </Button>
                 )}
               </div>
