@@ -1,0 +1,20 @@
+{
+  "loading": "로딩 중...",
+  "error": "오류가 발생했습니다",
+  "retry": "다시 시도",
+  "cancel": "취소",
+  "confirm": "확인",
+  "close": "닫기",
+  "save": "저장",
+  "delete": "삭제",
+  "edit": "편집",
+  "search": "검색",
+  "clear": "지우기",
+  "back": "뒤로",
+  "next": "다음",
+  "previous": "이전",
+  "submit": "제출",
+  "success": "성공",
+  "warning": "경고",
+  "info": "정보"
+}

@@ -1,0 +1,30 @@
+{
+  "network": {
+    "offline": "網路連線中斷",
+    "timeout": "請求逾時",
+    "serverError": "伺服器錯誤",
+    "rateLimited": "請求過於頻繁，請稍後再試"
+  },
+  "api": {
+    "translationFailed": "翻譯服務暫時無法使用",
+    "dictionaryFailed": "字典查詢失敗",
+    "explanationFailed": "詳細解釋載入失敗",
+    "invalidInput": "輸入格式錯誤",
+    "wordNotFound": "找不到該單字",
+    "languageNotSupported": "不支援該語言"
+  },
+  "cache": {
+    "saveFailed": "儲存到快取失敗",
+    "loadFailed": "從快取載入失敗",
+    "clearFailed": "清除快取失敗"
+  },
+  "permission": {
+    "microphoneBlocked": "麥克風權限被拒絕",
+    "storageBlocked": "儲存權限被拒絕"
+  },
+  "fallback": {
+    "usingOfflineData": "正在使用離線資料",
+    "limitedFunctionality": "部分功能暫時無法使用",
+    "retryLater": "請稍後重試"
+  }
+}

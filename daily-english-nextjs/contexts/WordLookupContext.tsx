@@ -20,6 +20,11 @@ export interface TranslationResult {
   translation: string
   confidence: number
   alternatives?: string[]
+  note?: string // 教育性注釋
+  service?: string // 使用的翻譯服務
+  fallbackService?: string // 降級使用的服務
+  fromCache?: boolean // 是否來自快取
+  error?: string // 錯誤訊息
 }
 
 export interface DeepExplanationTab {

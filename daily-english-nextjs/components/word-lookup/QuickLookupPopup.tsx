@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { useTranslation } from '@/lib/i18n'
+import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { ChevronDown, Volume2, Move } from 'lucide-react'
 
 interface QuickLookupPopupProps {
@@ -23,7 +23,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
     createDeepTab
   } = useWordLookup()
 
-  const { t } = useTranslation()
+  const { t } = useAppTranslation('word-lookup')
 
   const popupRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -233,7 +233,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
                 onClick={async () => {
                   if (activeSelection?.text) {
                     // Create a new deep explanation tab
-                    const tabId = createDeepTab(activeSelection.text)
+                    createDeepTab(activeSelection.text)
                     
                     // Open the deep drawer
                     openDeepDrawer()

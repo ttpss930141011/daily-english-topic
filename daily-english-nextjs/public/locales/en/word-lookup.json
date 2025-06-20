@@ -1,0 +1,52 @@
+{
+  "dragToMove": "Drag to move",
+  "loading": "Looking up...",
+  "notFound": "Definition not found",
+  "checkSpelling": "Please check spelling or try another word",
+  "viewMore": "View more definitions",
+  "quickTranslation": "Quick Translation",
+  "detailedExplanation": "Detailed Explanation",
+  "pronunciation": "Pronunciation",
+  "playAudio": "Play Audio",
+  "partOfSpeech": {
+    "noun": "Noun",
+    "verb": "Verb", 
+    "adjective": "Adjective",
+    "adverb": "Adverb",
+    "preposition": "Preposition",
+    "conjunction": "Conjunction",
+    "interjection": "Interjection",
+    "pronoun": "Pronoun"
+  },
+  "deepExplanation": {
+    "etymology": "Etymology",
+    "usage": "Usage",
+    "examples": "Examples",
+    "cultural": "Cultural Context",
+    "grammar": "Grammar Points",
+    "related": "Related Expressions",
+    "tips": "Learning Tips",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    }
+  },
+  "translation": {
+    "confidence": "Confidence",
+    "alternatives": "Alternatives",
+    "context": "Context",
+    "note": "Note"
+  },
+  "cache": {
+    "hit": "From cache",
+    "miss": "API query",
+    "expired": "Cache expired"
+  },
+  "feedback": {
+    "helpful": "Helpful",
+    "notHelpful": "Not helpful",
+    "report": "Report issue",
+    "improve": "Suggest improvement"
+  }
+}

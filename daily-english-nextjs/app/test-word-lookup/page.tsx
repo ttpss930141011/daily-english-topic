@@ -21,8 +21,8 @@ export default function TestWordLookupPage() {
                 <p className="text-lg leading-relaxed">
                   Welcome to our <strong>interactive</strong> English learning platform! 
                   Here you can select any word to get detailed explanations, translations, 
-                  and pronunciation guides. Try selecting words like "beautiful", "interesting", 
-                  "affordable", or "explanation" to test the features.
+                  and pronunciation guides. Try selecting words like &ldquo;beautiful&rdquo;, &ldquo;interesting&rdquo;, 
+                  &ldquo;affordable&rdquo;, or &ldquo;explanation&rdquo; to test the features.
                 </p>
               </section>
 
@@ -32,7 +32,7 @@ export default function TestWordLookupPage() {
                 </h2>
                 <p className="text-lg leading-relaxed">
                   This paragraph contains more <em>sophisticated</em> vocabulary. Words like 
-                  "magnificent", "extraordinary", "phenomenal", and "unprecedented" are perfect 
+                  &ldquo;magnificent&rdquo;, &ldquo;extraordinary&rdquo;, &ldquo;phenomenal&rdquo;, and &ldquo;unprecedented&rdquo; are perfect 
                   for testing the deep explanation feature. The system should provide comprehensive 
                   analysis including etymology, usage patterns, and cultural context.
                 </p>
@@ -43,8 +43,8 @@ export default function TestWordLookupPage() {
                   Common Phrases and Idioms
                 </h2>
                 <p className="text-lg leading-relaxed">
-                  English idioms can be tricky! Phrases like "break the ice", "piece of cake", 
-                  "hit the nail on the head", and "spill the beans" have meanings that go beyond 
+                  English idioms can be tricky! Phrases like &ldquo;break the ice&rdquo;, &ldquo;piece of cake&rdquo;, 
+                  &ldquo;hit the nail on the head&rdquo;, and &ldquo;spill the beans&rdquo; have meanings that go beyond 
                   their literal words. Select these phrases to see how the system handles 
                   multi-word expressions and cultural explanations.
                 </p>
@@ -55,8 +55,8 @@ export default function TestWordLookupPage() {
                   Technical Terms
                 </h2>
                 <p className="text-lg leading-relaxed">
-                  For more advanced learners, try technical terms like "algorithm", "paradigm", 
-                  "infrastructure", "authentication", and "optimization". These words often have 
+                  For more advanced learners, try technical terms like &ldquo;algorithm&rdquo;, &ldquo;paradigm&rdquo;, 
+                  &ldquo;infrastructure&rdquo;, &ldquo;authentication&rdquo;, and &ldquo;optimization&rdquo;. These words often have 
                   specific meanings in professional contexts and should trigger detailed explanations.
                 </p>
               </section>
@@ -69,7 +69,7 @@ export default function TestWordLookupPage() {
                   <li>• Select any word by double-clicking or dragging</li>
                   <li>• Wait for the quick lookup popup to appear</li>
                   <li>• Test the drag functionality by moving the popup</li>
-                  <li>• Click "查看更多定義" to open deep explanation</li>
+                  <li>• Click &ldquo;查看更多定義&rdquo; to open deep explanation</li>
                   <li>• Try the translation feature with different words</li>
                 </ul>
               </div>

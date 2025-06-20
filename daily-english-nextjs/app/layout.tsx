@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
+import { I18nProvider } from "@/components/providers/I18nProvider";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,12 +30,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="antialiased">
+    <html lang="zh-TW" className="antialiased">
       <head>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} text-white`}>
-        {children}
+        <I18nProvider initialLanguage="zh-TW">
+          {children}
+        </I18nProvider>
       </body>
     </html>
   );
