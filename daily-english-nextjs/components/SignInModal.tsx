@@ -10,14 +10,18 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 
+import { type Dictionary } from '@/types/dictionary';
+
 interface SignInModalProps {
   showSignInModal: boolean
   setShowSignInModal: (show: boolean) => void
+  dictionary: Dictionary
 }
 
 export function SignInModal({
   showSignInModal,
   setShowSignInModal,
+  dictionary,
 }: SignInModalProps) {
   const [signInClicked, setSignInClicked] = useState(false)
 
@@ -44,10 +48,9 @@ export function SignInModal({
           <div className="mx-auto w-12 h-12 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
             <span className="text-white font-bold text-lg">DE</span>
           </div>
-          <DialogTitle className="text-2xl font-bold">Sign In</DialogTitle>
+          <DialogTitle className="text-2xl font-bold">{dictionary.common.signIn}</DialogTitle>
           <DialogDescription className="text-gray-500">
-            This is strictly for demo purposes - only your email and profile
-            picture will be stored.
+            {dictionary.common.comingSoon}
           </DialogDescription>
         </DialogHeader>
 
@@ -80,7 +83,7 @@ export function SignInModal({
               </svg>
             )}
             <span className="font-medium">
-              {signInClicked ? "Signing in..." : "Sign In with Google"}
+              {signInClicked ? dictionary.common.loading : `${dictionary.common.signIn} with Google`}
             </span>
           </button>
         </div>

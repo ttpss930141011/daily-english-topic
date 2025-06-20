@@ -11,10 +11,13 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command';
 import { Checkbox } from '@/components/ui/checkbox';
-import { useAppTranslation } from '@/components/providers/I18nProvider';
+import { type Locale } from '@/i18n-config';
+import { type Dictionary } from '@/types/dictionary';
 
 interface TopicGridProps {
   topics: Topic[];
+  lang?: Locale;
+  dictionary?: Dictionary;
 }
 
 interface FilterState {
@@ -63,8 +66,97 @@ const heroVariants = {
   }
 };
 
-export default function TopicGrid({ topics }: TopicGridProps) {
-  const { t } = useAppTranslation('homepage');
+export default function TopicGrid({ topics, lang = 'zh-TW', dictionary }: TopicGridProps) {
+  // Default dictionary fallback
+  const defaultDict: Dictionary = {
+    common: {
+      loading: 'Loading...',
+      error: 'Error occurred',
+      retry: 'Retry',
+      cancel: 'Cancel',
+      confirm: 'Confirm',
+      close: 'Close',
+      save: 'Save',
+      delete: 'Delete',
+      edit: 'Edit',
+      search: 'Search',
+      clear: 'Clear',
+      back: 'Back',
+      next: 'Next',
+      previous: 'Previous',
+      submit: 'Submit',
+      success: 'Success',
+      warning: 'Warning',
+      info: 'Info',
+      language: 'Language',
+      changeLanguage: 'Change Language',
+      selectLanguage: 'Select Language',
+      settings: 'Settings',
+      profile: 'Profile',
+      signIn: 'Sign In',
+      signOut: 'Sign Out',
+      comingSoon: 'Coming Soon',
+      darkMode: 'Dark Mode',
+      notifications: 'Notifications',
+      learningPreferences: 'Learning Preferences'
+    },
+    homepage: {
+      hero: {
+        title: 'Daily English',
+        subtitle: 'Topics',
+        description: 'Learn English through interactive slide presentations from real Reddit discussions'
+      },
+      stats: {
+        realConversations: 'Real Conversations',
+        freshContent: 'Fresh Content',
+        interactiveLearning: 'Interactive Learning'
+      },
+      filters: {
+        all: 'All',
+        difficulty: 'Difficulty',
+        category: 'Category',
+        tags: 'Tags'
+      },
+      search: {
+        placeholder: 'Search topics...',
+        noResults: 'No results found',
+        tryDifferent: 'Try different keywords'
+      },
+      topicCard: {
+        slides: 'slides',
+        readMore: 'Start Reading'
+      }
+    },
+    wordLookup: {
+      loading: 'Looking up...',
+      notFound: 'Word not found',
+      checkSpelling: 'Please check spelling',
+      viewMore: 'View more definitions',
+      close: 'Close',
+      playAudio: 'Play pronunciation',
+      deepExplanation: 'Deep explanation',
+      examples: 'Examples',
+      synonyms: 'Synonyms',
+      antonyms: 'Antonyms',
+      etymology: 'Etymology',
+      relatedWords: 'Related words'
+    }
+  }
+
+  const dict = dictionary || defaultDict;
+
+  const t = (key: string): string => {
+    const keys = key.split('.');
+    let value: unknown = dict.homepage;
+    for (const k of keys) {
+      if (value && typeof value === 'object' && k in value) {
+        value = (value as Record<string, unknown>)[k];
+      } else {
+        return key;
+      }
+    }
+    return typeof value === 'string' ? value : key;
+  };
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({ tags: [], category: 'all', difficulty: 'all' });
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
@@ -496,9 +588,9 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                         className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 text-white font-semibold py-3 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 transform group-hover:scale-105" 
                         asChild
                       >
-                        <a href={`/topic/${topic.date}`} className="flex items-center justify-center">
+                        <a href={`/${lang}/topic/${topic.date}`} className="flex items-center justify-center">
                           <Sparkles className="w-4 h-4 mr-2" />
-                          {t('topicCard.startLearning')}
+                          {t('topicCard.readMore')}
                         </a>
                       </Button>
                     </div>

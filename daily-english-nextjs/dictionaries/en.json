@@ -1,0 +1,74 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "clear": "Clear",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "language": "Language",
+    "changeLanguage": "Change Language",
+    "selectLanguage": "Select Language",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "comingSoon": "Coming Soon",
+    "darkMode": "Dark Mode",
+    "notifications": "Notifications",
+    "learningPreferences": "Learning Preferences"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Daily English",
+      "subtitle": "Topics",
+      "description": "Learn English through interactive slide presentations from real Reddit discussions"
+    },
+    "stats": {
+      "realConversations": "Real Conversations",
+      "freshContent": "Fresh Content",
+      "interactiveLearning": "Interactive Learning"
+    },
+    "filters": {
+      "all": "All",
+      "difficulty": "Difficulty",
+      "category": "Category",
+      "tags": "Tags"
+    },
+    "search": {
+      "placeholder": "Search topics...",
+      "noResults": "No results found",
+      "tryDifferent": "Try different keywords"
+    },
+    "topicCard": {
+      "slides": "slides",
+      "readMore": "Start Reading"
+    }
+  },
+  "wordLookup": {
+    "loading": "Looking up...",
+    "notFound": "Word not found",
+    "checkSpelling": "Please check spelling",
+    "viewMore": "View more definitions",
+    "close": "Close",
+    "playAudio": "Play pronunciation",
+    "deepExplanation": "Deep explanation",
+    "examples": "Examples",
+    "synonyms": "Synonyms",
+    "antonyms": "Antonyms",
+    "etymology": "Etymology",
+    "relatedWords": "Related words"
+  }
+}

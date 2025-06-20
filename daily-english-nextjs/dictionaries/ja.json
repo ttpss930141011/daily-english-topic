@@ -1,0 +1,60 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "close": "閉じる",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "search": "検索",
+    "clear": "クリア",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "submit": "送信",
+    "success": "成功",
+    "warning": "警告",
+    "info": "情報",
+    "language": "言語",
+    "changeLanguage": "言語を変更",
+    "selectLanguage": "言語を選択",
+    "settings": "設定",
+    "profile": "プロフィール",
+    "signIn": "サインイン",
+    "signOut": "サインアウト",
+    "comingSoon": "近日公開",
+    "darkMode": "ダークモード",
+    "notifications": "通知設定",
+    "learningPreferences": "学習設定"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Daily English",
+      "subtitle": "Topics",
+      "description": "Reddit の実際の議論から取られたインタラクティブなスライドプレゼンテーションを通じて英語を学びましょう"
+    },
+    "stats": {
+      "realConversations": "実際の会話",
+      "freshContent": "新鮮なコンテンツ",
+      "interactiveLearning": "インタラクティブ学習"
+    },
+    "filters": {
+      "all": "すべて",
+      "difficulty": "難易度",
+      "category": "カテゴリー",
+      "tags": "タグ"
+    },
+    "search": {
+      "placeholder": "トピックを検索...",
+      "noResults": "結果が見つかりません",
+      "tryDifferent": "別のキーワードをお試しください"
+    },
+    "topicCard": {
+      "slides": "スライド",
+      "readMore": "読み始める"
+    }
+  }
+}
