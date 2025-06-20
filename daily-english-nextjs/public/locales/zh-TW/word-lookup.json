@@ -48,5 +48,39 @@
     "notHelpful": "沒幫助",
     "report": "回報問題",
     "improve": "建議改進"
+  },
+  "contextMenu": {
+    "quickTranslate": "快速翻譯",
+    "quickTranslateDesc": "獲得即時翻譯",
+    "deepExplain": "深度解釋",
+    "deepExplainDesc": "詳細語法和文化背景",
+    "addToNotes": "加入筆記",
+    "addToNotesDesc": "保存到個人詞彙庫",
+    "wordsCount": "個詞"
+  },
+  "translationPopup": {
+    "translating": "正在翻譯...",
+    "originalText": "原文",
+    "translation": "翻譯",
+    "playPronunciation": "播放發音",
+    "copyTranslation": "複製翻譯",
+    "accuracy": "準確度：",
+    "otherTranslations": "其他翻譯：",
+    "close": "關閉"
+  },
+  "deepDrawer": {
+    "title": "深度學習助手",
+    "closeDrawer": "關閉 (ESC)",
+    "regenerate": "重新生成解釋",
+    "generating": "正在生成深度解釋...",
+    "failed": "生成解釋失敗",
+    "retry": "重試",
+    "newTab": "新分頁",
+    "closeTab": "關閉分頁",
+    "noContent": "沒有內容可顯示。",
+    "aiAssistant": "AI 學習助手",
+    "selectText": "選擇文字並點擊「深度解釋」開始學習",
+    "shortcuts": "快捷鍵：",
+    "shortcutKeys": "ESC 關閉，⌘Tab 切換分頁"
   }
 }

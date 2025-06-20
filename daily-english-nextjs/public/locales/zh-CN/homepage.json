@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "title": "每日英语",
+    "subtitle": "主题",
+    "description": "探索从真实 Reddit 讨论中精心制作的互动学习体验。",
+    "masterEnglish": "精通英语",
+    "throughConversations": "通过真实对话。"
+  },
+  "stats": {
+    "interactiveTopics": "互动主题",
+    "realConversations": "真实对话",
+    "freshContent": "新鲜内容",
+    "daily": "每日"
+  },
+  "search": {
+    "placeholder": "搜索主题、讨论或关键词...",
+    "searchTags": "搜索标签..."
+  },
+  "filters": {
+    "allCategories": "所有分类",
+    "allLevels": "所有程度",
+    "category": "分类",
+    "selectCategory": "选择分类",
+    "difficulty": "难度",
+    "selectDifficulty": "选择难度",
+    "tags": "标签",
+    "clearAll": "清除全部",
+    "newestFirst": "最新优先",
+    "oldestFirst": "最旧优先"
+  },
+  "topicCount": {
+    "showing": "显示",
+    "of": "共",
+    "topics": "个主题"
+  },
+  "topicCard": {
+    "startLearning": "开始学习"
+  },
+  "emptyState": {
+    "noTopicsFound": "未找到主题",
+    "tryAdjusting": "尝试调整您的搜索或筛选条件以发现更多内容。",
+    "clearAllFilters": "清除所有筛选"
+  },
+  "tags": {
+    "noTagsFound": "未找到标签。"
+  }
+}

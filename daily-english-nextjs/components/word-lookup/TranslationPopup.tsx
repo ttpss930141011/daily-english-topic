@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
+import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { X, Copy, Volume2 } from 'lucide-react'
 
 interface TranslationPopupProps {
@@ -9,6 +10,7 @@ interface TranslationPopupProps {
 }
 
 export function TranslationPopup({ className = '' }: TranslationPopupProps) {
+  const { t } = useAppTranslation('word-lookup')
   const {
     currentTranslation,
     isLoadingTranslation,
@@ -85,7 +87,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
       {isLoadingTranslation && (
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent"></div>
-          <span className="text-sm text-gray-600">正在翻譯...</span>
+          <span className="text-sm text-gray-600">{t('translationPopup.translating')}</span>
         </div>
       )}
 
@@ -96,12 +98,12 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded">
-                原文
+                {t('translationPopup.originalText')}
               </span>
               <button
                 onClick={handlePronunciation}
                 className="p-1 hover:bg-blue-100 rounded transition-colors"
-                title="播放發音"
+                title={t('translationPopup.playPronunciation')}
               >
                 <Volume2 className="h-4 w-4 text-blue-600" />
               </button>
@@ -115,12 +117,12 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded">
-                翻譯
+                {t('translationPopup.translation')}
               </span>
               <button
                 onClick={handleCopyTranslation}
                 className="p-1 hover:bg-green-100 rounded transition-colors"
-                title="複製翻譯"
+                title={t('translationPopup.copyTranslation')}
               >
                 <Copy className="h-4 w-4 text-green-600" />
               </button>
@@ -133,7 +135,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           {/* Confidence Score */}
           {currentTranslation.confidence && (
             <div className="flex items-center space-x-2">
-              <span className="text-xs text-gray-500">準確度：</span>
+              <span className="text-xs text-gray-500">{t('translationPopup.accuracy')}</span>
               <div className="flex-1 bg-gray-200 rounded-full h-2">
                 <div 
                   className="bg-blue-500 h-2 rounded-full transition-all duration-300"
@@ -150,7 +152,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           {currentTranslation.alternatives && currentTranslation.alternatives.length > 0 && (
             <div>
               <span className="text-xs font-medium text-gray-600 mb-2 block">
-                其他翻譯：
+                {t('translationPopup.otherTranslations')}
               </span>
               <div className="space-y-1">
                 {currentTranslation.alternatives.slice(0, 2).map((alt, index) => (
@@ -168,7 +170,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
       <button
         onClick={hideTranslationPopup}
         className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-        title="關閉"
+        title={t('translationPopup.close')}
       >
         <X className="h-4 w-4" />
       </button>

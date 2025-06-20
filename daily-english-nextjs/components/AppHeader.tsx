@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useState, useRef, useEffect } from 'react'
-import { User, Settings, Globe, LogOut, LogIn } from 'lucide-react'
+import { Globe, LogIn } from 'lucide-react'
 import { useAppTranslation, useAppLanguage } from '@/components/providers/I18nProvider'
+import { SignInModal } from '@/components/SignInModal'
 
 interface AppHeaderProps {
   className?: string
@@ -19,18 +20,9 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
   const { t } = useAppTranslation('common')
   const { currentLanguage, changeLanguage, availableLanguages } = useAppLanguage()
   
-  const [showSettings, setShowSettings] = useState(false)
   const [showLanguageMenu, setShowLanguageMenu] = useState(false)
-  const settingsRef = useRef<HTMLDivElement>(null)
+  const [showSignInModal, setShowSignInModal] = useState(false)
   const languageRef = useRef<HTMLDivElement>(null)
-
-  // Mock user state - will be replaced with real Google OAuth
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [userProfile, setUserProfile] = useState<{
-    name?: string
-    email?: string
-    avatar?: string
-  }>({})
 
   /**
    * Handles language change from dropdown menu.
@@ -41,27 +33,6 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
   const handleLanguageChange = (languageCode: string) => {
     changeLanguage(languageCode)
     setShowLanguageMenu(false)
-    setShowSettings(false)
-  }
-
-  /**
-   * Handles user login/logout actions.
-   * Placeholder for future Google OAuth integration.
-   */
-  const handleAuthAction = () => {
-    if (isLoggedIn) {
-      // Future: Google OAuth logout
-      setIsLoggedIn(false)
-      setUserProfile({})
-    } else {
-      // Future: Google OAuth login
-      setIsLoggedIn(true)
-      setUserProfile({
-        name: 'Demo User',
-        email: 'demo@example.com',
-        avatar: undefined
-      })
-    }
   }
 
   // Close dropdowns when clicking outside
@@ -72,9 +43,6 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
      * @param event - Mouse click event
      */
     const handleClickOutside = (event: MouseEvent) => {
-      if (settingsRef.current && !settingsRef.current.contains(event.target as Node)) {
-        setShowSettings(false)
-      }
       if (languageRef.current && !languageRef.current.contains(event.target as Node)) {
         setShowLanguageMenu(false)
       }
@@ -85,31 +53,19 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
   }, [])
 
   return (
-    <header className={`bg-white/80 backdrop-blur-md border-b border-gray-200/50 sticky top-0 z-30 ${className}`}>
+    <header className={`bg-transparent sticky top-0 z-30 ${className}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          {/* Logo/Brand */}
-          <div className="flex items-center space-x-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-br from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">DE</span>
-              </div>
-              <span className="text-lg font-semibold text-gray-900 hidden sm:block">
-                Daily English
-              </span>
-            </div>
-          </div>
+          {/* Empty left side */}
+          <div></div>
 
-          {/* Right side - User actions */}
+          {/* Right side - Language and Sign In */}
           <div className="flex items-center space-x-3">
             {/* Language Selector */}
             <div className="relative" ref={languageRef}>
               <button
-                onClick={() => {
-                  setShowLanguageMenu(!showLanguageMenu)
-                  setShowSettings(false)
-                }}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                onClick={() => setShowLanguageMenu(!showLanguageMenu)}
+                className="p-2 hover:bg-white/20 rounded-lg transition-colors"
                 title={t('changeLanguage')}
               >
                 <Globe className="h-5 w-5 text-gray-600" />
@@ -142,98 +98,22 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
               )}
             </div>
 
-            {/* Settings Dropdown */}
-            <div className="relative" ref={settingsRef}>
-              <button
-                onClick={() => {
-                  setShowSettings(!showSettings)
-                  setShowLanguageMenu(false)
-                }}
-                className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                title={t('settings')}
-              >
-                <Settings className="h-5 w-5 text-gray-600" />
-              </button>
-
-              {showSettings && (
-                <div className="absolute right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
-                  <div className="px-3 py-2 text-xs font-medium text-gray-500 border-b border-gray-100">
-                    {t('settings')}
-                  </div>
-                  
-                  {/* Language setting in dropdown too */}
-                  <button
-                    onClick={() => setShowLanguageMenu(!showLanguageMenu)}
-                    className="w-full text-left px-3 py-2 text-sm text-gray-700 hover:bg-gray-50 transition-colors flex items-center justify-between"
-                  >
-                    <div className="flex items-center space-x-2">
-                      <Globe className="h-4 w-4" />
-                      <span>{t('language')}</span>
-                    </div>
-                    <span className="text-xs text-gray-500">
-                      {availableLanguages.find(l => l.code === currentLanguage)?.name}
-                    </span>
-                  </button>
-
-                  <div className="border-t border-gray-100 mt-2 pt-2">
-                    <div className="px-3 py-1 text-xs text-gray-500">
-                      {t('comingSoon')}
-                    </div>
-                    <div className="px-3 py-2 text-sm text-gray-400">
-                      • {t('darkMode')}
-                    </div>
-                    <div className="px-3 py-2 text-sm text-gray-400">
-                      • {t('notifications')}
-                    </div>
-                    <div className="px-3 py-2 text-sm text-gray-400">
-                      • {t('learningPreferences')}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-
-            {/* User Avatar/Profile */}
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={handleAuthAction}
-                className="flex items-center space-x-2 hover:bg-gray-100 rounded-lg p-2 transition-colors"
-                title={isLoggedIn ? t('profile') : t('signIn')}
-              >
-                {isLoggedIn ? (
-                  <>
-                    {userProfile.avatar ? (
-                      <img 
-                        src={userProfile.avatar} 
-                        alt={userProfile.name}
-                        className="w-6 h-6 rounded-full"
-                      />
-                    ) : (
-                      <div className="w-6 h-6 bg-gradient-to-br from-purple-500 to-pink-500 rounded-full flex items-center justify-center">
-                        <User className="h-4 w-4 text-white" />
-                      </div>
-                    )}
-                    <span className="hidden sm:block text-sm text-gray-700">
-                      {userProfile.name}
-                    </span>
-                    <LogOut className="h-4 w-4 text-gray-500 hidden sm:block" />
-                  </>
-                ) : (
-                  <>
-                    <div className="w-6 h-6 bg-gray-300 rounded-full flex items-center justify-center">
-                      <User className="h-4 w-4 text-gray-600" />
-                    </div>
-                    <span className="hidden sm:block text-sm text-gray-700">
-                      {t('signIn')}
-                    </span>
-                    <LogIn className="h-4 w-4 text-gray-500 hidden sm:block" />
-                  </>
-                )}
-              </button>
-            </div>
+            {/* Sign In Button */}
+            <button
+              className="hidden gap-2 px-5 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-full transition-colors md:flex items-center"
+              onClick={() => setShowSignInModal(true)}
+            >
+              <span>{t('signIn')}</span>
+              <LogIn className="size-4" />
+            </button>
           </div>
         </div>
       </div>
+      
+      <SignInModal 
+        showSignInModal={showSignInModal}
+        setShowSignInModal={setShowSignInModal}
+      />
     </header>
   )
 }

@@ -48,5 +48,39 @@
     "notHelpful": "Not helpful",
     "report": "Report issue",
     "improve": "Suggest improvement"
+  },
+  "contextMenu": {
+    "quickTranslate": "Quick Translate",
+    "quickTranslateDesc": "Get instant translation",
+    "deepExplain": "Deep Explanation",
+    "deepExplainDesc": "Detailed grammar and cultural context",
+    "addToNotes": "Add to Notes",
+    "addToNotesDesc": "Save to personal vocabulary",
+    "wordsCount": "words"
+  },
+  "translationPopup": {
+    "translating": "Translating...",
+    "originalText": "Original",
+    "translation": "Translation",
+    "playPronunciation": "Play pronunciation",
+    "copyTranslation": "Copy translation",
+    "accuracy": "Accuracy:",
+    "otherTranslations": "Other translations:",
+    "close": "Close"
+  },
+  "deepDrawer": {
+    "title": "Deep Learning Assistant",
+    "closeDrawer": "Close (ESC)",
+    "regenerate": "Regenerate explanation",
+    "generating": "Generating deep explanation...",
+    "failed": "Failed to generate explanation",
+    "retry": "Retry",
+    "newTab": "New Tab",
+    "closeTab": "Close Tab",
+    "noContent": "No content to display.",
+    "aiAssistant": "AI Learning Assistant",
+    "selectText": "Select text and click \"Deep Explanation\" to start learning",
+    "shortcuts": "Shortcuts:",
+    "shortcutKeys": "ESC close, ⌘Tab switch tabs"
   }
 }

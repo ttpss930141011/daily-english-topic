@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
+import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { 
   Globe, 
   Brain, 
@@ -13,6 +14,7 @@ interface ContextMenuProps {
 }
 
 export function ContextMenu({ className = '' }: ContextMenuProps) {
+  const { t } = useAppTranslation('word-lookup')
   const {
     showContextMenu,
     activeSelection,
@@ -106,22 +108,22 @@ export function ContextMenu({ className = '' }: ContextMenuProps) {
   const menuItems = [
     {
       icon: Globe,
-      label: '快速翻譯',
-      description: '獲得即時翻譯',
+      label: t('contextMenu.quickTranslate'),
+      description: t('contextMenu.quickTranslateDesc'),
       onClick: handleQuickTranslate,
       shortcut: '⌘T'
     },
     {
       icon: Brain,
-      label: '深度解釋',
-      description: '詳細語法和文化背景',
+      label: t('contextMenu.deepExplain'),
+      description: t('contextMenu.deepExplainDesc'),
       onClick: handleDeepExplain,
       shortcut: '⌘E'
     },
     {
       icon: BookOpen,
-      label: '加入筆記',
-      description: '保存到個人詞彙庫',
+      label: t('contextMenu.addToNotes'),
+      description: t('contextMenu.addToNotesDesc'),
       onClick: handleAddToNotes,
       shortcut: '⌘N'
     }
@@ -144,7 +146,7 @@ export function ContextMenu({ className = '' }: ContextMenuProps) {
             : activeSelection.text}&rdquo;
         </p>
         <p className="text-xs text-gray-500">
-          {activeSelection.text.split(/\s+/).length} 個詞
+          {activeSelection.text.split(/\s+/).length} {t('contextMenu.wordsCount')}
         </p>
       </div>
 

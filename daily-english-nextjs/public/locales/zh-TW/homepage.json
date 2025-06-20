@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "title": "每日英文",
+    "subtitle": "主題",
+    "description": "探索從真實 Reddit 討論中精心製作的互動學習體驗。",
+    "masterEnglish": "精通英文",
+    "throughConversations": "通過真實對話。"
+  },
+  "stats": {
+    "interactiveTopics": "互動主題",
+    "realConversations": "真實對話",
+    "freshContent": "新鮮內容",
+    "daily": "每日"
+  },
+  "search": {
+    "placeholder": "搜尋主題、討論或關鍵字...",
+    "searchTags": "搜尋標籤..."
+  },
+  "filters": {
+    "allCategories": "所有分類",
+    "allLevels": "所有程度",
+    "category": "分類",
+    "selectCategory": "選擇分類",
+    "difficulty": "難度",
+    "selectDifficulty": "選擇難度",
+    "tags": "標籤",
+    "clearAll": "清除全部",
+    "newestFirst": "最新優先",
+    "oldestFirst": "最舊優先"
+  },
+  "topicCount": {
+    "showing": "顯示",
+    "of": "共",
+    "topics": "個主題"
+  },
+  "topicCard": {
+    "startLearning": "開始學習"
+  },
+  "emptyState": {
+    "noTopicsFound": "未找到主題",
+    "tryAdjusting": "嘗試調整您的搜尋或篩選條件以發現更多內容。",
+    "clearAllFilters": "清除所有篩選"
+  },
+  "tags": {
+    "noTagsFound": "未找到標籤。"
+  }
+}

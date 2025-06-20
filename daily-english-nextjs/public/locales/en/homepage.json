@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "title": "Daily English",
+    "subtitle": "Topics",
+    "description": "Dive into interactive learning experiences crafted from real Reddit discussions.",
+    "masterEnglish": "Master English",
+    "throughConversations": "through authentic conversations."
+  },
+  "stats": {
+    "interactiveTopics": "Interactive Topics",
+    "realConversations": "Real Conversations",
+    "freshContent": "Fresh Content",
+    "daily": "Daily"
+  },
+  "search": {
+    "placeholder": "Search for topics, discussions, or keywords...",
+    "searchTags": "Search tags..."
+  },
+  "filters": {
+    "allCategories": "All Categories",
+    "allLevels": "All Levels",
+    "category": "Category",
+    "selectCategory": "Select Category",
+    "difficulty": "Difficulty",
+    "selectDifficulty": "Select Difficulty",
+    "tags": "Tags",
+    "clearAll": "Clear All",
+    "newestFirst": "Newest First",
+    "oldestFirst": "Oldest First"
+  },
+  "topicCount": {
+    "showing": "Showing",
+    "of": "of",
+    "topics": "topics"
+  },
+  "topicCard": {
+    "startLearning": "Start Learning"
+  },
+  "emptyState": {
+    "noTopicsFound": "No topics found",
+    "tryAdjusting": "Try adjusting your search or filters to discover more content.",
+    "clearAllFilters": "Clear All Filters"
+  },
+  "tags": {
+    "noTagsFound": "No tags found."
+  }
+}

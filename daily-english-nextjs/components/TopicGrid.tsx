@@ -11,6 +11,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Popover, PopoverTrigger, PopoverContent } from '@/components/ui/popover';
 import { Command, CommandInput, CommandList, CommandEmpty, CommandGroup, CommandItem } from '@/components/ui/command';
 import { Checkbox } from '@/components/ui/checkbox';
+import { useAppTranslation } from '@/components/providers/I18nProvider';
 
 interface TopicGridProps {
   topics: Topic[];
@@ -63,6 +64,7 @@ const heroVariants = {
 };
 
 export default function TopicGrid({ topics }: TopicGridProps) {
+  const { t } = useAppTranslation('homepage');
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState<FilterState>({ tags: [], category: 'all', difficulty: 'all' });
   const [sortOrder, setSortOrder] = useState<SortOrder>('desc');
@@ -78,12 +80,12 @@ export default function TopicGrid({ topics }: TopicGridProps) {
   const allDifficulties = Array.from(new Set(topics.map(t => t.difficulty).filter((diff): diff is NonNullable<Topic['difficulty']> => Boolean(diff))));
 
   const categoryOptions = [
-    { value: 'all', label: 'All Categories' },
+    { value: 'all', label: t('filters.allCategories') },
     ...allCategories.map(cat => ({ value: cat, label: cat }))
   ];
 
   const difficultyOptions = [
-    { value: 'all', label: 'All Levels' },
+    { value: 'all', label: t('filters.allLevels') },
     ...Array.from(new Set(allDifficulties.map(diff => diff.toLowerCase()))).map(diff => ({ 
       value: diff, 
       label: diff.charAt(0).toUpperCase() + diff.slice(1) 
@@ -176,10 +178,10 @@ export default function TopicGrid({ topics }: TopicGridProps) {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             <h1 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-white via-purple-200 to-blue-200 bg-clip-text text-transparent mb-6 leading-tight">
-              Daily English
+              {t('hero.title')}
               <br />
               <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-blue-400 bg-clip-text text-transparent">
-                Topics
+                {t('hero.subtitle')}
               </span>
             </h1>
           </motion.div>
@@ -190,8 +192,8 @@ export default function TopicGrid({ topics }: TopicGridProps) {
             animate={{ y: 0, opacity: 1 }}
             transition={{ delay: 0.7, duration: 0.8 }}
           >
-            Dive into interactive learning experiences crafted from real Reddit discussions. 
-            <span className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text font-semibold"> Master English</span> through authentic conversations.
+            {t('hero.description')} 
+            <span className="text-transparent bg-gradient-to-r from-purple-400 to-blue-400 bg-clip-text font-semibold"> {t('hero.masterEnglish')}</span> {t('hero.throughConversations')}
           </motion.p>
 
           {/* Stats Cards */}
@@ -208,7 +210,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                 </div>
               </div>
               <h3 className="text-2xl font-bold text-white mb-1">{topics.length}+</h3>
-              <p className="text-gray-300">Interactive Topics</p>
+              <p className="text-gray-300">{t('stats.interactiveTopics')}</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
@@ -218,7 +220,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                 </div>
               </div>
               <h3 className="text-2xl font-bold text-white mb-1">10K+</h3>
-              <p className="text-gray-300">Real Conversations</p>
+              <p className="text-gray-300">{t('stats.realConversations')}</p>
             </div>
             
             <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-6 border border-white/20">
@@ -227,8 +229,8 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                   <Clock className="w-6 h-6 text-white" />
                 </div>
               </div>
-              <h3 className="text-2xl font-bold text-white mb-1">Daily</h3>
-              <p className="text-gray-300">Fresh Content</p>
+              <h3 className="text-2xl font-bold text-white mb-1">{t('stats.daily')}</h3>
+              <p className="text-gray-300">{t('stats.freshContent')}</p>
             </div>
           </motion.div>
         </div>
@@ -248,7 +250,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
             <div className="relative w-full mb-6">
               <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <Input
-                placeholder="Search for topics, discussions, or keywords..."
+                placeholder={t('search.placeholder')}
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
                 className="pl-12 h-12 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400 transition-all duration-300"
@@ -266,13 +268,13 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                       className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
                     >
                       <Filter className="w-4 h-4 mr-2" /> 
-                      {categoryOptions.find(opt => opt.value === filters.category)?.label || 'Category'}
+                      {categoryOptions.find(opt => opt.value === filters.category)?.label || t('filters.category')}
                       <ChevronDown className="w-4 h-4 ml-2" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-56 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
                     <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-white mb-3">Select Category</h4>
+                      <h4 className="text-sm font-medium text-white mb-3">{t('filters.selectCategory')}</h4>
                       {categoryOptions.map(option => (
                         <Button
                           key={option.value}
@@ -302,13 +304,13 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                       className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
                     >
                       <BarChart3 className="w-4 h-4 mr-2" /> 
-                      {difficultyOptions.find(opt => opt.value === filters.difficulty)?.label || 'Difficulty'}
+                      {difficultyOptions.find(opt => opt.value === filters.difficulty)?.label || t('filters.difficulty')}
                       <ChevronDown className="w-4 h-4 ml-2" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-56 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
                     <div className="space-y-2">
-                      <h4 className="text-sm font-medium text-white mb-3">Select Difficulty</h4>
+                      <h4 className="text-sm font-medium text-white mb-3">{t('filters.selectDifficulty')}</h4>
                       {difficultyOptions.map(option => (
                         <Button
                           key={option.value}
@@ -336,9 +338,9 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                   className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
                 >
                   {sortOrder === 'desc' ? (
-                    <><ArrowDown className="w-4 h-4 mr-2" /> Newest First</>
+                    <><ArrowDown className="w-4 h-4 mr-2" /> {t('filters.newestFirst')}</>
                   ) : (
-                    <><ArrowUp className="w-4 h-4 mr-2" /> Oldest First</>
+                    <><ArrowUp className="w-4 h-4 mr-2" /> {t('filters.oldestFirst')}</>
                   )}
                 </Button>
               </div>
@@ -352,18 +354,18 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                       className="bg-white/10 border-white/20 text-white hover:bg-white/20 transition-all duration-300"
                     >
                       <IconTag className="w-4 h-4 mr-2" /> 
-                      Tags {filters.tags.length > 0 && `(${filters.tags.length})`}
+                      {t('filters.tags')} {filters.tags.length > 0 && `(${filters.tags.length})`}
                       <ChevronDown className="w-4 h-4 ml-2" />
                     </Button>
                   </PopoverTrigger>
                   <PopoverContent className="w-64 bg-gradient-to-br from-gray-800/95 to-gray-900/95 backdrop-blur-xl border border-purple-500/30 shadow-2xl">
                     <Command className="bg-transparent">
                       <CommandInput 
-                        placeholder="Search tags..." 
+                        placeholder={t('search.searchTags')} 
                         className="text-white placeholder:text-gray-400 border-gray-700" 
                       />
                       <CommandList className="max-h-64 overflow-y-auto">
-                        <CommandEmpty className="text-gray-400 py-4 text-center">No tags found.</CommandEmpty>
+                        <CommandEmpty className="text-gray-400 py-4 text-center">{t('tags.noTagsFound')}</CommandEmpty>
                         <CommandGroup>
                           {allTags.map(tag => (
                             <CommandItem
@@ -397,7 +399,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                     onClick={clearAllFilters}
                     className="text-gray-300 hover:text-white hover:bg-white/10 transition-all duration-300"
                   >
-                    <IconX className="w-4 h-4 mr-1" /> Clear All
+                    <IconX className="w-4 h-4 mr-1" /> {t('filters.clearAll')}
                   </Button>
                 )}
               </div>
@@ -413,7 +415,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
           transition={{ delay: 1.3, duration: 0.6 }}
         >
           <p className="text-gray-300">
-            Showing <span className="text-purple-400 font-semibold">{filteredTopics.length}</span> of <span className="text-blue-400 font-semibold">{topics.length}</span> topics
+            {t('topicCount.showing')} <span className="text-purple-400 font-semibold">{filteredTopics.length}</span> {t('topicCount.of')} <span className="text-blue-400 font-semibold">{topics.length}</span> {t('topicCount.topics')}
           </p>
         </motion.div>
 
@@ -496,7 +498,7 @@ export default function TopicGrid({ topics }: TopicGridProps) {
                       >
                         <a href={`/topic/${topic.date}`} className="flex items-center justify-center">
                           <Sparkles className="w-4 h-4 mr-2" />
-                          Start Learning
+                          {t('topicCard.startLearning')}
                         </a>
                       </Button>
                     </div>
@@ -517,13 +519,13 @@ export default function TopicGrid({ topics }: TopicGridProps) {
           >
             <div className="bg-white/10 backdrop-blur-lg rounded-3xl p-12 max-w-md mx-auto border border-white/20">
               <BookOpen className="mx-auto mb-6 w-16 h-16 text-gray-400" />
-              <h3 className="text-2xl font-bold text-white mb-3">No topics found</h3>
-              <p className="text-gray-300 mb-6">Try adjusting your search or filters to discover more content.</p>
+              <h3 className="text-2xl font-bold text-white mb-3">{t('emptyState.noTopicsFound')}</h3>
+              <p className="text-gray-300 mb-6">{t('emptyState.tryAdjusting')}</p>
               <Button 
                 onClick={clearAllFilters}
                 className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
               >
-                Clear All Filters
+                {t('emptyState.clearAllFilters')}
               </Button>
             </div>
           </motion.div>

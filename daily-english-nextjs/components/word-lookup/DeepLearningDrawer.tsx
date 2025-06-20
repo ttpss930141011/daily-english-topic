@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
+import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { X, RotateCcw } from 'lucide-react'
 import { marked } from 'marked'
 
@@ -10,6 +11,7 @@ interface DeepLearningDrawerProps {
 }
 
 export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) {
+  const { t } = useAppTranslation('word-lookup')
   const {
     showDeepDrawer,
     deepTabs,
@@ -86,11 +88,11 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
       {/* Header */}
       <div className="flex-shrink-0 bg-gray-50 border-b border-gray-200 p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-gray-900">深度學習助手</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{t('deepDrawer.title')}</h2>
           <button
             onClick={closeDeepDrawer}
             className="p-1.5 hover:bg-gray-200 rounded transition-colors"
-            title="關閉 (ESC)"
+            title={t('deepDrawer.closeDrawer')}
           >
             <X className="h-4 w-4 text-gray-600" />
           </button>
@@ -120,7 +122,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                       closeDeepTab(tab.id)
                     }}
                     className="p-0.5 hover:bg-gray-300 rounded"
-                    title="關閉分頁"
+                    title={t('deepDrawer.closeTab')}
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -150,7 +152,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                   <button
                     onClick={handleRetry}
                     className="p-2 hover:bg-purple-100 rounded transition-colors"
-                    title="重新生成解釋"
+                    title={t('deepDrawer.regenerate')}
                   >
                     <RotateCcw className="h-4 w-4 text-purple-600" />
                   </button>
@@ -167,7 +169,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="animate-spin rounded-full h-6 w-6 border-2 border-purple-500 border-t-transparent"></div>
-                    <span className="text-gray-600">正在生成深度解釋...</span>
+                    <span className="text-gray-600">{t('deepDrawer.generating')}</span>
                   </div>
                   
                   {/* Streaming indicator */}
@@ -191,7 +193,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                 <div 
                   className="prose prose-sm max-w-none"
                   dangerouslySetInnerHTML={{ 
-                    __html: marked(activeTab.content || '沒有內容可顯示。') 
+                    __html: marked(activeTab.content || t('deepDrawer.noContent')) 
                   }}
                 />
               )}
@@ -201,8 +203,8 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
           <div className="h-full flex items-center justify-center text-gray-500">
             <div className="text-center">
               <div className="text-6xl mb-4">🤖</div>
-              <h3 className="text-lg font-medium mb-2">AI 學習助手</h3>
-              <p className="text-sm">選擇文字並點擊「深度解釋」開始學習</p>
+              <h3 className="text-lg font-medium mb-2">{t('deepDrawer.aiAssistant')}</h3>
+              <p className="text-sm">{t('deepDrawer.selectText')}</p>
             </div>
           </div>
         )}
@@ -212,8 +214,8 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
       <div className="flex-shrink-0 bg-gray-50 border-t border-gray-200 px-4 py-2">
         <div className="text-xs text-gray-500 space-y-1">
           <div className="flex justify-between">
-            <span>快捷鍵：</span>
-            <span>ESC 關閉，⌘Tab 切換分頁</span>
+            <span>{t('deepDrawer.shortcuts')}</span>
+            <span>{t('deepDrawer.shortcutKeys')}</span>
           </div>
         </div>
       </div>
