@@ -4,10 +4,17 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { useTranslation, I18nextProvider } from 'react-i18next'
 import i18n from '@/app/i18n'
 
+interface LanguageOption {
+  code: string
+  name: string
+  nativeName: string
+}
+
 interface I18nContextType {
   currentLanguage: string
   changeLanguage: (lng: string) => void
   isLoading: boolean
+  availableLanguages: LanguageOption[]
 }
 
 const I18nContext = createContext<I18nContextType | undefined>(undefined)
@@ -16,6 +23,15 @@ interface I18nProviderProps {
   children: ReactNode
   initialLanguage?: string
 }
+
+// Available language options
+const AVAILABLE_LANGUAGES: LanguageOption[] = [
+  { code: 'zh-TW', name: '繁體中文', nativeName: '繁體中文' },
+  { code: 'zh-CN', name: '简体中文', nativeName: '简体中文' },
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'ja', name: '日本語', nativeName: '日本語' },
+  { code: 'ko', name: '한국어', nativeName: '한국어' }
+]
 
 export function I18nProvider({ children, initialLanguage = 'zh-TW' }: I18nProviderProps) {
   const [currentLanguage, setCurrentLanguage] = useState(initialLanguage)
@@ -58,6 +74,7 @@ export function I18nProvider({ children, initialLanguage = 'zh-TW' }: I18nProvid
     currentLanguage,
     changeLanguage,
     isLoading,
+    availableLanguages: AVAILABLE_LANGUAGES
   }
 
   if (isLoading) {
@@ -94,5 +111,16 @@ export function useAppTranslation(ns?: string | string[]) {
     changeLanguage,
     isLoading,
     i18n,
+  }
+}
+
+// Hook for accessing language configuration
+export function useAppLanguage() {
+  const context = useI18n()
+  return {
+    currentLanguage: context.currentLanguage,
+    changeLanguage: context.changeLanguage,
+    availableLanguages: context.availableLanguages,
+    isLoading: context.isLoading
   }
 }

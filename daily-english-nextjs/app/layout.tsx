@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Inter } from "next/font/google";
 import { I18nProvider } from "@/components/providers/I18nProvider";
+import { AppHeader } from "@/components/AppHeader";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -36,7 +37,10 @@ export default function RootLayout({
       </head>
       <body className={`${geistSans.variable} ${geistMono.variable} ${inter.variable} text-white`}>
         <I18nProvider initialLanguage="zh-TW">
-          {children}
+          <AppHeader />
+          <main>
+            {children}
+          </main>
         </I18nProvider>
       </body>
     </html>

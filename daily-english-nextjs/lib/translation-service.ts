@@ -105,8 +105,8 @@ Text to translate: "${text}"
 Requirements:
 1. Provide a natural, fluent translation suitable for language learners
 2. Include 2-3 alternative translations if applicable
-3. Add a brief cultural or contextual note if relevant for learning
-4. Focus on educational value and accuracy
+3. Add a brief educational note about usage, culture, or context if relevant
+4. Focus on accuracy and educational value
 
 Response format (JSON):
 {

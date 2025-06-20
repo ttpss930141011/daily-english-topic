@@ -29,10 +29,11 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
   const [isDragging, setIsDragging] = useState(false)
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 })
   const [position, setPosition] = useState({ x: 0, y: 0 })
+  const [hasBeenPositioned, setHasBeenPositioned] = useState(false)
 
   // Position popup relative to selection (only when first shown)
   useEffect(() => {
-    if (showQuickLookup && activeSelection && popupRef.current && !isDragging) {
+    if (showQuickLookup && activeSelection && popupRef.current && !hasBeenPositioned) {
       const popup = popupRef.current
       const { x, y } = activeSelection.position
       
@@ -55,8 +56,16 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       }
       
       setPosition({ x: left, y: top })
+      setHasBeenPositioned(true)
     }
-  }, [showQuickLookup, activeSelection, isDragging])
+  }, [showQuickLookup, activeSelection, hasBeenPositioned])
+
+  // Reset positioning flag when popup is hidden
+  useEffect(() => {
+    if (!showQuickLookup) {
+      setHasBeenPositioned(false)
+    }
+  }, [showQuickLookup])
 
   // Dragging handlers
   const handleMouseDown = useCallback((e: React.MouseEvent) => {
@@ -147,6 +156,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
   return (
     <div
       ref={popupRef}
+      data-container="quick-lookup-popup"
       className={`fixed z-50 bg-white/95 backdrop-blur-sm border border-purple-200 rounded-lg shadow-xl max-w-sm min-w-[280px] ${isDragging ? 'cursor-grabbing' : 'cursor-grab'} ${className}`}
       style={{ 
         position: 'fixed',

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { X, Maximize2, RotateCcw } from 'lucide-react'
+import { X, RotateCcw } from 'lucide-react'
 import { marked } from 'marked'
 
 interface DeepLearningDrawerProps {
@@ -77,6 +77,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
     <div
       ref={drawerRef}
       tabIndex={-1}
+      data-container="deep-learning-drawer"
       className={`fixed top-0 right-0 h-full w-full md:w-2/5 lg:w-1/3 bg-white border-l border-gray-200 shadow-2xl z-40 flex flex-col ${className}`}
       style={{ 
         animation: 'slideInRight 300ms ease-out'
@@ -86,22 +87,13 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
       <div className="flex-shrink-0 bg-gray-50 border-b border-gray-200 p-4">
         <div className="flex items-center justify-between mb-3">
           <h2 className="text-lg font-semibold text-gray-900">深度學習助手</h2>
-          <div className="flex items-center space-x-2">
-            <button
-              onClick={() => window.open('', '_blank')}
-              className="p-1.5 hover:bg-gray-200 rounded transition-colors"
-              title="在新視窗開啟"
-            >
-              <Maximize2 className="h-4 w-4 text-gray-600" />
-            </button>
-            <button
-              onClick={closeDeepDrawer}
-              className="p-1.5 hover:bg-gray-200 rounded transition-colors"
-              title="關閉 (ESC)"
-            >
-              <X className="h-4 w-4 text-gray-600" />
-            </button>
-          </div>
+          <button
+            onClick={closeDeepDrawer}
+            className="p-1.5 hover:bg-gray-200 rounded transition-colors"
+            title="關閉 (ESC)"
+          >
+            <X className="h-4 w-4 text-gray-600" />
+          </button>
         </div>
 
         {/* Tab Bar */}

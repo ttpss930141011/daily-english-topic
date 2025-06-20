@@ -13,45 +13,49 @@ interface DeepExplainRequest {
 
 import { getLanguageName } from '@/lib/language-utils'
 
-function buildPrompt(text: string, userLanguage: string, context?: string, difficulty = 'intermediate'): string {
+/**
+ * Builds optimized prompt for deep explanation according to user requirements.
+ * Follows Single Responsibility Principle by focusing only on prompt construction.
+ * 
+ * @param text - The text to explain
+ * @param userLanguage - User's preferred language for explanation
+ * @param context - Optional context surrounding the text
+ * @param difficulty - Learning difficulty level
+ * @returns Formatted prompt string for AI model
+ */
+function buildPrompt(text: string, userLanguage: string, context?: string): string {
   const targetLanguage = getLanguageName(userLanguage)
-  const difficultyMap: Record<string, string> = {
-    beginner: '初學者',
-    intermediate: '中級',
-    advanced: '高級'
-  }
 
-  return `作為一位經驗豐富的英語教師，請針對以下文字提供深度解釋：
+  return `As an experienced English teacher, provide a comprehensive explanation of "${text}" in ${targetLanguage}. Follow this structure:
 
-**要解釋的文字：** "${text}"
-**使用者語言：** ${targetLanguage}
-**學習程度：** ${difficultyMap[difficulty]}
-${context ? `**上下文：** "${context}"` : ''}
+📖 Literal Translation
 
-請以${targetLanguage}提供以下內容：
+Provide the direct translation and meaning.
 
-## 📖 字面翻譯
-提供直接的翻譯含義
+📝 Usage
 
-## 📝 用法說明
-解釋何時及如何使用這個詞彙或片語
+Explain when and how to use this word or phrase, including formality level and appropriate contexts.
 
-## 💡 例句示範
-提供 2-3 個不同情境下的自然例句，並附上${targetLanguage}翻譯
+💡 Example Sentences
 
-## 🌍 文化背景
-解釋任何相關的文化背景或語言特色
+Provide 2-3 natural example sentences in different contexts with ${targetLanguage} translations:
 
-## 📚 語法重點
-相關的語法模式和規則
+Example: "[concrete example sentence]"
+Translation: "[${targetLanguage} translation]"
 
-## 🔗 相關表達
-類似的片語、同義詞或相關表達方式
+🌍 Cultural Background
 
-## 💭 學習技巧
-記憶或理解這個詞彙的實用技巧
+Explain relevant cultural background or linguistic features, including regional differences and social usage patterns.
 
-請像一位友善的老師一樣，用教育性但有趣的方式來解釋，幫助學生真正理解和掌握這個概念。`
+📚 Grammar Points
+
+Related grammar patterns and rules.
+
+🔗 Related Expressions
+
+Similar phrases, synonyms, or related expressions.
+
+Please respond in ${targetLanguage}, keeping content concise and practical, focusing on helping learners master the core concept of "${text}".${context ? `\n\nContext reference: ${context}` : ''}`
 }
 
 export async function POST(request: NextRequest) {
@@ -69,7 +73,7 @@ export async function POST(request: NextRequest) {
     }
 
     const body: DeepExplainRequest = await request.json()
-    const { text, userLanguage = 'zh-TW', context, difficulty = 'intermediate' } = body
+    const { text, userLanguage = 'zh-TW', context } = body
 
     if (!text || typeof text !== 'string') {
       return new Response(
@@ -103,7 +107,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Build the prompt
-    const prompt = buildPrompt(cleanText, userLanguage, context, difficulty)
+    const prompt = buildPrompt(cleanText, userLanguage, context)
 
     try {
       // Get the model

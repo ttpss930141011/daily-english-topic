@@ -74,6 +74,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
   return (
     <div
       ref={popupRef}
+      data-container="translation-popup"
       className={`fixed z-50 bg-white/95 backdrop-blur-sm border border-blue-200 rounded-lg shadow-xl p-4 max-w-sm min-w-[280px] ${className}`}
       style={{ 
         position: 'fixed',

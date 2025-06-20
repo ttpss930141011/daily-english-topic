@@ -16,5 +16,16 @@
   "submit": "Submit",
   "success": "Success",
   "warning": "Warning",
-  "info": "Information"
+  "info": "Information",
+  "language": "Language",
+  "changeLanguage": "Change Language",
+  "selectLanguage": "Select Language",
+  "settings": "Settings",
+  "profile": "Profile",
+  "signIn": "Sign In",
+  "signOut": "Sign Out",
+  "comingSoon": "Coming Soon",
+  "darkMode": "Dark Mode",
+  "notifications": "Notifications",
+  "learningPreferences": "Learning Preferences"
 }

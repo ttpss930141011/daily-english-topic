@@ -39,6 +39,7 @@ export function WordLookupManager({ children, className = '' }: WordLookupManage
   return (
     <div 
       ref={containerRef}
+      data-container="main-content"
       className={`relative ${className}`}
       style={{ userSelect: 'text' }}
     >

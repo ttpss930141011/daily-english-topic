@@ -16,5 +16,16 @@
   "submit": "提交",
   "success": "成功",
   "warning": "警告",
-  "info": "資訊"
+  "info": "資訊",
+  "language": "語言",
+  "changeLanguage": "切換語言",
+  "selectLanguage": "選擇語言",
+  "settings": "設定",
+  "profile": "個人檔案",
+  "signIn": "登入",
+  "signOut": "登出",
+  "comingSoon": "即將推出",
+  "darkMode": "深色模式",
+  "notifications": "通知設定",
+  "learningPreferences": "學習偏好"
 }
