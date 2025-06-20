@@ -81,5 +81,19 @@
     "tags": {
       "noTagsFound": "태그를 찾을 수 없습니다"
     }
+  },
+  "wordLookup": {
+    "loading": "검색 중...",
+    "notFound": "단어를 찾을 수 없습니다",
+    "checkSpelling": "철자를 확인해주세요",
+    "viewMore": "더 많은 정의 보기",
+    "close": "닫기",
+    "playAudio": "발음 재생",
+    "deepExplanation": "상세 설명",
+    "examples": "예문",
+    "synonyms": "유의어",
+    "antonyms": "반의어",
+    "etymology": "어원",
+    "relatedWords": "관련 단어"
   }
 }

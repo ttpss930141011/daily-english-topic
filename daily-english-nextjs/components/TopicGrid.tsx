@@ -104,27 +104,52 @@ export default function TopicGrid({ topics, lang = 'zh-TW', dictionary }: TopicG
       hero: {
         title: 'Daily English',
         subtitle: 'Topics',
-        description: 'Learn English through interactive slide presentations from real Reddit discussions'
+        description: 'Learn English through interactive slide presentations from real Reddit discussions',
+        masterEnglish: 'Master English',
+        throughConversations: 'Through Conversations'
       },
       stats: {
+        interactiveTopics: 'Interactive Topics',
         realConversations: 'Real Conversations',
+        daily: 'Daily Updates',
         freshContent: 'Fresh Content',
         interactiveLearning: 'Interactive Learning'
       },
       filters: {
         all: 'All',
+        allCategories: 'All Categories',
+        allLevels: 'All Levels',
         difficulty: 'Difficulty',
         category: 'Category',
-        tags: 'Tags'
+        tags: 'Tags',
+        selectCategory: 'Select Category',
+        selectDifficulty: 'Select Difficulty',
+        newestFirst: 'Newest First',
+        oldestFirst: 'Oldest First',
+        clearAll: 'Clear All'
       },
       search: {
         placeholder: 'Search topics...',
+        searchTags: 'Search tags...',
         noResults: 'No results found',
         tryDifferent: 'Try different keywords'
       },
       topicCard: {
         slides: 'slides',
         readMore: 'Start Reading'
+      },
+      topicCount: {
+        showing: 'Showing',
+        of: 'of',
+        topics: 'topics'
+      },
+      emptyState: {
+        noTopicsFound: 'No topics found',
+        tryAdjusting: 'Try adjusting your search or filters',
+        clearAllFilters: 'Clear all filters'
+      },
+      tags: {
+        noTagsFound: 'No tags found'
       }
     },
     wordLookup: {

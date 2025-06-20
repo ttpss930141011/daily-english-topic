@@ -1,19 +1,19 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { useTranslation, I18nextProvider } from 'react-i18next'
-import i18n from '@/app/i18n'
+import { createContext, useContext, ReactNode } from 'react'
+import { Dictionary } from '@/types/dictionary'
+import { Locale } from '@/i18n-config'
+import { getClientDictionary } from '@/lib/client-dictionary'
 
 interface LanguageOption {
-  code: string
+  code: Locale
   name: string
   nativeName: string
 }
 
 interface I18nContextType {
-  currentLanguage: string
-  changeLanguage: (lng: string) => void
-  isLoading: boolean
+  dictionary: Dictionary
+  currentLanguage: Locale
   availableLanguages: LanguageOption[]
 }
 
@@ -21,7 +21,8 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined)
 
 interface I18nProviderProps {
   children: ReactNode
-  initialLanguage?: string
+  dictionary: Dictionary
+  locale: Locale
 }
 
 // Available language options
@@ -33,65 +34,29 @@ const AVAILABLE_LANGUAGES: LanguageOption[] = [
   { code: 'ko', name: '한국어', nativeName: '한국어' }
 ]
 
-export function I18nProvider({ children, initialLanguage = 'zh-TW' }: I18nProviderProps) {
-  const [currentLanguage, setCurrentLanguage] = useState(initialLanguage)
-  const [isLoading, setIsLoading] = useState(true)
-
-  useEffect(() => {
-    // 初始化 i18n
-    const initI18n = async () => {
-      try {
-        // 從 localStorage 讀取保存的語言設定
-        const savedLanguage = localStorage.getItem('preferred-language') || initialLanguage
-        await i18n.changeLanguage(savedLanguage)
-        setCurrentLanguage(savedLanguage)
-      } catch (error) {
-        console.error('Failed to initialize i18n:', error)
-        // 使用預設語言
-        setCurrentLanguage(initialLanguage)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-
-    initI18n()
-  }, [initialLanguage])
-
-  const changeLanguage = async (lng: string) => {
-    try {
-      setIsLoading(true)
-      await i18n.changeLanguage(lng)
-      setCurrentLanguage(lng)
-      localStorage.setItem('preferred-language', lng)
-    } catch (error) {
-      console.error('Failed to change language:', error)
-    } finally {
-      setIsLoading(false)
-    }
-  }
+/**
+ * Simple I18n Provider using Next.js App Router approach
+ * 按照官方建議的 getDictionary 方式
+ */
+export function I18nProvider({ children, dictionary, locale }: I18nProviderProps) {
+  const safeDictionary = getClientDictionary(dictionary)
 
   const value: I18nContextType = {
-    currentLanguage,
-    changeLanguage,
-    isLoading,
+    dictionary: safeDictionary,
+    currentLanguage: locale,
     availableLanguages: AVAILABLE_LANGUAGES
   }
 
-  if (isLoading) {
-    return <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-8 w-8 border-2 border-purple-500 border-t-transparent"></div>
-    </div>
-  }
-
   return (
-    <I18nextProvider i18n={i18n}>
-      <I18nContext.Provider value={value}>
-        {children}
-      </I18nContext.Provider>
-    </I18nextProvider>
+    <I18nContext.Provider value={value}>
+      {children}
+    </I18nContext.Provider>
   )
 }
 
+/**
+ * Hook to access translation context
+ */
 export function useI18n() {
   const context = useContext(I18nContext)
   if (context === undefined) {
@@ -100,27 +65,63 @@ export function useI18n() {
   return context
 }
 
-// 便利的 hook，結合了 react-i18next 的 useTranslation 和我們的 useI18n
-export function useAppTranslation(ns?: string | string[]) {
-  const { t, i18n } = useTranslation(ns)
-  const { currentLanguage, changeLanguage, isLoading } = useI18n()
+/**
+ * Hook for accessing dictionary with type safety
+ */
+export function useDictionary(): Dictionary {
+  const { dictionary } = useI18n()
+  return dictionary
+}
+
+/**
+ * Hook for accessing current language
+ */
+export function useLocale(): Locale {
+  const { currentLanguage } = useI18n()
+  return currentLanguage
+}
+
+/**
+ * Hook for accessing available languages
+ */
+export function useLanguages(): LanguageOption[] {
+  const { availableLanguages } = useI18n()
+  return availableLanguages
+}
+
+/**
+ * Legacy compatibility hook for components still using useAppTranslation
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function useAppTranslation(_ns?: string) {
+  const dictionary = useDictionary()
+  const locale = useLocale()
+  
+  // Simple translation function using dot notation
+  const t = (key: string) => {
+    const keys = key.split('.')
+    let value: unknown = dictionary
+    for (const k of keys) {
+      value = (value as Record<string, unknown>)?.[k]
+    }
+    return (typeof value === 'string' ? value : key)
+  }
   
   return {
     t,
-    language: currentLanguage,
-    changeLanguage,
-    isLoading,
-    i18n,
+    language: locale,
+    i18n: { language: locale }
   }
 }
 
-// Hook for accessing language configuration
+/**
+ * Legacy compatibility hook for components still using useAppLanguage
+ */
 export function useAppLanguage() {
-  const context = useI18n()
+  const { currentLanguage, availableLanguages } = useI18n()
   return {
-    currentLanguage: context.currentLanguage,
-    changeLanguage: context.changeLanguage,
-    availableLanguages: context.availableLanguages,
-    isLoading: context.isLoading
+    currentLanguage,
+    availableLanguages,
+    isLoading: false
   }
 }
