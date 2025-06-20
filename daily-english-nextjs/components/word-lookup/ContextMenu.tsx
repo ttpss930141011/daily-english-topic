@@ -74,7 +74,6 @@ export function ContextMenu({ className = '' }: ContextMenuProps) {
     try {
       await translateText(activeSelection.text)
       hideContextMenu()
-      // Show translation result in a temporary popup or integrate with quick lookup
     } catch (error) {
       console.error('Translation failed:', error)
     }

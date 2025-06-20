@@ -5,6 +5,8 @@ import { useTextSelection } from '@/hooks/useTextSelection'
 import { useWordLookup } from '@/contexts/WordLookupContext'
 import { QuickLookupPopup } from './QuickLookupPopup'
 import { ContextMenu } from './ContextMenu'
+import { DeepLearningDrawer } from './DeepLearningDrawer'
+import { TranslationPopup } from './TranslationPopup'
 
 interface WordLookupManagerProps {
   children: React.ReactNode
@@ -46,6 +48,8 @@ export function WordLookupManager({ children, className = '' }: WordLookupManage
       {/* Word lookup UI components */}
       <QuickLookupPopup />
       <ContextMenu />
+      <TranslationPopup />
+      <DeepLearningDrawer />
       
       {/* Selection indicator for debugging in development */}
       {process.env.NODE_ENV === 'development' && isSelecting && (

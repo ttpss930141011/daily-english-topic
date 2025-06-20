@@ -38,6 +38,7 @@ export interface WordLookupState {
   // UI states
   showQuickLookup: boolean
   showContextMenu: boolean
+  showTranslationPopup: boolean
   showDeepDrawer: boolean
   
   // Data
@@ -65,6 +66,8 @@ export interface WordLookupActions {
   hideQuickLookup: () => void
   showContextMenuAt: (selection: TextSelection) => void
   hideContextMenu: () => void
+  showTranslationResult: () => void
+  hideTranslationPopup: () => void
   openDeepDrawer: () => void
   closeDeepDrawer: () => void
   
@@ -96,6 +99,7 @@ const initialState: WordLookupState = {
   activeSelection: null,
   showQuickLookup: false,
   showContextMenu: false,
+  showTranslationPopup: false,
   showDeepDrawer: false,
   currentDictionary: null,
   currentTranslation: null,
@@ -131,7 +135,8 @@ export function WordLookupProvider({
       ...prev,
       activeSelection: null,
       showQuickLookup: false,
-      showContextMenu: false
+      showContextMenu: false,
+      showTranslationPopup: false
     }))
   }, [])
 
@@ -141,7 +146,8 @@ export function WordLookupProvider({
       ...prev,
       activeSelection: selection,
       showQuickLookup: true,
-      showContextMenu: false
+      showContextMenu: false,
+      showTranslationPopup: false
     }))
   }, [])
 
@@ -154,12 +160,25 @@ export function WordLookupProvider({
       ...prev,
       activeSelection: selection,
       showContextMenu: true,
-      showQuickLookup: false
+      showQuickLookup: false,
+      showTranslationPopup: false
     }))
   }, [])
 
   const hideContextMenu = useCallback(() => {
     setState(prev => ({ ...prev, showContextMenu: false }))
+  }, [])
+
+  const showTranslationResult = useCallback(() => {
+    setState(prev => ({ 
+      ...prev, 
+      showTranslationPopup: true,
+      showContextMenu: false 
+    }))
+  }, [])
+
+  const hideTranslationPopup = useCallback(() => {
+    setState(prev => ({ ...prev, showTranslationPopup: false }))
   }, [])
 
   const openDeepDrawer = useCallback(() => {
@@ -226,6 +245,9 @@ export function WordLookupProvider({
         currentTranslation: translation,
         isLoadingTranslation: false
       }))
+      
+      // Show translation popup
+      showTranslationResult()
     } catch (error) {
       console.error('Translation error:', error)
       setState(prev => ({ ...prev, isLoadingTranslation: false }))
@@ -358,6 +380,8 @@ export function WordLookupProvider({
     hideQuickLookup,
     showContextMenuAt,
     hideContextMenu,
+    showTranslationResult,
+    hideTranslationPopup,
     openDeepDrawer,
     closeDeepDrawer,
     lookupWord,
