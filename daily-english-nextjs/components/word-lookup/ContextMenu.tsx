@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { 
   Globe, 
   Brain, 
@@ -14,7 +13,18 @@ interface ContextMenuProps {
 }
 
 export function ContextMenu({ className = '' }: ContextMenuProps) {
-  const { t } = useAppTranslation('word-lookup')
+  const t = (key: string) => {
+    const translations: Record<string, string> = {
+      'contextMenu.quickTranslate': '快速翻譯',
+      'contextMenu.quickTranslateDesc': '立即翻譯選中文字',
+      'contextMenu.deepExplain': '深度解釋',
+      'contextMenu.deepExplainDesc': '獲得詳細的說明和範例',
+      'contextMenu.addToNotes': '加入筆記',
+      'contextMenu.addToNotesDesc': '儲存到您的學習筆記',
+      'contextMenu.wordsCount': '個單字'
+    }
+    return translations[key] || key
+  }
   const {
     showContextMenu,
     activeSelection,

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { ChevronDown, Volume2 } from 'lucide-react'
 
 interface QuickLookupPopupProps {
@@ -23,7 +22,17 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
     createDeepTab
   } = useWordLookup()
 
-  const { t } = useAppTranslation('word-lookup')
+  const t = (key: string) => {
+    const translations: Record<string, string> = {
+      'close': '關閉',
+      'loading': '載入中...',
+      'playAudio': '播放發音',
+      'viewMore': '查看更多定義',
+      'notFound': '找不到這個單字',
+      'checkSpelling': '請檢查拼寫是否正確'
+    }
+    return translations[key] || key
+  }
 
   const popupRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)

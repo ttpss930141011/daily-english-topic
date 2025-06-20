@@ -5,8 +5,8 @@ import { WordLookupManager } from '@/components/word-lookup/WordLookupManager'
 
 export default function TestWordLookupPage() {
   return (
-    <WordLookupProvider defaultLanguage="zh-TW">
-      <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-8">
+    <div className="min-h-screen bg-gradient-to-br from-slate-900 to-slate-800 text-white p-8">
+      <WordLookupProvider defaultLanguage="zh-TW">
         <div className="max-w-4xl mx-auto">
           <h1 className="text-3xl font-bold mb-8 text-center">
             Word Lookup Test Page
@@ -76,7 +76,7 @@ export default function TestWordLookupPage() {
             </div>
           </WordLookupManager>
         </div>
-      </div>
-    </WordLookupProvider>
+      </WordLookupProvider>
+    </div>
   )
 }

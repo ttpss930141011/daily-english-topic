@@ -2,7 +2,6 @@
 
 import React, { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 import { TextSelection } from '@/hooks/useTextSelection'
-import { useAppLanguage } from '@/components/providers/I18nProvider'
 
 export interface DictionaryEntry {
   word: string
@@ -126,18 +125,10 @@ export function WordLookupProvider({
   children, 
   defaultLanguage = 'zh-TW' 
 }: WordLookupProviderProps) {
-  const { currentLanguage } = useAppLanguage()
   const [state, setState] = useState<WordLookupState>({
     ...initialState,
-    userLanguage: currentLanguage || defaultLanguage
+    userLanguage: defaultLanguage
   })
-
-  // Update user language when app language changes
-  React.useEffect(() => {
-    if (currentLanguage && currentLanguage !== state.userLanguage) {
-      setState(prev => ({ ...prev, userLanguage: currentLanguage }))
-    }
-  }, [currentLanguage, state.userLanguage])
 
   // Selection management
   const setActiveSelection = useCallback((selection: TextSelection | null) => {

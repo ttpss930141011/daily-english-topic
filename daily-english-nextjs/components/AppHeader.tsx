@@ -5,25 +5,38 @@ import { Globe, LogIn } from 'lucide-react'
 import { useRouter, usePathname } from 'next/navigation'
 import { SignInModal } from '@/components/SignInModal'
 import { type Locale } from '@/i18n-config'
+import { type Dictionary } from '@/types/dictionary'
 
-import { useDictionary, useLocale, useLanguages } from '@/components/providers/I18nProvider'
+interface LanguageOption {
+  code: Locale
+  name: string
+  nativeName: string
+}
 
 interface AppHeaderProps {
   className?: string
+  dictionary: Dictionary
+  locale: Locale
 }
 
 
+
+// Available language options
+const AVAILABLE_LANGUAGES: LanguageOption[] = [
+  { code: 'zh-TW', name: '繁體中文', nativeName: '繁體中文' },
+  { code: 'zh-CN', name: '简体中文', nativeName: '简体中文' },
+  { code: 'en', name: 'English', nativeName: 'English' },
+  { code: 'ja', name: '日本語', nativeName: '日本語' },
+  { code: 'ko', name: '한국어', nativeName: '한국어' }
+]
 
 /**
  * Application header component with language switching and sign in.
  * Uses Next.js App Router official i18n pattern.
  */
-export function AppHeader({ className = '' }: AppHeaderProps) {
+export function AppHeader({ className = '', dictionary, locale }: AppHeaderProps) {
   const router = useRouter()
   const pathname = usePathname()
-  const dictionary = useDictionary()
-  const lang = useLocale()
-  const availableLanguages = useLanguages()
   
   const [showLanguageMenu, setShowLanguageMenu] = useState(false)
   const [showSignInModal, setShowSignInModal] = useState(false)
@@ -79,19 +92,19 @@ export function AppHeader({ className = '' }: AppHeaderProps) {
                   <div className="px-3 py-2 text-xs font-medium text-gray-300 border-b border-white/20">
                     {dictionary.common.selectLanguage}
                   </div>
-                  {availableLanguages.map((language) => (
+                  {AVAILABLE_LANGUAGES.map((language) => (
                     <button
                       key={language.code}
                       onClick={() => handleLanguageChange(language.code)}
                       className={`w-full text-left px-3 py-2 text-sm hover:bg-white/10 transition-colors ${
-                        lang === language.code 
+                        locale === language.code 
                           ? 'text-purple-400 bg-purple-500/20' 
                           : 'text-gray-200'
                       }`}
                     >
                       <div className="flex items-center justify-between">
                         <span>{language.name}</span>
-                        {lang === language.code && (
+                        {locale === language.code && (
                           <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
                         )}
                       </div>

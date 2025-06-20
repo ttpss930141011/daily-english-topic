@@ -13,7 +13,7 @@ export async function generateStaticParams() {
 }
 
 export default async function TopicPage({ params }: TopicPageProps) {
-  const { date } = await params
+  const { lang, date } = await params
   const topic = getTopicByDate(date)
 
   if (!topic) {
@@ -21,7 +21,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
   }
 
   return (
-    <WordLookupProvider defaultLanguage="zh-TW">
+    <WordLookupProvider defaultLanguage={lang}>
       <SlideViewer topic={topic} interactive />
     </WordLookupProvider>
   )

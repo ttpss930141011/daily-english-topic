@@ -1,12 +1,11 @@
 import { Dictionary } from '@/types/dictionary'
-import { FALLBACK_DICTIONARY } from '@/lib/fallback-dictionary'
 
 /**
  * Type-safe translation hook with deep object access
  * 支援巢狀屬性訪問，如 'homepage.hero.title'
  */
-export function useTypedTranslation(dictionary?: Dictionary) {
-  const dict = dictionary || FALLBACK_DICTIONARY
+export function useTypedTranslation(dictionary: Dictionary) {
+  const dict = dictionary
 
   /**
    * Get nested value from object using dot notation

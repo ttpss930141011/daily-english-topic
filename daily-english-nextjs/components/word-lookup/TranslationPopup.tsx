@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { X, Copy, Volume2 } from 'lucide-react'
 
 interface TranslationPopupProps {
@@ -10,7 +9,19 @@ interface TranslationPopupProps {
 }
 
 export function TranslationPopup({ className = '' }: TranslationPopupProps) {
-  const { t } = useAppTranslation('word-lookup')
+  const t = (key: string) => {
+    const translations: Record<string, string> = {
+      'translationPopup.translating': '翻譯中...',
+      'translationPopup.originalText': '原文',
+      'translationPopup.playPronunciation': '播放發音',
+      'translationPopup.translation': '翻譯',
+      'translationPopup.copyTranslation': '複製翻譯',
+      'translationPopup.accuracy': '準確度',
+      'translationPopup.otherTranslations': '其他翻譯',
+      'translationPopup.close': '關閉'
+    }
+    return translations[key] || key
+  }
   const {
     currentTranslation,
     isLoadingTranslation,

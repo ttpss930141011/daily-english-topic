@@ -9,8 +9,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog"
-
-import { type Dictionary } from '@/types/dictionary';
+import { type Dictionary } from '@/types/dictionary'
 
 interface SignInModalProps {
   showSignInModal: boolean

@@ -2,7 +2,6 @@
 
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
-import { useAppTranslation } from '@/components/providers/I18nProvider'
 import { X, RotateCcw } from 'lucide-react'
 import { marked } from 'marked'
 
@@ -11,7 +10,21 @@ interface DeepLearningDrawerProps {
 }
 
 export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) {
-  const { t } = useAppTranslation('word-lookup')
+  const t = (key: string) => {
+    const translations: Record<string, string> = {
+      'deepDrawer.title': '詳細學習',
+      'deepDrawer.closeDrawer': '關閉抽屜',
+      'deepDrawer.closeTab': '關閉標籤',
+      'deepDrawer.generating': '生成中...',
+      'deepDrawer.regenerate': '重新生成',
+      'deepDrawer.noContent': '沒有內容',
+      'deepDrawer.aiAssistant': 'AI 助手',
+      'deepDrawer.selectText': '選擇一些文字開始學習',
+      'deepDrawer.shortcuts': '快捷鍵',
+      'deepDrawer.shortcutKeys': 'Esc: 關閉 | Ctrl+Tab: 切換標籤'
+    }
+    return translations[key] || key
+  }
   const {
     showDeepDrawer,
     deepTabs,
