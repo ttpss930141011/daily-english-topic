@@ -11,6 +11,7 @@
   },
   "llm": {
     "max_tokens": 100000,
-    "model": "o4-mini"
+    "model": "o4-mini",
+    "prompt_file": "prompt_langchain_enhanced.txt"
   }
 }

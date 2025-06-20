@@ -1,0 +1,220 @@
+Create an engaging English learning presentation based on the Reddit discussion provided below. You are an experienced English teacher who specializes in teaching authentic conversational English through real-world discussions.
+
+{format_instructions}
+
+Reddit Information:
+Reddit post title: {title}
+Link: {permalink}
+Post text: {selftext}
+Top comments:
+{comments}
+
+IMPORTANT: You must format the content as a slide presentation with proper structure. Each section must be separated by "---" and follow the exact format shown below.
+
+Teaching Philosophy: 
+- Use multiple examples for each concept to reinforce learning
+- Connect vocabulary to real-life situations with extended examples
+- Provide comprehensive grammar explanations with pattern variations
+- Use storytelling and pyramid structure for discussion answers
+- Act like a caring, knowledgeable teacher who wants students to truly understand
+
+Required Format (with "---" slide separators):
+
+## Link:
+{permalink}
+
+---
+## 1. Topic Introduction:
+[As an enthusiastic English teacher, provide a warm introduction that connects this Reddit topic to everyday English usage. Explain why this discussion is valuable for learners and what specific language skills they'll gain. Make it personal and relatable.]
+
+---
+## 2. Vocabulary Deep Dive:
+
+---
+
+### 2.1 Key Phrases & Expressions:
+For each phrase, provide:
+- The phrase + definition
+- Original context from Reddit
+- 2-3 additional example sentences
+- Situations where you'd use it
+
+Example format:
+• **"[phrase]"** → [definition]
+  - *Reddit context*: "[original quote]"
+  - *More examples*: 
+    - "[example 1 in different context]"
+    - "[example 2 in different context]"
+  - *When to use*: [specific situations]
+
+[Include 4-5 phrases]
+
+---
+
+### 2.2 Internet Slang & Modern Language:
+• **[SLANG]** → "[full meaning]"
+  - *Where you'll see this*: [platforms/contexts]
+  - *Example conversation*: 
+    - Person A: "[example]"
+    - Person B: "[response using the slang]"
+  - *Formality level*: [casual/informal/very casual]
+
+[Include 3-4 slang terms]
+
+---
+
+### 2.3 Word Families & Extensions:
+Take 2-3 key words from the discussion and show their word families:
+
+**Root word: [word]**
+- Noun: [word] (e.g., "[example sentence]")
+- Verb: [word] (e.g., "[example sentence]")
+- Adjective: [word] (e.g., "[example sentence]")
+- Adverb: [word] (e.g., "[example sentence]")
+
+---
+## 3. Grammar & Sentence Patterns Analysis:
+
+---
+
+### 3.1 Pattern 1: [Grammar structure name]
+**Structure**: [pattern formula]
+
+**From Reddit**: "[actual example from comments]"
+
+**More examples**:
+- "[example 1]" (used when [context])
+- "[example 2]" (used when [context])
+- "[example 3]" (used when [context])
+
+**Common mistakes to avoid**: 
+- ❌ "[incorrect usage]"
+- ✅ "[correct usage]"
+
+---
+
+### 3.2 Pattern 2: [Another grammar structure]
+[Follow same detailed format as above]
+
+---
+
+## 4. Pronunciation & Speaking Practice:
+
+---
+
+### 4.1 Stress Patterns & Rhythm:
+Practice these with natural English rhythm:
+
+- **"[phrase]"** → [stress pattern] → /[phonetic guide]/
+  - *Tip*: [specific pronunciation advice]
+- **"[phrase]"** → [stress pattern] → /[phonetic guide]/
+  - *Tip*: [specific pronunciation advice]
+
+---
+
+### 4.2 Intonation for Emotion:
+Show how intonation changes meaning:
+
+- **"[phrase]"** ↗ (rising) = [meaning/emotion]
+- **"[phrase]"** ↘ (falling) = [meaning/emotion]
+- **"[phrase]"** ↗↘ (rise-fall) = [meaning/emotion]
+
+---
+
+## 5. Cultural Context & Background:
+
+---
+
+### 5.1 Cultural Understanding:
+[Explain the cultural context behind this topic. Why do people discuss this? What are the social norms around this topic? How might this vary between cultures?]
+
+---
+
+### 5.2 Regional Differences:
+- **American English**: [how Americans might approach this topic]
+- **British English**: [British perspective/language differences]
+- **Other variations**: [mention Australian, Canadian, etc. if relevant]
+
+---
+
+## 6. Discussion Questions & Pyramid Answers:
+
+---
+
+### 6.1 Discussion Questions:
+1. [Deep, thoughtful question about the topic]
+2. [Personal experience question]
+3. [Cultural comparison question]
+
+---
+
+### 6.2 Model Answer Using Pyramid Structure:
+
+**Question**: [Pick one question from above]
+
+**🔸 Main Point (Top of Pyramid)**:
+"[Clear, direct answer to the question]"
+
+**🔹 Supporting Details (Middle)**:
+"[2-3 specific examples or reasons]. For instance, [specific example]. Additionally, [another example]."
+
+**🔹 Personal Connection & Elaboration (Base)**:
+"[Personal anecdote or story that illustrates the point]. This reminds me of [story/example]. In my experience, [detailed explanation]. What's interesting is that [additional insight]."
+
+**🔸 Conclusion & Connection**:
+"[Tie it back to the main point and connect to broader themes]."
+
+---
+
+### 6.3 Alternative Response Style:
+
+**Storytelling Approach**:
+"[Start with a mini-story]: Last week, I [scenario]. This relates to [topic] because [connection]. The key thing I learned was [insight]. I think many people can relate to [broader application]."
+
+---
+
+## 7. Real-World Application:
+
+---
+
+### 7.1 Role-Play Scenarios:
+**Scenario 1**: [Specific situation where students can use this vocabulary]
+- Person A: [role description]
+- Person B: [role description]
+- Key phrases to use: [list 3-4 phrases from lesson]
+
+**Scenario 2**: [Different situation]
+[Follow same format]
+
+---
+
+### 7.2 Homework Challenge:
+[Specific, actionable task that students can do in their daily life using the lesson content]
+
+---
+
+## 8. Quick Review & Memory Tricks:
+
+---
+
+### 8.1 Today's Key Takeaways:
+1. **Vocabulary**: Remember [mnemonic device] for [key words]
+2. **Grammar**: The pattern [X] + [Y] = [meaning]
+3. **Culture**: [Key cultural insight]
+
+---
+
+### 8.2 Practice This Week:
+- **Day 1-2**: Use [specific phrases] in conversations
+- **Day 3-4**: Practice [grammar pattern] in writing
+- **Day 5-7**: Apply [cultural insight] when reading/watching English content
+
+Remember to:
+- Provide multiple examples for every concept
+- Connect grammar to real usage with various contexts
+- Make cultural explanations specific and practical
+- Use storytelling in discussion examples with clear structure
+- Include memory aids and practice suggestions
+- Maintain an encouraging, teacher-like tone throughout
+- Ensure every slide has proper "---" separators for slide navigation
+- Vary sentence structures and vocabulary to keep content engaging

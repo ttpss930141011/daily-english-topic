@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
 import { Topic, Slide } from '@/lib/topics'
-import WordPopup from '@/components/WordPopup'
+import { WordLookupManager } from '@/components/word-lookup/WordLookupManager'
 
 interface SlideViewerProps {
   topic: Topic
@@ -12,13 +12,10 @@ interface SlideViewerProps {
 }
 
 export default function SlideViewer({
-  topic,
-  interactive = true
+  topic
 }: SlideViewerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
-  const [selectedWord, setSelectedWord] = useState<string | null>(null)
-  const [wordPosition, setWordPosition] = useState<{ x: number; y: number } | null>(null)
   const [touchStart, setTouchStart] = useState<number | null>(null)
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
 
@@ -72,9 +69,7 @@ export default function SlideViewer({
           setCurrentSlide(topic.slides.length - 1)
           break
         case 'Escape':
-          if (selectedWord) {
-            setSelectedWord(null)
-          } else if (isFullscreen) {
+          if (isFullscreen) {
             exitFullscreen()
           }
           break
@@ -88,14 +83,8 @@ export default function SlideViewer({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [currentSlide, topic.slides.length, selectedWord, isFullscreen, nextSlide, previousSlide, toggleFullscreen, exitFullscreen])
+  }, [currentSlide, topic.slides.length, isFullscreen, nextSlide, previousSlide, toggleFullscreen, exitFullscreen])
 
-  const handleWordClick = useCallback((word: string, event: React.MouseEvent) => {
-    if (!interactive) return
-
-    setSelectedWord(word)
-    setWordPosition({ x: event.clientX, y: event.clientY })
-  }, [interactive])
 
   // Touch gesture handling
   const handleTouchStart = useCallback((e: React.TouchEvent) => {
@@ -123,36 +112,8 @@ export default function SlideViewer({
   }, [touchStart, touchEnd, currentSlide, topic.slides.length, nextSlide, previousSlide])
 
   const renderSlideContent = (slide: Slide) => {
-    if (!interactive) {
-      // Simple markdown rendering without interactive words
-      return <div dangerouslySetInnerHTML={{ __html: marked(slide.content) }} />
-    }
-
-    // Parse and render with interactive words
-    let html = marked(slide.content) as string
-
-    // Add interactive word spans
-    slide.interactiveWords?.forEach(wordObj => {
-      const regex = new RegExp(`\\b${wordObj.word}\\b`, 'gi')
-      html = html.replace(regex, (match) =>
-        `<span class="interactive-word" data-word="${wordObj.word.toLowerCase()}">${match}</span>`
-      )
-    })
-
-    return (
-      <div
-        dangerouslySetInnerHTML={{ __html: html }}
-        onClick={(e) => {
-          const target = e.target as HTMLElement
-          if (target.classList.contains('interactive-word')) {
-            const word = target.getAttribute('data-word')
-            if (word) {
-              handleWordClick(word, e)
-            }
-          }
-        }}
-      />
-    )
+    const html = marked(slide.content) as string
+    return <div dangerouslySetInnerHTML={{ __html: html }} />
   }
 
   const currentSlideData = topic.slides[currentSlide]
@@ -198,19 +159,21 @@ export default function SlideViewer({
 
       {/* Main Slide Display */}
       <main className="flex-1 flex items-center justify-center relative p-2 sm:p-4 md:p-8">
-        <div 
-          className="w-full max-w-5xl bg-white text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden relative"
-          style={{ aspectRatio: '16/10' }}
-          onTouchStart={handleTouchStart}
-          onTouchMove={handleTouchMove}
-          onTouchEnd={handleTouchEnd}
-        >
-          <div className="h-full p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center overflow-y-auto">
-            <div className="slide-content text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
-              {renderSlideContent(currentSlideData)}
+        <WordLookupManager className="w-full max-w-5xl bg-white text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden relative">
+          <div 
+            className="h-full w-full"
+            style={{ aspectRatio: '16/10' }}
+            onTouchStart={handleTouchStart}
+            onTouchMove={handleTouchMove}
+            onTouchEnd={handleTouchEnd}
+          >
+            <div className="h-full p-4 sm:p-6 md:p-8 lg:p-12 flex flex-col justify-center overflow-y-auto">
+              <div className="slide-content text-sm sm:text-base md:text-lg lg:text-xl leading-relaxed">
+                {renderSlideContent(currentSlideData)}
+              </div>
             </div>
           </div>
-        </div>
+        </WordLookupManager>
 
         {/* Desktop Navigation Arrows */}
         <button
@@ -291,15 +254,6 @@ export default function SlideViewer({
         />
       </div>
 
-
-      {/* Word Popup */}
-      {selectedWord && wordPosition && (
-        <WordPopup
-          word={selectedWord}
-          position={wordPosition}
-          onClose={() => setSelectedWord(null)}
-        />
-      )}
 
       {/* Keyboard Shortcuts Help */}
       {isFullscreen && (

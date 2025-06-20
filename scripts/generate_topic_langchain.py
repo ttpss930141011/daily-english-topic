@@ -197,8 +197,9 @@ if __name__ == "__main__":
     format_instructions = parser.get_format_instructions()
     
     # Load base prompt template
+    prompt_file = config.get("llm", {}).get("prompt_file", "prompt_langchain.txt")
     try:
-        with open("prompt_langchain.txt", "r", encoding="utf-8") as f:
+        with open(prompt_file, "r", encoding="utf-8") as f:
             base_prompt_template = f.read()
     except FileNotFoundError:
         # Fallback prompt if template doesn't exist

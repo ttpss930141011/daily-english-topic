@@ -1,5 +1,6 @@
 import { getAllTopics, getTopicByDate } from '@/lib/topics'
 import SlideViewer from '@/components/SlideViewer'
+import { WordLookupProvider } from '@/contexts/WordLookupContext'
 import { notFound } from 'next/navigation'
 
 interface TopicPageProps {
@@ -18,5 +19,9 @@ export default async function TopicPage({ params }: TopicPageProps) {
     notFound()
   }
 
-  return <SlideViewer topic={topic} interactive />
+  return (
+    <WordLookupProvider defaultLanguage="zh-TW">
+      <SlideViewer topic={topic} interactive />
+    </WordLookupProvider>
+  )
 }
