@@ -11,16 +11,10 @@ interface DeepExplainRequest {
   difficulty?: 'beginner' | 'intermediate' | 'advanced'
 }
 
-function buildPrompt(text: string, userLanguage: string, context?: string, difficulty = 'intermediate'): string {
-  const languageMap: Record<string, string> = {
-    'zh-TW': '繁體中文',
-    'zh-CN': '简体中文',
-    'ja': '日本語',
-    'ko': '한국어',
-    'en': 'English'
-  }
+import { getLanguageName } from '@/lib/language-utils'
 
-  const targetLanguage = languageMap[userLanguage] || '繁體中文'
+function buildPrompt(text: string, userLanguage: string, context?: string, difficulty = 'intermediate'): string {
+  const targetLanguage = getLanguageName(userLanguage)
   const difficultyMap: Record<string, string> = {
     beginner: '初學者',
     intermediate: '中級',

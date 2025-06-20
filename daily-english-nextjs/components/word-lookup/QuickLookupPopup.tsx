@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
+import { useTranslation } from '@/lib/i18n'
 import { ChevronDown, Volume2, Move } from 'lucide-react'
 
 interface QuickLookupPopupProps {
@@ -18,6 +19,8 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
     lookupWord,
     playPronunciation
   } = useWordLookup()
+
+  const { t } = useTranslation()
 
   const popupRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -153,12 +156,12 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       <div className="drag-handle flex items-center justify-between p-2 border-b border-purple-100 cursor-grab active:cursor-grabbing">
         <div className="flex items-center space-x-2 text-xs text-purple-600">
           <Move className="h-3 w-3" />
-          <span>拖拽移動</span>
+          <span>{t('dragToMove')}</span>
         </div>
         <button
           onClick={hideQuickLookup}
           className="text-gray-400 hover:text-gray-600"
-          title="關閉"
+          title={t('close')}
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -171,7 +174,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       {isLoadingDictionary && (
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-purple-500 border-t-transparent"></div>
-          <span className="text-sm text-gray-600">正在查詢...</span>
+          <span className="text-sm text-gray-600">{t('loading')}</span>
         </div>
       )}
 
@@ -230,7 +233,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
                 }}
                 className="text-xs text-purple-600 hover:text-purple-800 flex items-center space-x-1 transition-colors"
               >
-                <span>查看更多定義</span>
+                <span>{t('viewMore')}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
             )}
@@ -241,8 +244,8 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       {/* Error State */}
       {!isLoadingDictionary && !currentDictionary && (
         <div className="text-sm text-gray-600">
-          <p>找不到「{activeSelection?.text}」的定義</p>
-          <p className="text-xs text-gray-500 mt-1">請檢查拼寫或嘗試其他單字</p>
+          <p>{t('notFound')}</p>
+          <p className="text-xs text-gray-500 mt-1">{t('checkSpelling')}</p>
         </div>
       )}
       </div>

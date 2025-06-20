@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { DictionaryEntry } from '@/contexts/WordLookupContext'
+import { GoogleGenerativeAI } from '@google/generative-ai'
 
 interface FreeDictionaryResponse {
   word: string
@@ -16,95 +17,31 @@ interface FreeDictionaryResponse {
   }>
 }
 
+// Initialize Gemini AI if API key is available
+const genAI = process.env.GEMINI_API_KEY ? new GoogleGenerativeAI(process.env.GEMINI_API_KEY) : null
 
-// Language mapping for translation
-const LANGUAGE_CODES: Record<string, string> = {
-  'zh-TW': 'zh-tw',
-  'zh-CN': 'zh-cn', 
-  'ja': 'ja',
-  'ko': 'ko',
-  'en': 'en'
-}
+import { getLanguageName } from '@/lib/language-utils'
 
-async function translateText(text: string, targetLanguage: string): Promise<string> {
-  const targetLangCode = LANGUAGE_CODES[targetLanguage] || 'zh-tw'
+async function translateDefinitionWithGemini(definition: string, targetLanguage: string): Promise<string> {
+  if (!genAI) {
+    return definition // Return original if Gemini not available
+  }
+
+  const targetLangName = getLanguageName(targetLanguage)
   
   try {
-    // Use a simple translation API or service
-    // For now, we'll provide basic translations for common cases
-    const commonTranslations: Record<string, Record<string, string>> = {
-      'hello': {
-        'zh-tw': '你好',
-        'zh-cn': '你好',
-        'ja': 'こんにちは',
-        'ko': '안녕하세요'
-      },
-      'world': {
-        'zh-tw': '世界',
-        'zh-cn': '世界',
-        'ja': '世界',
-        'ko': '세계'
-      },
-      'good': {
-        'zh-tw': '好的',
-        'zh-cn': '好的',
-        'ja': '良い',
-        'ko': '좋은'
-      },
-      'bad': {
-        'zh-tw': '壞的',
-        'zh-cn': '坏的',
-        'ja': '悪い',
-        'ko': '나쁜'
-      },
-      'beautiful': {
-        'zh-tw': '美麗的',
-        'zh-cn': '美丽的',
-        'ja': '美しい',
-        'ko': '아름다운'
-      },
-      'important': {
-        'zh-tw': '重要的',
-        'zh-cn': '重要的',
-        'ja': '重要な',
-        'ko': '중요한'
-      },
-      'interesting': {
-        'zh-tw': '有趣的',
-        'zh-cn': '有趣的',
-        'ja': '面白い',
-        'ko': '흥미로운'
-      },
-      'difficult': {
-        'zh-tw': '困難的',
-        'zh-cn': '困难的',
-        'ja': '難しい',
-        'ko': '어려운'
-      },
-      'easy': {
-        'zh-tw': '容易的',
-        'zh-cn': '容易的',
-        'ja': '簡単な',
-        'ko': '쉬운'
-      },
-      'love': {
-        'zh-tw': '愛',
-        'zh-cn': '爱',
-        'ja': '愛',
-        'ko': '사랑'
-      }
-    }
+    const model = genAI.getGenerativeModel({ model: 'gemini-1.5-flash' })
+    
+    const prompt = `Translate this English dictionary definition to ${targetLangName}. Keep it concise and clear:
+"${definition}"
 
-    const wordKey = text.toLowerCase()
-    if (commonTranslations[wordKey] && commonTranslations[wordKey][targetLangCode]) {
-      return commonTranslations[wordKey][targetLangCode]
-    }
+Just provide the translation, no extra text.`
 
-    // Fallback: return original text without suffix  
-    return text
+    const result = await model.generateContent(prompt)
+    return result.response.text().trim()
   } catch (error) {
-    console.error('Translation error:', error)
-    return text
+    console.error('Gemini translation error:', error)
+    return definition // Return original on error
   }
 }
 
@@ -166,12 +103,15 @@ export async function POST(request: NextRequest) {
       audioUrl = phoneticWithAudio?.audio || ''
     }
 
-    // Process definitions
+    // Process definitions with translation
     const definitions = []
     
     for (const meaning of dictionaryData.meanings.slice(0, 3)) {
       for (const definition of meaning.definitions.slice(0, 2)) {
-        const translation = await translateText(definition.definition, userLanguage)
+        // Translate definition if user language is not English
+        const translation = userLanguage !== 'en' 
+          ? await translateDefinitionWithGemini(definition.definition, userLanguage)
+          : definition.definition
         
         definitions.push({
           partOfSpeech: meaning.partOfSpeech,
