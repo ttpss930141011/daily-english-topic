@@ -25,7 +25,6 @@ export function DeepLearningDrawer({ className = '', dictionary }: DeepLearningD
     activeSelection,
     minimizeDeepDrawer,
     maximizeDeepDrawer,
-    toggleDeepDrawerMinimized,
     setDeepDrawerWidth
   } = useWordLookup()
 
@@ -134,24 +133,29 @@ export function DeepLearningDrawer({ className = '', dictionary }: DeepLearningD
   if (isDeepDrawerMinimized) {
     return (
       <div
-        className="fixed top-1/2 right-0 -translate-y-1/2 z-40 group"
+        className="fixed right-0 z-40 group transition-all duration-300"
         style={{
-          width: '40px',
-          height: '80px',
-          clipPath: 'ellipse(80% 60% at 35% 50%)',
-          background: 'linear-gradient(135deg, #1f2937 0%, #374151 100%)',
-          cursor: 'pointer'
+          top: '35%',
+          transform: 'translateY(-50%)',
+          width: '45px',
+          height: '90px',
+          clipPath: 'ellipse(85% 65% at 30% 50%)',
+          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          cursor: 'pointer',
+          boxShadow: '0 8px 32px rgba(99, 102, 241, 0.3)'
         }}
         onClick={maximizeDeepDrawer}
         onMouseEnter={(e) => {
-          e.currentTarget.style.clipPath = 'ellipse(90% 70% at 30% 50%)'
+          e.currentTarget.style.clipPath = 'ellipse(95% 75% at 25% 50%)'
+          e.currentTarget.style.transform = 'translateY(-50%) translateX(-2px)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.clipPath = 'ellipse(80% 60% at 35% 50%)'
+          e.currentTarget.style.clipPath = 'ellipse(85% 65% at 30% 50%)'
+          e.currentTarget.style.transform = 'translateY(-50%) translateX(0px)'
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <ChevronRight className="h-4 w-4 text-white opacity-80 group-hover:opacity-100 transition-opacity" />
+          <ChevronRight className="h-5 w-5 text-white drop-shadow-sm group-hover:scale-110 transition-transform" />
         </div>
       </div>
     )
@@ -159,28 +163,34 @@ export function DeepLearningDrawer({ className = '', dictionary }: DeepLearningD
 
   return (
     <>
-      {/* Left-side collapse tab when expanded */}
+      {/* Left-side collapse tab when expanded - protruding water-drop */}
       <div
-        className="fixed top-1/2 z-30 group"
+        className="fixed z-50 group transition-all duration-300"
         style={{
-          left: `${deepDrawerWidth - 20}px`,
+          left: `${deepDrawerWidth - 25}px`,
+          top: '40%',
           transform: 'translateY(-50%)',
-          width: '30px',
-          height: '60px',
-          clipPath: 'ellipse(70% 60% at 65% 50%)',
-          background: 'linear-gradient(135deg, #1f2937 0%, #374151 100%)',
-          cursor: 'pointer'
+          width: '40px',
+          height: '80px',
+          clipPath: 'ellipse(75% 65% at 70% 50%)',
+          background: 'linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%)',
+          cursor: 'pointer',
+          boxShadow: '-4px 0 16px rgba(99, 102, 241, 0.2)'
         }}
         onClick={minimizeDeepDrawer}
         onMouseEnter={(e) => {
-          e.currentTarget.style.clipPath = 'ellipse(80% 70% at 60% 50%)'
+          e.currentTarget.style.clipPath = 'ellipse(85% 75% at 65% 50%)'
+          e.currentTarget.style.transform = 'translateY(-50%) translateX(-3px)'
+          e.currentTarget.style.boxShadow = '-8px 0 24px rgba(99, 102, 241, 0.4)'
         }}
         onMouseLeave={(e) => {
-          e.currentTarget.style.clipPath = 'ellipse(70% 60% at 65% 50%)'
+          e.currentTarget.style.clipPath = 'ellipse(75% 65% at 70% 50%)'
+          e.currentTarget.style.transform = 'translateY(-50%) translateX(0px)'
+          e.currentTarget.style.boxShadow = '-4px 0 16px rgba(99, 102, 241, 0.2)'
         }}
       >
         <div className="absolute inset-0 flex items-center justify-center">
-          <ChevronLeft className="h-3 w-3 text-white opacity-80 group-hover:opacity-100 transition-opacity" />
+          <ChevronLeft className="h-4 w-4 text-white drop-shadow-sm group-hover:scale-110 transition-transform" />
         </div>
       </div>
 
@@ -209,22 +219,13 @@ export function DeepLearningDrawer({ className = '', dictionary }: DeepLearningD
         <div className="flex-shrink-0 bg-gray-50 border-b border-gray-200 p-4">
           <div className="flex items-center justify-between mb-3">
             <h2 className="text-lg font-semibold text-gray-900">{dictionary.wordLookup.detailedLearning}</h2>
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={toggleDeepDrawerMinimized}
-                className="p-1.5 hover:bg-gray-200 rounded transition-colors"
-                title={dictionary.wordLookup.minimizeDrawer}
-              >
-                <ChevronLeft className="h-4 w-4 text-gray-600" />
-              </button>
-              <button
-                onClick={closeDeepDrawer}
-                className="p-1.5 hover:bg-gray-200 rounded transition-colors"
-                title={dictionary.wordLookup.closeDrawer}
-              >
-                <X className="h-4 w-4 text-gray-600" />
-              </button>
-            </div>
+            <button
+              onClick={closeDeepDrawer}
+              className="p-1.5 hover:bg-gray-200 rounded transition-colors"
+              title={dictionary.wordLookup.closeDrawer}
+            >
+              <X className="h-4 w-4 text-gray-600" />
+            </button>
           </div>
 
           {/* Tab Bar */}
