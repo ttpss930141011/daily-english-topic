@@ -180,6 +180,8 @@ export default function TopicGrid({ topics, lang = 'zh-TW', dictionary }: TopicG
       words: 'words',
       detailedLearning: 'Detailed Learning',
       closeDrawer: 'Close Drawer',
+      minimizeDrawer: 'Minimize Drawer',
+      expandDrawer: 'Expand Drawer',
       closeTab: 'Close Tab',
       generating: 'Generating...',
       regenerate: 'Regenerate',
