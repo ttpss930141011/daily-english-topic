@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "title": "毎日英語",
+    "subtitle": "トピック",
+    "description": "実際のRedditディスカッションから作られたインタラクティブな学習体験を探索しましょう。",
+    "masterEnglish": "英語をマスター",
+    "throughConversations": "本物の会話を通して。"
+  },
+  "stats": {
+    "interactiveTopics": "インタラクティブトピック",
+    "realConversations": "リアル会話",
+    "freshContent": "新鮮なコンテンツ",
+    "daily": "毎日"
+  },
+  "search": {
+    "placeholder": "トピック、ディスカッション、キーワードを検索...",
+    "searchTags": "タグを検索..."
+  },
+  "filters": {
+    "allCategories": "すべてのカテゴリ",
+    "allLevels": "すべてのレベル",
+    "category": "カテゴリ",
+    "selectCategory": "カテゴリを選択",
+    "difficulty": "難易度",
+    "selectDifficulty": "難易度を選択",
+    "tags": "タグ",
+    "clearAll": "すべてクリア",
+    "newestFirst": "新しい順",
+    "oldestFirst": "古い順"
+  },
+  "topicCount": {
+    "showing": "表示中",
+    "of": "全",
+    "topics": "トピック"
+  },
+  "topicCard": {
+    "startLearning": "学習開始"
+  },
+  "emptyState": {
+    "noTopicsFound": "トピックが見つかりません",
+    "tryAdjusting": "検索条件やフィルターを調整して、より多くのコンテンツを発見してください。",
+    "clearAllFilters": "すべてのフィルターをクリア"
+  },
+  "tags": {
+    "noTagsFound": "タグが見つかりません。"
+  }
+}

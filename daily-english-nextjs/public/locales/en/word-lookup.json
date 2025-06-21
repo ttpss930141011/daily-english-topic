@@ -1,0 +1,86 @@
+{
+  "dragToMove": "Drag to move",
+  "loading": "Looking up...",
+  "notFound": "Definition not found",
+  "checkSpelling": "Please check spelling or try another word",
+  "viewMore": "View more definitions",
+  "quickTranslation": "Quick Translation",
+  "detailedExplanation": "Detailed Explanation",
+  "pronunciation": "Pronunciation",
+  "playAudio": "Play Audio",
+  "partOfSpeech": {
+    "noun": "Noun",
+    "verb": "Verb", 
+    "adjective": "Adjective",
+    "adverb": "Adverb",
+    "preposition": "Preposition",
+    "conjunction": "Conjunction",
+    "interjection": "Interjection",
+    "pronoun": "Pronoun"
+  },
+  "deepExplanation": {
+    "etymology": "Etymology",
+    "usage": "Usage",
+    "examples": "Examples",
+    "cultural": "Cultural Context",
+    "grammar": "Grammar Points",
+    "related": "Related Expressions",
+    "tips": "Learning Tips",
+    "difficulty": {
+      "beginner": "Beginner",
+      "intermediate": "Intermediate",
+      "advanced": "Advanced"
+    }
+  },
+  "translation": {
+    "confidence": "Confidence",
+    "alternatives": "Alternatives",
+    "context": "Context",
+    "note": "Note"
+  },
+  "cache": {
+    "hit": "From cache",
+    "miss": "API query",
+    "expired": "Cache expired"
+  },
+  "feedback": {
+    "helpful": "Helpful",
+    "notHelpful": "Not helpful",
+    "report": "Report issue",
+    "improve": "Suggest improvement"
+  },
+  "contextMenu": {
+    "quickTranslate": "Quick Translate",
+    "quickTranslateDesc": "Get instant translation",
+    "deepExplain": "Deep Explanation",
+    "deepExplainDesc": "Detailed grammar and cultural context",
+    "addToNotes": "Add to Notes",
+    "addToNotesDesc": "Save to personal vocabulary",
+    "wordsCount": "words"
+  },
+  "translationPopup": {
+    "translating": "Translating...",
+    "originalText": "Original",
+    "translation": "Translation",
+    "playPronunciation": "Play pronunciation",
+    "copyTranslation": "Copy translation",
+    "accuracy": "Accuracy:",
+    "otherTranslations": "Other translations:",
+    "close": "Close"
+  },
+  "deepDrawer": {
+    "title": "Deep Learning Assistant",
+    "closeDrawer": "Close (ESC)",
+    "regenerate": "Regenerate explanation",
+    "generating": "Generating deep explanation...",
+    "failed": "Failed to generate explanation",
+    "retry": "Retry",
+    "newTab": "New Tab",
+    "closeTab": "Close Tab",
+    "noContent": "No content to display.",
+    "aiAssistant": "AI Learning Assistant",
+    "selectText": "Select text and click \"Deep Explanation\" to start learning",
+    "shortcuts": "Shortcuts:",
+    "shortcutKeys": "ESC close, ⌘Tab switch tabs"
+  }
+}

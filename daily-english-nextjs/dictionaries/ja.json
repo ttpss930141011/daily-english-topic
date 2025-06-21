@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "読み込み中...",
+    "error": "エラーが発生しました",
+    "retry": "再試行",
+    "cancel": "キャンセル",
+    "confirm": "確認",
+    "close": "閉じる",
+    "save": "保存",
+    "delete": "削除",
+    "edit": "編集",
+    "search": "検索",
+    "clear": "クリア",
+    "back": "戻る",
+    "next": "次へ",
+    "previous": "前へ",
+    "submit": "送信",
+    "success": "成功",
+    "warning": "警告",
+    "info": "情報",
+    "language": "言語",
+    "changeLanguage": "言語を変更",
+    "selectLanguage": "言語を選択",
+    "settings": "設定",
+    "profile": "プロフィール",
+    "signIn": "サインイン",
+    "signOut": "サインアウト",
+    "comingSoon": "近日公開",
+    "darkMode": "ダークモード",
+    "notifications": "通知設定",
+    "learningPreferences": "学習設定"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Daily English",
+      "subtitle": "Topics",
+      "description": "Reddit の実際の議論から取られたインタラクティブなスライドプレゼンテーションを通じて英語を学びましょう",
+      "masterEnglish": "英語をマスター",
+      "throughConversations": "実際の会話を通じて"
+    },
+    "stats": {
+      "interactiveTopics": "インタラクティブトピック",
+      "realConversations": "実際の会話",
+      "daily": "毎日更新",
+      "freshContent": "新鮮なコンテンツ",
+      "interactiveLearning": "インタラクティブ学習"
+    },
+    "filters": {
+      "all": "すべて",
+      "allCategories": "すべてのカテゴリー",
+      "allLevels": "すべてのレベル",
+      "difficulty": "難易度",
+      "category": "カテゴリー",
+      "tags": "タグ",
+      "selectCategory": "カテゴリーを選択",
+      "selectDifficulty": "難易度を選択",
+      "newestFirst": "新しい順",
+      "oldestFirst": "古い順",
+      "clearAll": "すべてクリア"
+    },
+    "search": {
+      "placeholder": "トピックを検索...",
+      "searchTags": "タグを検索...",
+      "noResults": "結果が見つかりません",
+      "tryDifferent": "別のキーワードをお試しください"
+    },
+    "topicCard": {
+      "slides": "スライド",
+      "readMore": "読み始める"
+    },
+    "topicCount": {
+      "showing": "表示中",
+      "of": "件中",
+      "topics": "トピック"
+    },
+    "emptyState": {
+      "noTopicsFound": "トピックが見つかりません",
+      "tryAdjusting": "検索やフィルターを調整してください",
+      "clearAllFilters": "すべてのフィルターをクリア"
+    },
+    "tags": {
+      "noTagsFound": "タグが見つかりません"
+    }
+  },
+  "wordLookup": {
+    "loading": "検索中...",
+    "notFound": "単語が見つかりません",
+    "checkSpelling": "スペルを確認してください",
+    "viewMore": "より多くの定義を表示",
+    "close": "閉じる",
+    "playAudio": "発音を再生",
+    "deepExplanation": "詳細な説明",
+    "examples": "例文",
+    "synonyms": "同義語",
+    "antonyms": "反対語",
+    "etymology": "語源",
+    "relatedWords": "関連語",
+    "translating": "翻訳中...",
+    "original": "原文",
+    "translation": "翻訳",
+    "copyTranslation": "翻訳をコピー",
+    "accuracy": "精度",
+    "otherTranslations": "その他の翻訳",
+    "quickTranslation": "クイック翻訳",
+    "translateNow": "選択したテキストを今すぐ翻訳",
+    "deepAnalysis": "詳細解析",
+    "detailedExplanation": "詳細な説明と例を取得",
+    "addToNotes": "ノートに追加",
+    "saveToNotes": "学習ノートに保存",
+    "words": "単語",
+    "detailedLearning": "詳細学習",
+    "closeDrawer": "ドロワーを閉じる",
+    "closeTab": "タブを閉じる",
+    "generating": "生成中...",
+    "regenerate": "再生成",
+    "noContent": "コンテンツがありません",
+    "aiAssistant": "AIアシスタント",
+    "selectTextToLearn": "学習するテキストを選択してください",
+    "shortcuts": "ショートカット",
+    "keyboardShortcuts": "Esc: 閉じる | Ctrl+Tab: タブ切り替え"
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "正在加载...",
+    "error": "发生错误",
+    "retry": "重试",
+    "cancel": "取消",
+    "confirm": "确认",
+    "close": "关闭",
+    "save": "保存",
+    "delete": "删除",
+    "edit": "编辑",
+    "search": "搜索",
+    "clear": "清除",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "submit": "提交",
+    "success": "成功",
+    "warning": "警告",
+    "info": "信息",
+    "language": "语言",
+    "changeLanguage": "切换语言",
+    "selectLanguage": "选择语言",
+    "settings": "设置",
+    "profile": "个人资料",
+    "signIn": "登录",
+    "signOut": "退出",
+    "comingSoon": "即将推出",
+    "darkMode": "深色模式",
+    "notifications": "通知设置",
+    "learningPreferences": "学习偏好"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Daily English",
+      "subtitle": "Topics",
+      "description": "通过互动式幻灯片演示学习英语对话，取材自真实的 Reddit 讨论",
+      "masterEnglish": "掌握英语",
+      "throughConversations": "通过真实对话"
+    },
+    "stats": {
+      "interactiveTopics": "互动主题",
+      "realConversations": "真实对话",
+      "daily": "每日更新",
+      "freshContent": "新鲜内容",
+      "interactiveLearning": "互动学习"
+    },
+    "filters": {
+      "all": "全部",
+      "allCategories": "所有类别",
+      "allLevels": "所有级别",
+      "difficulty": "难度",
+      "category": "类别",
+      "tags": "标签",
+      "selectCategory": "选择类别",
+      "selectDifficulty": "选择难度",
+      "newestFirst": "最新优先",
+      "oldestFirst": "最旧优先",
+      "clearAll": "清除全部"
+    },
+    "search": {
+      "placeholder": "搜索主题...",
+      "searchTags": "搜索标签...",
+      "noResults": "找不到符合的结果",
+      "tryDifferent": "试试不同的关键字"
+    },
+    "topicCard": {
+      "slides": "张幻灯片",
+      "readMore": "开始阅读"
+    },
+    "topicCount": {
+      "showing": "显示",
+      "of": "的",
+      "topics": "个主题"
+    },
+    "emptyState": {
+      "noTopicsFound": "未找到主题",
+      "tryAdjusting": "尝试调整您的搜索或筛选条件",
+      "clearAllFilters": "清除所有筛选条件"
+    },
+    "tags": {
+      "noTagsFound": "未找到标签"
+    }
+  },
+  "wordLookup": {
+    "loading": "正在查询...",
+    "notFound": "查无此字",
+    "checkSpelling": "请检查拼写是否正确",
+    "viewMore": "查看更多定义",
+    "close": "关闭",
+    "playAudio": "播放发音",
+    "deepExplanation": "深度解释",
+    "examples": "例句",
+    "synonyms": "同义词",
+    "antonyms": "反义词",
+    "etymology": "词源",
+    "relatedWords": "相关词汇",
+    "translating": "翻译中...",
+    "original": "原文",
+    "translation": "翻译",
+    "copyTranslation": "复制翻译",
+    "accuracy": "准确度",
+    "otherTranslations": "其他翻译",
+    "quickTranslation": "快速翻译",
+    "translateNow": "立即翻译选中文字",
+    "deepAnalysis": "深度解释",
+    "detailedExplanation": "获得详细的说明和范例",
+    "addToNotes": "加入笔记",
+    "saveToNotes": "保存到您的学习笔记",
+    "words": "个单字",
+    "detailedLearning": "详细学习",
+    "closeDrawer": "关闭抽屉",
+    "closeTab": "关闭标签",
+    "generating": "生成中...",
+    "regenerate": "重新生成",
+    "noContent": "没有内容",
+    "aiAssistant": "AI 助手",
+    "selectTextToLearn": "选择一些文字开始学习",
+    "shortcuts": "快捷键",
+    "keyboardShortcuts": "Esc: 关闭 | Ctrl+Tab: 切换标签"
+  }
+}

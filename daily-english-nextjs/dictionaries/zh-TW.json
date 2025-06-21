@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "正在載入...",
+    "error": "發生錯誤",
+    "retry": "重試",
+    "cancel": "取消",
+    "confirm": "確認",
+    "close": "關閉",
+    "save": "儲存",
+    "delete": "刪除",
+    "edit": "編輯",
+    "search": "搜尋",
+    "clear": "清除",
+    "back": "返回",
+    "next": "下一步",
+    "previous": "上一步",
+    "submit": "提交",
+    "success": "成功",
+    "warning": "警告",
+    "info": "資訊",
+    "language": "語言",
+    "changeLanguage": "切換語言",
+    "selectLanguage": "選擇語言",
+    "settings": "設定",
+    "profile": "個人檔案",
+    "signIn": "登入",
+    "signOut": "登出",
+    "comingSoon": "即將推出",
+    "darkMode": "深色模式",
+    "notifications": "通知設定",
+    "learningPreferences": "學習偏好"
+  },
+  "homepage": {
+    "hero": {
+      "title": "每日英語",
+      "subtitle": "話題",
+      "description": "透過互動式投影片展示學習英語對話，取材自真實的 Reddit 討論",
+      "masterEnglish": "精通英語",
+      "throughConversations": "透過真實對話"
+    },
+    "stats": {
+      "interactiveTopics": "互動話題",
+      "realConversations": "真實對話",
+      "daily": "每日更新",
+      "freshContent": "新鮮內容",
+      "interactiveLearning": "互動學習"
+    },
+    "filters": {
+      "all": "全部",
+      "allCategories": "所有類別",
+      "allLevels": "所有難度",
+      "difficulty": "難度",
+      "category": "類別",
+      "tags": "標籤",
+      "selectCategory": "選擇類別",
+      "selectDifficulty": "選擇難度",
+      "newestFirst": "最新優先",
+      "oldestFirst": "最舊優先",
+      "clearAll": "清除全部"
+    },
+    "search": {
+      "placeholder": "搜尋主題...",
+      "searchTags": "搜尋標籤...",
+      "noResults": "找不到符合的結果",
+      "tryDifferent": "試試不同的關鍵字"
+    },
+    "topicCard": {
+      "slides": "張投影片",
+      "readMore": "開始閱讀"
+    },
+    "topicCount": {
+      "showing": "顯示",
+      "of": "共",
+      "topics": "個話題"
+    },
+    "emptyState": {
+      "noTopicsFound": "找不到話題",
+      "tryAdjusting": "試著調整搜尋或篩選條件",
+      "clearAllFilters": "清除所有篩選"
+    },
+    "tags": {
+      "noTagsFound": "找不到標籤"
+    }
+  },
+  "wordLookup": {
+    "loading": "正在查詢...",
+    "notFound": "查無此字",
+    "checkSpelling": "請檢查拼寫是否正確",
+    "viewMore": "查看更多定義",
+    "close": "關閉",
+    "playAudio": "播放發音",
+    "deepExplanation": "深度解釋",
+    "examples": "例句",
+    "synonyms": "同義詞",
+    "antonyms": "反義詞",
+    "etymology": "詞源",
+    "relatedWords": "相關詞彙",
+    "translating": "翻譯中...",
+    "original": "原文",
+    "translation": "翻譯",
+    "copyTranslation": "複製翻譯",
+    "accuracy": "準確度",
+    "otherTranslations": "其他翻譯",
+    "quickTranslation": "快速翻譯",
+    "translateNow": "立即翻譯選中文字",
+    "deepAnalysis": "深度解釋",
+    "detailedExplanation": "獲得詳細的說明和範例",
+    "addToNotes": "加入筆記",
+    "saveToNotes": "儲存到您的學習筆記",
+    "words": "個單字",
+    "detailedLearning": "詳細學習",
+    "closeDrawer": "關閉抽屜",
+    "closeTab": "關閉標籤",
+    "generating": "生成中...",
+    "regenerate": "重新生成",
+    "noContent": "沒有內容",
+    "aiAssistant": "AI 助手",
+    "selectTextToLearn": "選擇一些文字開始學習",
+    "shortcuts": "快捷鍵",
+    "keyboardShortcuts": "Esc: 關閉 | Ctrl+Tab: 切換標籤"
+  }
+}

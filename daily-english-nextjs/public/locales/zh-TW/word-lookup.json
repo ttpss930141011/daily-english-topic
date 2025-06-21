@@ -1,0 +1,86 @@
+{
+  "dragToMove": "拖拽移動",
+  "loading": "正在查詢...",
+  "notFound": "找不到定義",
+  "checkSpelling": "請檢查拼寫或嘗試其他單字",
+  "viewMore": "查看更多定義",
+  "quickTranslation": "快速翻譯",
+  "detailedExplanation": "詳細解釋",
+  "pronunciation": "發音",
+  "playAudio": "播放音頻",
+  "partOfSpeech": {
+    "noun": "名詞",
+    "verb": "動詞", 
+    "adjective": "形容詞",
+    "adverb": "副詞",
+    "preposition": "介詞",
+    "conjunction": "連詞",
+    "interjection": "嘆詞",
+    "pronoun": "代詞"
+  },
+  "deepExplanation": {
+    "etymology": "詞源",
+    "usage": "用法說明",
+    "examples": "例句示範",
+    "cultural": "文化背景",
+    "grammar": "語法重點",
+    "related": "相關表達",
+    "tips": "學習技巧",
+    "difficulty": {
+      "beginner": "初級",
+      "intermediate": "中級",
+      "advanced": "高級"
+    }
+  },
+  "translation": {
+    "confidence": "可信度",
+    "alternatives": "替代翻譯",
+    "context": "語境",
+    "note": "注釋"
+  },
+  "cache": {
+    "hit": "使用快取",
+    "miss": "API 查詢",
+    "expired": "快取過期"
+  },
+  "feedback": {
+    "helpful": "有幫助",
+    "notHelpful": "沒幫助",
+    "report": "回報問題",
+    "improve": "建議改進"
+  },
+  "contextMenu": {
+    "quickTranslate": "快速翻譯",
+    "quickTranslateDesc": "獲得即時翻譯",
+    "deepExplain": "深度解釋",
+    "deepExplainDesc": "詳細語法和文化背景",
+    "addToNotes": "加入筆記",
+    "addToNotesDesc": "保存到個人詞彙庫",
+    "wordsCount": "個詞"
+  },
+  "translationPopup": {
+    "translating": "正在翻譯...",
+    "originalText": "原文",
+    "translation": "翻譯",
+    "playPronunciation": "播放發音",
+    "copyTranslation": "複製翻譯",
+    "accuracy": "準確度：",
+    "otherTranslations": "其他翻譯：",
+    "close": "關閉"
+  },
+  "deepDrawer": {
+    "title": "深度學習助手",
+    "closeDrawer": "關閉 (ESC)",
+    "regenerate": "重新生成解釋",
+    "generating": "正在生成深度解釋...",
+    "failed": "生成解釋失敗",
+    "retry": "重試",
+    "newTab": "新分頁",
+    "closeTab": "關閉分頁",
+    "noContent": "沒有內容可顯示。",
+    "aiAssistant": "AI 學習助手",
+    "selectText": "選擇文字並點擊「深度解釋」開始學習",
+    "shortcuts": "快捷鍵：",
+    "shortcutKeys": "ESC 關閉，⌘Tab 切換分頁"
+  }
+}

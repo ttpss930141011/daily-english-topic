@@ -1,0 +1,122 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error occurred",
+    "retry": "Retry",
+    "cancel": "Cancel",
+    "confirm": "Confirm",
+    "close": "Close",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "clear": "Clear",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "success": "Success",
+    "warning": "Warning",
+    "info": "Info",
+    "language": "Language",
+    "changeLanguage": "Change Language",
+    "selectLanguage": "Select Language",
+    "settings": "Settings",
+    "profile": "Profile",
+    "signIn": "Sign In",
+    "signOut": "Sign Out",
+    "comingSoon": "Coming Soon",
+    "darkMode": "Dark Mode",
+    "notifications": "Notifications",
+    "learningPreferences": "Learning Preferences"
+  },
+  "homepage": {
+    "hero": {
+      "title": "Daily English",
+      "subtitle": "Topics", 
+      "description": "Learn English through interactive slide presentations from real Reddit discussions",
+      "masterEnglish": "Master English",
+      "throughConversations": "through Real Conversations"
+    },
+    "stats": {
+      "interactiveTopics": "Interactive Topics",
+      "realConversations": "Real Conversations",
+      "daily": "Daily Updates",
+      "freshContent": "Fresh Content",
+      "interactiveLearning": "Interactive Learning"
+    },
+    "filters": {
+      "all": "All",
+      "allCategories": "All Categories",
+      "allLevels": "All Levels",
+      "difficulty": "Difficulty",
+      "category": "Category", 
+      "tags": "Tags",
+      "selectCategory": "Select Category",
+      "selectDifficulty": "Select Difficulty",
+      "newestFirst": "Newest First",
+      "oldestFirst": "Oldest First",
+      "clearAll": "Clear All"
+    },
+    "search": {
+      "placeholder": "Search topics...",
+      "searchTags": "Search tags...",
+      "noResults": "No results found",
+      "tryDifferent": "Try different keywords"
+    },
+    "topicCard": {
+      "slides": "slides",
+      "readMore": "Start Reading"
+    },
+    "topicCount": {
+      "showing": "Showing",
+      "of": "of", 
+      "topics": "topics"
+    },
+    "emptyState": {
+      "noTopicsFound": "No Topics Found",
+      "tryAdjusting": "Try adjusting your search or filters",
+      "clearAllFilters": "Clear All Filters"
+    },
+    "tags": {
+      "noTagsFound": "No tags found"
+    }
+  },
+  "wordLookup": {
+    "loading": "Looking up...",
+    "notFound": "Word not found",
+    "checkSpelling": "Please check spelling",
+    "viewMore": "View more definitions",
+    "close": "Close",
+    "playAudio": "Play pronunciation",
+    "deepExplanation": "Deep explanation",
+    "examples": "Examples",
+    "synonyms": "Synonyms",
+    "antonyms": "Antonyms",
+    "etymology": "Etymology",
+    "relatedWords": "Related words",
+    "translating": "Translating...",
+    "original": "Original",
+    "translation": "Translation",
+    "copyTranslation": "Copy Translation",
+    "accuracy": "Accuracy",
+    "otherTranslations": "Other Translations",
+    "quickTranslation": "Quick Translation",
+    "translateNow": "Translate selected text now",
+    "deepAnalysis": "Deep Analysis",
+    "detailedExplanation": "Get detailed explanations and examples",
+    "addToNotes": "Add to Notes",
+    "saveToNotes": "Save to your learning notes",
+    "words": "words",
+    "detailedLearning": "Detailed Learning",
+    "closeDrawer": "Close Drawer",
+    "closeTab": "Close Tab",
+    "generating": "Generating...",
+    "regenerate": "Regenerate",
+    "noContent": "No Content",
+    "aiAssistant": "AI Assistant",
+    "selectTextToLearn": "Select some text to start learning",
+    "shortcuts": "Shortcuts",
+    "keyboardShortcuts": "Esc: Close | Ctrl+Tab: Switch Tab"
+  }
+}
