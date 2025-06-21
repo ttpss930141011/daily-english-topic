@@ -110,6 +110,8 @@
     "words": "개 단어",
     "detailedLearning": "상세 학습",
     "closeDrawer": "서랍 닫기",
+    "minimizeDrawer": "서랍 최소화",
+    "expandDrawer": "서랍 확장",
     "closeTab": "탭 닫기",
     "generating": "생성 중...",
     "regenerate": "다시 생성",

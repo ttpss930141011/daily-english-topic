@@ -45,6 +45,8 @@ export interface WordLookupState {
   showContextMenu: boolean
   showTranslationPopup: boolean
   showDeepDrawer: boolean
+  isDeepDrawerMinimized: boolean
+  deepDrawerWidth: number
   
   // Data
   currentDictionary: DictionaryEntry | null
@@ -75,6 +77,10 @@ export interface WordLookupActions {
   hideTranslationPopup: () => void
   openDeepDrawer: () => void
   closeDeepDrawer: () => void
+  minimizeDeepDrawer: () => void
+  maximizeDeepDrawer: () => void
+  toggleDeepDrawerMinimized: () => void
+  setDeepDrawerWidth: (width: number) => void
   
   // Data fetching
   lookupWord: (word: string) => Promise<void>
@@ -106,6 +112,8 @@ const initialState: WordLookupState = {
   showContextMenu: false,
   showTranslationPopup: false,
   showDeepDrawer: false,
+  isDeepDrawerMinimized: false,
+  deepDrawerWidth: 400,
   currentDictionary: null,
   currentTranslation: null,
   deepTabs: [],
@@ -203,6 +211,23 @@ export function WordLookupProvider({
       deepTabs: [],
       activeTabId: null
     }))
+  }, [])
+
+  const minimizeDeepDrawer = useCallback(() => {
+    setState(prev => ({ ...prev, isDeepDrawerMinimized: true }))
+  }, [])
+
+  const maximizeDeepDrawer = useCallback(() => {
+    setState(prev => ({ ...prev, isDeepDrawerMinimized: false }))
+  }, [])
+
+  const toggleDeepDrawerMinimized = useCallback(() => {
+    setState(prev => ({ ...prev, isDeepDrawerMinimized: !prev.isDeepDrawerMinimized }))
+  }, [])
+
+  const setDeepDrawerWidth = useCallback((width: number) => {
+    const clampedWidth = Math.max(300, Math.min(800, width))
+    setState(prev => ({ ...prev, deepDrawerWidth: clampedWidth }))
   }, [])
 
   // Data fetching
@@ -395,6 +420,10 @@ export function WordLookupProvider({
     hideTranslationPopup,
     openDeepDrawer,
     closeDeepDrawer,
+    minimizeDeepDrawer,
+    maximizeDeepDrawer,
+    toggleDeepDrawerMinimized,
+    setDeepDrawerWidth,
     lookupWord,
     translateText,
     explainText,

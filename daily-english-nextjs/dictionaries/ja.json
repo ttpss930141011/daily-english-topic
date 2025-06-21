@@ -110,6 +110,8 @@
     "words": "単語",
     "detailedLearning": "詳細学習",
     "closeDrawer": "ドロワーを閉じる",
+    "minimizeDrawer": "ドロワーを最小化",
+    "expandDrawer": "ドロワーを展開",
     "closeTab": "タブを閉じる",
     "generating": "生成中...",
     "regenerate": "再生成",

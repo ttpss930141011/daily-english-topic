@@ -110,6 +110,8 @@
     "words": "个单字",
     "detailedLearning": "详细学习",
     "closeDrawer": "关闭抽屉",
+    "minimizeDrawer": "最小化抽屉",
+    "expandDrawer": "展开抽屉",
     "closeTab": "关闭标签",
     "generating": "生成中...",
     "regenerate": "重新生成",

@@ -120,6 +120,8 @@ const mockDictionary: Dictionary = {
     // Deep learning drawer
     detailedLearning: '詳細學習',
     closeDrawer: '關閉抽屜',
+    minimizeDrawer: '最小化抽屜',
+    expandDrawer: '展開抽屜',
     closeTab: '關閉分頁',
     generating: '生成中...',
     regenerate: '重新生成',
