@@ -4,15 +4,18 @@ import { useState, useEffect, useCallback } from 'react'
 import { marked } from 'marked'
 import { Topic, Slide } from '@/lib/topics'
 import { WordLookupManager } from '@/components/word-lookup/WordLookupManager'
+import { type Dictionary } from '@/types/dictionary'
 
 interface SlideViewerProps {
   topic: Topic
   interactive?: boolean
   theme?: 'light' | 'dark'
+  dictionary: Dictionary
 }
 
 export default function SlideViewer({
-  topic
+  topic,
+  dictionary
 }: SlideViewerProps) {
   const [currentSlide, setCurrentSlide] = useState(0)
   const [isFullscreen, setIsFullscreen] = useState(false)
@@ -159,7 +162,7 @@ export default function SlideViewer({
 
       {/* Main Slide Display */}
       <main className="flex-1 flex items-center justify-center relative p-2 sm:p-4 md:p-8">
-        <WordLookupManager className="w-full max-w-5xl bg-white text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden relative">
+        <WordLookupManager className="w-full max-w-5xl bg-white text-slate-800 rounded-xl sm:rounded-2xl shadow-2xl overflow-hidden relative" dictionary={dictionary}>
           <div 
             className="h-full w-full"
             style={{ aspectRatio: '16/10' }}

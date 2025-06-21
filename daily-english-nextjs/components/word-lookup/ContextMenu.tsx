@@ -7,24 +7,14 @@ import {
   Brain, 
   BookOpen 
 } from 'lucide-react'
+import { type Dictionary } from '@/types/dictionary'
 
 interface ContextMenuProps {
   className?: string
+  dictionary: Dictionary
 }
 
-export function ContextMenu({ className = '' }: ContextMenuProps) {
-  const t = (key: string) => {
-    const translations: Record<string, string> = {
-      'contextMenu.quickTranslate': '快速翻譯',
-      'contextMenu.quickTranslateDesc': '立即翻譯選中文字',
-      'contextMenu.deepExplain': '深度解釋',
-      'contextMenu.deepExplainDesc': '獲得詳細的說明和範例',
-      'contextMenu.addToNotes': '加入筆記',
-      'contextMenu.addToNotesDesc': '儲存到您的學習筆記',
-      'contextMenu.wordsCount': '個單字'
-    }
-    return translations[key] || key
-  }
+export function ContextMenu({ className = '', dictionary }: ContextMenuProps) {
   const {
     showContextMenu,
     activeSelection,
@@ -118,22 +108,22 @@ export function ContextMenu({ className = '' }: ContextMenuProps) {
   const menuItems = [
     {
       icon: Globe,
-      label: t('contextMenu.quickTranslate'),
-      description: t('contextMenu.quickTranslateDesc'),
+      label: dictionary.wordLookup.quickTranslation,
+      description: dictionary.wordLookup.translateNow,
       onClick: handleQuickTranslate,
       shortcut: '⌘T'
     },
     {
       icon: Brain,
-      label: t('contextMenu.deepExplain'),
-      description: t('contextMenu.deepExplainDesc'),
+      label: dictionary.wordLookup.deepAnalysis,
+      description: dictionary.wordLookup.detailedExplanation,
       onClick: handleDeepExplain,
       shortcut: '⌘E'
     },
     {
       icon: BookOpen,
-      label: t('contextMenu.addToNotes'),
-      description: t('contextMenu.addToNotesDesc'),
+      label: dictionary.wordLookup.addToNotes,
+      description: dictionary.wordLookup.saveToNotes,
       onClick: handleAddToNotes,
       shortcut: '⌘N'
     }
@@ -156,7 +146,7 @@ export function ContextMenu({ className = '' }: ContextMenuProps) {
             : activeSelection.text}&rdquo;
         </p>
         <p className="text-xs text-gray-500">
-          {activeSelection.text.split(/\s+/).length} {t('contextMenu.wordsCount')}
+          {activeSelection.text.split(/\s+/).length} {dictionary.wordLookup.words}
         </p>
       </div>
 

@@ -4,27 +4,14 @@ import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
 import { X, RotateCcw } from 'lucide-react'
 import { marked } from 'marked'
+import { type Dictionary } from '@/types/dictionary'
 
 interface DeepLearningDrawerProps {
   className?: string
+  dictionary: Dictionary
 }
 
-export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) {
-  const t = (key: string) => {
-    const translations: Record<string, string> = {
-      'deepDrawer.title': '詳細學習',
-      'deepDrawer.closeDrawer': '關閉抽屜',
-      'deepDrawer.closeTab': '關閉標籤',
-      'deepDrawer.generating': '生成中...',
-      'deepDrawer.regenerate': '重新生成',
-      'deepDrawer.noContent': '沒有內容',
-      'deepDrawer.aiAssistant': 'AI 助手',
-      'deepDrawer.selectText': '選擇一些文字開始學習',
-      'deepDrawer.shortcuts': '快捷鍵',
-      'deepDrawer.shortcutKeys': 'Esc: 關閉 | Ctrl+Tab: 切換標籤'
-    }
-    return translations[key] || key
-  }
+export function DeepLearningDrawer({ className = '', dictionary }: DeepLearningDrawerProps) {
   const {
     showDeepDrawer,
     deepTabs,
@@ -101,11 +88,11 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
       {/* Header */}
       <div className="flex-shrink-0 bg-gray-50 border-b border-gray-200 p-4">
         <div className="flex items-center justify-between mb-3">
-          <h2 className="text-lg font-semibold text-gray-900">{t('deepDrawer.title')}</h2>
+          <h2 className="text-lg font-semibold text-gray-900">{dictionary.wordLookup.detailedLearning}</h2>
           <button
             onClick={closeDeepDrawer}
             className="p-1.5 hover:bg-gray-200 rounded transition-colors"
-            title={t('deepDrawer.closeDrawer')}
+            title={dictionary.wordLookup.closeDrawer}
           >
             <X className="h-4 w-4 text-gray-600" />
           </button>
@@ -135,7 +122,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                       closeDeepTab(tab.id)
                     }}
                     className="p-0.5 hover:bg-gray-300 rounded"
-                    title={t('deepDrawer.closeTab')}
+                    title={dictionary.wordLookup.closeTab}
                   >
                     <X className="h-3 w-3" />
                   </button>
@@ -165,7 +152,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                   <button
                     onClick={handleRetry}
                     className="p-2 hover:bg-purple-100 rounded transition-colors"
-                    title={t('deepDrawer.regenerate')}
+                    title={dictionary.wordLookup.regenerate}
                   >
                     <RotateCcw className="h-4 w-4 text-purple-600" />
                   </button>
@@ -182,7 +169,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                 <div className="space-y-4">
                   <div className="flex items-center space-x-3">
                     <div className="animate-spin rounded-full h-6 w-6 border-2 border-purple-500 border-t-transparent"></div>
-                    <span className="text-gray-600">{t('deepDrawer.generating')}</span>
+                    <span className="text-gray-600">{dictionary.wordLookup.generating}</span>
                   </div>
                   
                   {/* Streaming indicator */}
@@ -206,7 +193,7 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
                 <div 
                   className="prose prose-sm max-w-none"
                   dangerouslySetInnerHTML={{ 
-                    __html: marked(activeTab.content || t('deepDrawer.noContent')) 
+                    __html: marked(activeTab.content || dictionary.wordLookup.noContent) 
                   }}
                 />
               )}
@@ -216,8 +203,8 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
           <div className="h-full flex items-center justify-center text-gray-500">
             <div className="text-center">
               <div className="text-6xl mb-4">🤖</div>
-              <h3 className="text-lg font-medium mb-2">{t('deepDrawer.aiAssistant')}</h3>
-              <p className="text-sm">{t('deepDrawer.selectText')}</p>
+              <h3 className="text-lg font-medium mb-2">{dictionary.wordLookup.aiAssistant}</h3>
+              <p className="text-sm">{dictionary.wordLookup.selectTextToLearn}</p>
             </div>
           </div>
         )}
@@ -227,8 +214,8 @@ export function DeepLearningDrawer({ className = '' }: DeepLearningDrawerProps) 
       <div className="flex-shrink-0 bg-gray-50 border-t border-gray-200 px-4 py-2">
         <div className="text-xs text-gray-500 space-y-1">
           <div className="flex justify-between">
-            <span>{t('deepDrawer.shortcuts')}</span>
-            <span>{t('deepDrawer.shortcutKeys')}</span>
+            <span>{dictionary.wordLookup.shortcuts}</span>
+            <span>{dictionary.wordLookup.keyboardShortcuts}</span>
           </div>
         </div>
       </div>

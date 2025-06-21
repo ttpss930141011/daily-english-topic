@@ -3,6 +3,7 @@ import SlideViewer from '@/components/SlideViewer'
 import { WordLookupProvider } from '@/contexts/WordLookupContext'
 import { notFound } from 'next/navigation'
 import { type Locale } from '@/i18n-config'
+import { getDictionary } from '@/lib/dictionaries'
 
 interface TopicPageProps {
   params: Promise<{ lang: Locale; date: string }>
@@ -15,6 +16,7 @@ export async function generateStaticParams() {
 export default async function TopicPage({ params }: TopicPageProps) {
   const { lang, date } = await params
   const topic = getTopicByDate(date)
+  const dictionary = await getDictionary(lang)
 
   if (!topic) {
     notFound()
@@ -22,7 +24,7 @@ export default async function TopicPage({ params }: TopicPageProps) {
 
   return (
     <WordLookupProvider defaultLanguage={lang}>
-      <SlideViewer topic={topic} interactive />
+      <SlideViewer topic={topic} interactive dictionary={dictionary} />
     </WordLookupProvider>
   )
 }

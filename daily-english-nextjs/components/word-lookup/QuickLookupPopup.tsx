@@ -3,12 +3,14 @@
 import React, { useEffect, useRef, useState, useCallback } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
 import { ChevronDown, Volume2 } from 'lucide-react'
+import { type Dictionary } from '@/types/dictionary'
 
 interface QuickLookupPopupProps {
   className?: string
+  dictionary: Dictionary
 }
 
-export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
+export function QuickLookupPopup({ className = '', dictionary }: QuickLookupPopupProps) {
   const {
     showQuickLookup,
     activeSelection,
@@ -22,17 +24,6 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
     createDeepTab
   } = useWordLookup()
 
-  const t = (key: string) => {
-    const translations: Record<string, string> = {
-      'close': '關閉',
-      'loading': '載入中...',
-      'playAudio': '播放發音',
-      'viewMore': '查看更多定義',
-      'notFound': '找不到這個單字',
-      'checkSpelling': '請檢查拼寫是否正確'
-    }
-    return translations[key] || key
-  }
 
   const popupRef = useRef<HTMLDivElement>(null)
   const [isDragging, setIsDragging] = useState(false)
@@ -179,7 +170,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
         <button
           onClick={hideQuickLookup}
           className="text-gray-400 hover:text-gray-600"
-          title={t('close')}
+          title={dictionary.wordLookup.close}
         >
           <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -192,7 +183,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       {isLoadingDictionary && (
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-purple-500 border-t-transparent"></div>
-          <span className="text-sm text-gray-600">{t('loading')}</span>
+          <span className="text-sm text-gray-600">{dictionary.wordLookup.loading}</span>
         </div>
       )}
 
@@ -214,7 +205,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
             <button
               onClick={handlePronunciationClick}
               className="p-1 hover:bg-purple-100 rounded transition-colors"
-              title={t('playAudio')}
+              title={dictionary.wordLookup.playAudio}
             >
               <Volume2 className="h-4 w-4 text-purple-600" />
             </button>
@@ -266,7 +257,7 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
                 }}
                 className="text-xs text-purple-600 hover:text-purple-800 flex items-center space-x-1 transition-colors"
               >
-                <span>{t('viewMore')}</span>
+                <span>{dictionary.wordLookup.viewMore}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
             )}
@@ -277,8 +268,8 @@ export function QuickLookupPopup({ className = '' }: QuickLookupPopupProps) {
       {/* Error State */}
       {!isLoadingDictionary && !currentDictionary && (
         <div className="text-sm text-gray-600">
-          <p>{t('notFound')}</p>
-          <p className="text-xs text-gray-500 mt-1">{t('checkSpelling')}</p>
+          <p>{dictionary.wordLookup.notFound}</p>
+          <p className="text-xs text-gray-500 mt-1">{dictionary.wordLookup.checkSpelling}</p>
         </div>
       )}
       </div>

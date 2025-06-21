@@ -7,13 +7,15 @@ import { QuickLookupPopup } from './QuickLookupPopup'
 import { ContextMenu } from './ContextMenu'
 import { DeepLearningDrawer } from './DeepLearningDrawer'
 import { TranslationPopup } from './TranslationPopup'
+import { type Dictionary } from '@/types/dictionary'
 
 interface WordLookupManagerProps {
   children: React.ReactNode
   className?: string
+  dictionary: Dictionary
 }
 
-export function WordLookupManager({ children, className = '' }: WordLookupManagerProps) {
+export function WordLookupManager({ children, className = '', dictionary }: WordLookupManagerProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   
   const {
@@ -47,10 +49,10 @@ export function WordLookupManager({ children, className = '' }: WordLookupManage
       {children}
       
       {/* Word lookup UI components */}
-      <QuickLookupPopup />
-      <ContextMenu />
-      <TranslationPopup />
-      <DeepLearningDrawer />
+      <QuickLookupPopup dictionary={dictionary} />
+      <ContextMenu dictionary={dictionary} />
+      <TranslationPopup dictionary={dictionary} />
+      <DeepLearningDrawer dictionary={dictionary} />
       
       {/* Selection indicator for debugging in development */}
       {process.env.NODE_ENV === 'development' && isSelecting && (

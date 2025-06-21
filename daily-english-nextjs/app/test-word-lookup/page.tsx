@@ -2,6 +2,134 @@
 
 import { WordLookupProvider } from '@/contexts/WordLookupContext'
 import { WordLookupManager } from '@/components/word-lookup/WordLookupManager'
+import { type Dictionary } from '@/types/dictionary'
+
+// Mock dictionary for testing
+const mockDictionary: Dictionary = {
+  common: {
+    loading: 'Loading...',
+    error: 'Error',
+    retry: 'Retry',
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    close: 'Close',
+    save: 'Save',
+    delete: 'Delete',
+    edit: 'Edit',
+    search: 'Search',
+    clear: 'Clear',
+    back: 'Back',
+    next: 'Next',
+    previous: 'Previous',
+    submit: 'Submit',
+    success: 'Success',
+    warning: 'Warning',
+    info: 'Info',
+    language: 'Language',
+    changeLanguage: 'Change Language',
+    selectLanguage: 'Select Language',
+    settings: 'Settings',
+    profile: 'Profile',
+    signIn: 'Sign In',
+    signOut: 'Sign Out',
+    comingSoon: 'Coming Soon',
+    darkMode: 'Dark Mode',
+    notifications: 'Notifications',
+    learningPreferences: 'Learning Preferences',
+  },
+  homepage: {
+    hero: {
+      title: 'Daily English Topic',
+      subtitle: 'Learn English Daily',
+      description: 'Master English through daily conversations',
+      masterEnglish: 'Master English',
+      throughConversations: 'Through Conversations',
+    },
+    stats: {
+      interactiveTopics: 'Interactive Topics',
+      realConversations: 'Real Conversations',
+      daily: 'Daily',
+      freshContent: 'Fresh Content',
+      interactiveLearning: 'Interactive Learning',
+    },
+    filters: {
+      all: 'All',
+      allCategories: 'All Categories',
+      allLevels: 'All Levels',
+      difficulty: 'Difficulty',
+      category: 'Category',
+      tags: 'Tags',
+      selectCategory: 'Select Category',
+      selectDifficulty: 'Select Difficulty',
+      newestFirst: 'Newest First',
+      oldestFirst: 'Oldest First',
+      clearAll: 'Clear All',
+    },
+    search: {
+      placeholder: 'Search topics...',
+      searchTags: 'Search tags',
+      noResults: 'No results found',
+      tryDifferent: 'Try different keywords',
+    },
+    topicCard: {
+      slides: 'slides',
+      readMore: 'Read More',
+    },
+    topicCount: {
+      showing: 'Showing',
+      of: 'of',
+      topics: 'topics',
+    },
+    emptyState: {
+      noTopicsFound: 'No topics found',
+      tryAdjusting: 'Try adjusting your filters',
+      clearAllFilters: 'Clear all filters',
+    },
+    tags: {
+      noTagsFound: 'No tags found',
+    },
+  },
+  wordLookup: {
+    loading: '載入中...',
+    notFound: '找不到此單字',
+    checkSpelling: '請檢查拼寫',
+    viewMore: '查看更多定義',
+    close: '關閉',
+    playAudio: '播放發音',
+    deepExplanation: '深度解釋',
+    examples: '例句',
+    synonyms: '同義詞',
+    antonyms: '反義詞',
+    etymology: '詞源',
+    relatedWords: '相關詞彙',
+    // Translation popup
+    translating: '翻譯中...',
+    original: '原文',
+    translation: '翻譯',
+    copyTranslation: '複製翻譯',
+    accuracy: '準確度',
+    otherTranslations: '其他翻譯',
+    // Context menu
+    quickTranslation: '快速翻譯',
+    translateNow: '立即翻譯',
+    deepAnalysis: '深度分析',
+    detailedExplanation: '詳細解釋',
+    addToNotes: '加入筆記',
+    saveToNotes: '儲存到筆記',
+    words: '個單字',
+    // Deep learning drawer
+    detailedLearning: '詳細學習',
+    closeDrawer: '關閉抽屜',
+    closeTab: '關閉分頁',
+    generating: '生成中...',
+    regenerate: '重新生成',
+    noContent: '無內容',
+    aiAssistant: 'AI 助手',
+    selectTextToLearn: '選擇文字以開始學習',
+    shortcuts: '快捷鍵',
+    keyboardShortcuts: '鍵盤快捷鍵',
+  },
+}
 
 export default function TestWordLookupPage() {
   return (
@@ -12,7 +140,7 @@ export default function TestWordLookupPage() {
             Word Lookup Test Page
           </h1>
           
-          <WordLookupManager className="bg-white text-slate-800 rounded-xl p-8 shadow-2xl">
+          <WordLookupManager className="bg-white text-slate-800 rounded-xl p-8 shadow-2xl" dictionary={mockDictionary}>
             <div className="space-y-6">
               <section>
                 <h2 className="text-2xl font-semibold mb-4 text-purple-600">

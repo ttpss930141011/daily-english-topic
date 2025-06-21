@@ -95,5 +95,31 @@ export interface Dictionary {
     antonyms: string
     etymology: string
     relatedWords: string
+    // Translation popup
+    translating: string
+    original: string
+    translation: string
+    copyTranslation: string
+    accuracy: string
+    otherTranslations: string
+    // Context menu
+    quickTranslation: string
+    translateNow: string
+    deepAnalysis: string
+    detailedExplanation: string
+    addToNotes: string
+    saveToNotes: string
+    words: string
+    // Deep learning drawer
+    detailedLearning: string
+    closeDrawer: string
+    closeTab: string
+    generating: string
+    regenerate: string
+    noContent: string
+    aiAssistant: string
+    selectTextToLearn: string
+    shortcuts: string
+    keyboardShortcuts: string
   }
 }

@@ -3,25 +3,14 @@
 import React, { useEffect, useRef } from 'react'
 import { useWordLookup } from '@/contexts/WordLookupContext'
 import { X, Copy, Volume2 } from 'lucide-react'
+import { type Dictionary } from '@/types/dictionary'
 
 interface TranslationPopupProps {
   className?: string
+  dictionary: Dictionary
 }
 
-export function TranslationPopup({ className = '' }: TranslationPopupProps) {
-  const t = (key: string) => {
-    const translations: Record<string, string> = {
-      'translationPopup.translating': '翻譯中...',
-      'translationPopup.originalText': '原文',
-      'translationPopup.playPronunciation': '播放發音',
-      'translationPopup.translation': '翻譯',
-      'translationPopup.copyTranslation': '複製翻譯',
-      'translationPopup.accuracy': '準確度',
-      'translationPopup.otherTranslations': '其他翻譯',
-      'translationPopup.close': '關閉'
-    }
-    return translations[key] || key
-  }
+export function TranslationPopup({ className = '', dictionary }: TranslationPopupProps) {
   const {
     currentTranslation,
     isLoadingTranslation,
@@ -98,7 +87,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
       {isLoadingTranslation && (
         <div className="flex items-center space-x-2">
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-blue-500 border-t-transparent"></div>
-          <span className="text-sm text-gray-600">{t('translationPopup.translating')}</span>
+          <span className="text-sm text-gray-600">{dictionary.wordLookup.translating}</span>
         </div>
       )}
 
@@ -109,12 +98,12 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-blue-600 bg-blue-100 px-2 py-1 rounded">
-                {t('translationPopup.originalText')}
+                {dictionary.wordLookup.original}
               </span>
               <button
                 onClick={handlePronunciation}
                 className="p-1 hover:bg-blue-100 rounded transition-colors"
-                title={t('translationPopup.playPronunciation')}
+                title={dictionary.wordLookup.playAudio}
               >
                 <Volume2 className="h-4 w-4 text-blue-600" />
               </button>
@@ -128,12 +117,12 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs font-medium text-green-600 bg-green-100 px-2 py-1 rounded">
-                {t('translationPopup.translation')}
+                {dictionary.wordLookup.translation}
               </span>
               <button
                 onClick={handleCopyTranslation}
                 className="p-1 hover:bg-green-100 rounded transition-colors"
-                title={t('translationPopup.copyTranslation')}
+                title={dictionary.wordLookup.copyTranslation}
               >
                 <Copy className="h-4 w-4 text-green-600" />
               </button>
@@ -146,7 +135,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           {/* Confidence Score */}
           {currentTranslation.confidence && (
             <div className="flex items-center space-x-2">
-              <span className="text-xs text-gray-500">{t('translationPopup.accuracy')}</span>
+              <span className="text-xs text-gray-500">{dictionary.wordLookup.accuracy}</span>
               <div className="flex-1 bg-gray-200 rounded-full h-2">
                 <div 
                   className="bg-blue-500 h-2 rounded-full transition-all duration-300"
@@ -163,7 +152,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
           {currentTranslation.alternatives && currentTranslation.alternatives.length > 0 && (
             <div>
               <span className="text-xs font-medium text-gray-600 mb-2 block">
-                {t('translationPopup.otherTranslations')}
+                {dictionary.wordLookup.otherTranslations}
               </span>
               <div className="space-y-1">
                 {currentTranslation.alternatives.slice(0, 2).map((alt, index) => (
@@ -181,7 +170,7 @@ export function TranslationPopup({ className = '' }: TranslationPopupProps) {
       <button
         onClick={hideTranslationPopup}
         className="absolute top-2 right-2 text-gray-400 hover:text-gray-600"
-        title={t('translationPopup.close')}
+        title={dictionary.wordLookup.close}
       >
         <X className="h-4 w-4" />
       </button>

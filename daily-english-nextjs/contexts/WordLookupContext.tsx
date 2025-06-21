@@ -123,7 +123,7 @@ interface WordLookupProviderProps {
 
 export function WordLookupProvider({ 
   children, 
-  defaultLanguage = 'zh-TW' 
+  defaultLanguage = 'zh-TW'
 }: WordLookupProviderProps) {
   const [state, setState] = useState<WordLookupState>({
     ...initialState,
