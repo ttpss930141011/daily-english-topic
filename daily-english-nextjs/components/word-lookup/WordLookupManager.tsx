@@ -30,9 +30,8 @@ export function WordLookupManager({ children, className = '', dictionary }: Word
       showQuickLookupPopup(selection)
     },
     onTextSelect: (selection) => {
-      if (!selection.isWord) {
-        showContextMenuAt(selection)
-      }
+      // Always show context menu for any text selection (both words and phrases)
+      showContextMenuAt(selection)
     },
     minSelectionLength: 1,
     debounceMs: 300
