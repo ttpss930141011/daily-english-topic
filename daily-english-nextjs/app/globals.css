@@ -3,20 +3,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* Reset browser defaults */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-}
-
 /* CJK font support */
 body {
   font-family: var(--font-inter), "Noto Sans TC", "Noto Sans SC", "Noto Sans JP", "Noto Sans KR", "Microsoft YaHei", "PingFang SC", "Hiragino Sans GB", "MS Gothic", "Malgun Gothic", sans-serif;
