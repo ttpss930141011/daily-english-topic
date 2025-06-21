@@ -101,7 +101,7 @@ export function ContextMenu({ className = '', dictionary }: ContextMenuProps) {
     hideContextMenu()
   }
 
-  if (!showContextMenu || !activeSelection || activeSelection.isWord) {
+  if (!showContextMenu || !activeSelection) {
     return null
   }
 
@@ -132,7 +132,7 @@ export function ContextMenu({ className = '', dictionary }: ContextMenuProps) {
   return (
     <div
       ref={menuRef}
-      className={`fixed z-50 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-xl py-2 min-w-[200px] ${className}`}
+      className={`fixed z-50 bg-white/95 backdrop-blur-sm border border-gray-200 rounded-lg shadow-xl py-2 w-64 max-w-xs ${className}`}
       style={{ 
         position: 'fixed',
         animation: 'slideUpFade 150ms ease-out'
